@@ -8,7 +8,7 @@ public class Piece{
 	
 	int xPos;
 	int yPos;
-	int pieceID
+	int pieceID;
 	long coolDown;
 	
 	public Piece(int xPos, int yPos, int pieceID){
