@@ -32,10 +32,14 @@ public class GameScreen extends JFrame{
 		}
 		public void paintComponent(Graphics g){
 			super.paintComponent(g);
-			for(int x = 0; x < BOARD_W; x++){
-				g.setColor(Color.black);
+			g.setColor(Color.black);
+			for(int x = 0; x < BOARD_H; x++){
 				g.drawString(-x + BOARD_H + "", EDGE_SPACE / 2, (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE);
+			}
+			for(int x = 0; x < BOARD_W; x++){
 				g.drawString((char)(x + 'A') + "", (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE, EDGE_SPACE / 2);
+			}
+			for(int x = 0; x < BOARD_W; x++){
 				for(int y = 0; y < BOARD_H; y++){
 					if((x + y) % 2 == 0){
 						g.setColor(Color.white);

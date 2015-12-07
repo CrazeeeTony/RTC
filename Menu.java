@@ -25,6 +25,7 @@ public class Menu extends JFrame implements ActionListener
 	public Menu()
 	{
 		super("RTC");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		title.setText("Real-- Time-- CHESS!!!1!!1!11one!");
 		
 		message.setText("This is the menu.");		//FUTURE: figure out a suitable initial message
@@ -84,7 +85,7 @@ public class Menu extends JFrame implements ActionListener
 				break;
 			case 3:
 				//clicked "quit"
-				this.dispose();
+				this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
 				break;
 			default:
