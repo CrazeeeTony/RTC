@@ -26,6 +26,11 @@ public class GameScreen extends JFrame{
 		tm = new Timer(10, al);
 		tm.start();
 		board = new Piece[BOARD_W][BOARD_H];
+		for(int x=0;x<6;x++){
+			System.out.println(x + " ");
+			board[0][x] = new Piece(1,0,x,x);
+			board[1][x] = new Piece(2,1,x,x);
+		}
 		this.pack();
 	}
 	
@@ -45,14 +50,22 @@ public class GameScreen extends JFrame{
 			for(int x = 0; x < BOARD_W; x++){
 				for(int y = 0; y < BOARD_H; y++){
 					if((x + y) % 2 == 0){
-						g.setColor(Color.white);
+						g.setColor(new Color(255, 255, 255));
 					}
 					else{
-						g.setColor(Color.black);
+						g.setColor(new Color(139, 69, 19));
 					}
 					g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
 					g.setColor(Color.red);
 					g.drawString("{" + x + ", " + y + "}", x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
+				}
+			}
+			
+			for(int x=0;x<BOARD_W;x++){
+				for(int y=0;y<BOARD_H;y++){
+					if(board[x][y]!=null){
+						g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
+					}
 				}
 			}
 		}

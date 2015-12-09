@@ -9,18 +9,13 @@ public class Piece{
 	public static final int KNIGHT = 3;
 	public static final int ROOK = 4;
 	public static final int PAWN = 5;
-	static final BufferedImage[] imgs1;
-	static final BufferedImage[] imgs2;
+	private static BufferedImage[] imgs1;
+	private static BufferedImage[] imgs2;
 	
 	static{
 		try{
-			imgs1 = {ImageIO.read(new File("Piece Images/1King.png")), ImageIO.read(new File("Piece Images/1Queen.png")),
-			ImageIO.read(new File("Piece Images/1Boshop.png")), ImageIO.read(new File("Piece Images/1Knight.png")), ImageIO.read(new File("Piece Images/1Rook.png"))
-			ImageIO.read(new File("Piece Images/1Pawn.png"))};
-			
-			imgs2 = {ImageIO.read(new File("Piece Images/2King.png")), ImageIO.read(new File("Piece Images/2Queen.png")),
-			ImageIO.read(new File("Piece Images/2Boshop.png")), ImageIO.read(new File("Piece Images/2Knight.png")), ImageIO.read(new File("Piece Images/2Rook.png"))
-			ImageIO.read(new File("Piece Images/2Pawn.png"))};
+			imgs1 = new BufferedImage[] {ImageIO.read(new File("Piece Images/1King.png")), ImageIO.read(new File("Piece Images/1Queen.png")), ImageIO.read(new File("Piece Images/1Bishop.png")), ImageIO.read(new File("Piece Images/1Knight.png")), ImageIO.read(new File("Piece Images/1Rook.png")), ImageIO.read(new File("Piece Images/1Pawn.png"))};
+			imgs2 = new BufferedImage[] {ImageIO.read(new File("Piece Images/2King.png")), ImageIO.read(new File("Piece Images/2Queen.png")), ImageIO.read(new File("Piece Images/2Bishop.png")), ImageIO.read(new File("Piece Images/2Knight.png")), ImageIO.read(new File("Piece Images/2Rook.png")), ImageIO.read(new File("Piece Images/2Pawn.png"))};
 		}
 		catch(Exception e){
 			System.out.println("Error Loading Images");
@@ -34,10 +29,10 @@ public class Piece{
 	int yPos;
 	int pieceID;
 	long coolDown;
-	BufferedImage img;
+	public BufferedImage img;
 	
 	public Piece(int player,int xPos, int yPos, int pieceID){
-		this.player player;
+		this.player = player;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.pieceID = pieceID;
