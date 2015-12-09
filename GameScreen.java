@@ -2,6 +2,9 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.image.*;
 public class GameScreen extends JFrame{
 	public static final int BOARD_W = 8;
 	public static final int BOARD_H = 8;

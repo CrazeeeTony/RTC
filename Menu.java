@@ -86,7 +86,6 @@ public class Menu extends JFrame implements ActionListener
 			case 3:
 				//clicked "quit"
 				this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-
 				break;
 			default:
 				//for debugging purposes
