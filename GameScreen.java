@@ -10,7 +10,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int BOARD_W = 8;
 	public static final int BOARD_H = 8;
 	public static final int SQUARE_SIZE = 50;
-	public static final int EDGE_SPACE = 100;
+	public static final int EDGE_SPACE = 75;
 	
 	Timer tm;
 	ActionListener al;
@@ -107,7 +107,12 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			}
 			g.setColor(Color.green);
 			//System.out.println(mouseX + " " + mouseY);
-			g.drawRect((mouseX - EDGE_SPACE) / SQUARE_SIZE * SQUARE_SIZE + EDGE_SPACE, (mouseY - EDGE_SPACE) / SQUARE_SIZE * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+			int mouseSqX = (mouseX + SQUARE_SIZE - EDGE_SPACE) / SQUARE_SIZE - 1;
+			int mouseSqY = (mouseY + SQUARE_SIZE - EDGE_SPACE) / SQUARE_SIZE - 1;
+			System.out.println(mouseSqX + " " + mouseSqY);
+			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H){
+				g.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
+			}
 		}
 	}
 }
