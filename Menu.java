@@ -7,6 +7,7 @@ import java.awt.event.*;
 import javax.swing.*;
 public class Menu extends JFrame implements ActionListener
 {
+	DetectAction da;
 	JPanel everything = new JPanel();
 	JPanel graphicPanel = new JPanel();
 	JPanel buttonPanel = new JPanel();
@@ -73,7 +74,7 @@ public class Menu extends JFrame implements ActionListener
 		{
 			case 0:
 				//clicked "play game"
-
+				da.startGameRequest();
 				break;
 			case 1:
 				//clicked "help"
@@ -81,11 +82,10 @@ public class Menu extends JFrame implements ActionListener
 				break;
 			case 2:
 				//clicked "highscores"
-
 				break;
 			case 3:
 				//clicked "quit"
-				this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+				da.quitRequest();
 				break;
 			default:
 				//for debugging purposes
@@ -95,5 +95,9 @@ public class Menu extends JFrame implements ActionListener
 	public static void main(String[] args)		//can test menu from here, but delete this for final version
 	{
 		new Menu();
+	}
+	
+	public void addDetectAction(DetectAction d){
+		this.da = d;
 	}
 }//end class Menu

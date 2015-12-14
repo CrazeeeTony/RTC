@@ -17,15 +17,30 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	Piece[][] board;
 	BoardPanel boardPnl;
 	
+	JButton btnA;
+	JButton btnB;
+	
 	int mouseX = -9999;
 	int mouseY = -9999;
 	
 	public GameScreen(){
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
-		this.getContentPane().addMouseListener(this);
-		this.getContentPane().addMouseMotionListener(this);
 		boardPnl = new BoardPanel();
-		this.add(boardPnl);
+		boardPnl.addMouseListener(this);
+		boardPnl.addMouseMotionListener(this);
+		
+		Box b1 = Box.createHorizontalBox();
+		b1.add(boardPnl);
+		
+		Box b2 = Box.createHorizontalBox();
+		btnA = new JButton("A");
+		btnB = new JButton("B");
+		b2.add(btnA);
+		b2.add(btnB);
+		
+		this.add(b1);
+		this.add(b2);
+		
 		al = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				boardPnl.repaint();
@@ -36,7 +51,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		tm.start();
 		board = new Piece[BOARD_W][BOARD_H];
 		for(int x=0;x<6;x++){
-			System.out.println(x + " ");
 			board[0][x] = new Piece(1,0,x,x);
 			board[1][x] = new Piece(2,1,x,x);
 		}
@@ -44,7 +58,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	}
 	
 	public void mouseClicked(MouseEvent e){
-		System.out.println("C");
 	}
 
 	public void mouseEntered(MouseEvent e){
@@ -54,7 +67,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	}
 
 	public void mousePressed(MouseEvent e){
-		System.out.println("R");
 	}
 
 	public void mouseReleased(MouseEvent e){
@@ -109,7 +121,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			//System.out.println(mouseX + " " + mouseY);
 			int mouseSqX = (mouseX + SQUARE_SIZE - EDGE_SPACE) / SQUARE_SIZE - 1;
 			int mouseSqY = (mouseY + SQUARE_SIZE - EDGE_SPACE) / SQUARE_SIZE - 1;
-			System.out.println(mouseSqX + " " + mouseSqY);
+			//System.out.println(mouseSqX + " " + mouseSqY);
 			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H){
 				g.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
 			}

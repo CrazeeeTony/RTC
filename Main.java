@@ -1,9 +1,30 @@
 import javax.swing.*;
+
+interface DetectAction{
+	void quitRequest();
+	void startGameRequest();
+}
+
 public class Main{
 	public static void main(String[] args){
-		GameScreen gs = new GameScreen();
-		gs.setVisible(true);
-		Menu mn = new Menu();
-		mn.setVisible(true);
+		RTC rtc = new RTC();
+	}
+	
+	static class RTC implements DetectAction{
+		Menu mn;
+		GameScreen gs;
+		public RTC(){
+			mn = new Menu();
+			mn.addDetectAction(this);
+			mn.setVisible(true);
+		}
+		public void quitRequest(){
+			System.exit(0);
+		}
+		public void startGameRequest(){
+			mn.setVisible(false);
+			gs = new GameScreen();
+			gs.setVisible(true);
+		}
 	}
 }
