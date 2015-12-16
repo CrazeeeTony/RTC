@@ -3,6 +3,7 @@ import javax.swing.*;
 interface DetectAction{
 	void quitRequest();
 	void startGameRequest();
+	void returnToMenu();
 }
 
 public class Main{
@@ -24,7 +25,13 @@ public class Main{
 		public void startGameRequest(){
 			mn.setVisible(false);
 			gs = new GameScreen();
+			gs.addDetectAction(this);
 			gs.setVisible(true);
+		}
+		public void returnToMenu(){
+			gs.setVisible(false);
+			gs = null;
+			mn.setVisible(true);
 		}
 	}
 }

@@ -1,8 +1,11 @@
-//import java.util.*;
+/**
+ *
+ * @author Tony Li
+ */
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.*;
+import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.*;
 public class GameScreen extends JFrame implements MouseListener, MouseMotionListener{
@@ -12,18 +15,26 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int SQUARE_SIZE = 50;
 	public static final int EDGE_SPACE = 75;
 	
+	DetectAction da;
+	
 	Timer tm;
 	ActionListener al;
 	Piece[][] board;
 	BoardPanel boardPnl;
 	
-	JButton btnA;
+	JButton btnMenu;
 	JButton btnB;
 	
 	int mouseX = -9999;
 	int mouseY = -9999;
 	
 	public GameScreen(){
+		super("RTC");
+		try{
+			this.setIconImage(ImageIO.read(new File("Piece Images/1Knight.png")));
+		}
+		catch(Exception e){
+		}
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		boardPnl = new BoardPanel();
 		boardPnl.addMouseListener(this);
@@ -33,9 +44,14 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		b1.add(boardPnl);
 		
 		Box b2 = Box.createHorizontalBox();
-		btnA = new JButton("A");
+		btnMenu = new JButton("Return to Menu");
+		btnMenu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				da.returnToMenu();
+			}
+		});
 		btnB = new JButton("B");
-		b2.add(btnA);
+		b2.add(btnMenu);
 		b2.add(btnB);
 		
 		this.add(b1);
@@ -80,6 +96,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public void mouseMoved(MouseEvent e){
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
+	}
+	
+	public void addDetectAction(DetectAction d){
+		this.da = d;
 	}
 	
 	class BoardPanel extends JPanel{

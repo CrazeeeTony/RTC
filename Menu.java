@@ -5,6 +5,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.imageio.ImageIO;
+import java.io.File;
 public class Menu extends JFrame implements ActionListener
 {
 	DetectAction da;
@@ -26,6 +28,13 @@ public class Menu extends JFrame implements ActionListener
 	public Menu()
 	{
 		super("RTC");
+		
+		try{
+			this.setIconImage(ImageIO.read(new File("Piece Images/1Knight.png")));
+		}
+		catch(Exception e){
+		}
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		title.setText("Real-- Time-- CHESS!!!1!!1!11one!");
 		

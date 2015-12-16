@@ -1,3 +1,7 @@
+/**
+ *
+ * @author Tony Li
+ */
 import java.awt.*;
 import java.io.*;
 import javax.imageio.*;
