@@ -24,12 +24,12 @@ public class Menu extends JFrame implements ActionListener
 	JLabel title = 			new JLabel();
 	JLabel message = 		new JLabel();
 	JButton[] buttons = 
-	 {
+	{
 		new JButton("play game"),
 		new JButton("help"),
 		new JButton("highscores"),
 		new JButton("quit")
-	 };
+	};
 	/**
 	 *
 	 */

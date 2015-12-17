@@ -126,17 +126,20 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}
 	}
 	
-	public void mouseDragged(MouseEvent e){
+	public void mouseDragged(MouseEvent e)
+	{
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
 	}
 
-	public void mouseMoved(MouseEvent e){
+	public void mouseMoved(MouseEvent e)
+	{
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
 	}
 	
-	public void addDetectAction(DetectAction d){
+	public void addDetectAction(DetectAction d)
+	{
 		this.da = d;
 	}
 	

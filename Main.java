@@ -4,7 +4,8 @@
  */
 import javax.swing.*;
 
-interface DetectAction{
+interface DetectAction
+{
 	void quitRequest();
 	void startGameRequest();
 	void returnToMenu();

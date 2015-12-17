@@ -55,7 +55,8 @@ public class Piece
 		}
 	}
 	
-	public void moveTo(int x, int y){
+	public void moveTo(int x, int y)
+	{
 		GameScreen.board[xPos][yPos] = null;
 		this.xPos = x;
 		this.yPos = y;
