@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.*;
 public class GameScreen extends JFrame implements MouseListener, MouseMotionListener
 {
+	//variables so that we can easily change board size and dimensions
 	public static final int BOARD_W = 8;
 	public static final int BOARD_H = 8;
 	public static final int SQUARE_SIZE = 50;
@@ -17,6 +18,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	
 	static Piece[][] board;
 	
+	//player instances for computer and human player(not used yet)
 	Player comp;
 	Player human;
 	
@@ -48,11 +50,11 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 		}
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
+		
+		Box b1 = Box.createHorizontalBox();
 		boardPnl = new BoardPanel();
 		boardPnl.addMouseListener(this);
 		boardPnl.addMouseMotionListener(this);
-		
-		Box b1 = Box.createHorizontalBox();
 		b1.add(boardPnl);
 		
 		Box b2 = Box.createHorizontalBox();
@@ -71,6 +73,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		this.add(b1);
 		this.add(b2);
 		
+		//timer for animation
 		al = new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -108,6 +111,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 
 	public void mouseReleased(MouseEvent e)
 	{
+		//if a piece is not selected, select that piece
 		if(selectedPiece == null)
 		{
 			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
@@ -115,6 +119,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				selectedPiece = board[mouseSqX][mouseSqY];
 			}
 		}
+		//else move piece
 		else
 		{
 			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
@@ -143,6 +148,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		this.da = d;
 	}
 	
+	//class where the actual board is drawn
 	class BoardPanel extends JPanel{
 		Color brown = new Color(139, 69, 19);
 		public BoardPanel()
@@ -153,7 +159,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			g.setColor(Color.black);
+			
+			//draws the side labels
 			for(int x = 0; x < BOARD_H; x++)
 			{
 				g.drawString(-x + BOARD_H + "", EDGE_SPACE / 2, (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE);
@@ -162,6 +169,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				g.drawString((char)(x + 'A') + "", (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE, EDGE_SPACE / 2);
 			}
+			
+			//loop through every square on the board
 			for(int x = 0; x < BOARD_W; x++)
 			{
 				for(int y = 0; y < BOARD_H; y++)
@@ -174,25 +183,54 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					{
 						g.setColor(brown);
 					}
+					
+					//draw the squares on the board
 					g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+				}
+			}
+			
+			//highlights squares where you can move to
+			if(selectedPiece!=null){
+				for(int c = 0; c < selectedPiece.moves.size(); c++)
+				{
+					g.setColor(Color.yellow);
+					g.fillRect(selectedPiece.moves.get(c).x * SQUARE_SIZE + EDGE_SPACE, selectedPiece.moves.get(c).y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+					g.setColor(Color.black);
+					g.drawRect(selectedPiece.moves.get(c).x * SQUARE_SIZE + EDGE_SPACE, selectedPiece.moves.get(c).y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+				}
+			}
+			
+			//draws blue square under selected piece
+			if(selectedPiece != null)
+			{
+				g.setColor(Color.blue);
+				g.fillRect(selectedPiece.xPos * SQUARE_SIZE + EDGE_SPACE, selectedPiece.yPos * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+			}
+			
+			//draws the pieces
+			for(int x = 0; x < BOARD_W; x++)
+			{
+				for(int y = 0; y < BOARD_H; y++)
+				{
 					if(board[x][y] != null)
 					{
-						if(selectedPiece != null && selectedPiece == board[x][y])
-						{
-							g.setColor(Color.blue);
-							g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
-						}
+						//draws the piece
 						g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
+
 					}
 					g.setColor(Color.red);
 					g.drawString("{" + x + ", " + y + "}", x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
 				}
 			}
 			g.setColor(Color.green);
+			
+			//update mouse location
 			//System.out.println(mouseX + " " + mouseY);
 			mouseSqX = (mouseX + SQUARE_SIZE - EDGE_SPACE) / SQUARE_SIZE - 1;
 			mouseSqY = (mouseY + SQUARE_SIZE - EDGE_SPACE) / SQUARE_SIZE - 1;
 			//System.out.println(mouseSqX + " " + mouseSqY);
+			
+			//draws green square around the selected square
 			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
 			{
 				g.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	

@@ -155,7 +155,8 @@ public class Menu extends JFrame implements ActionListener
 		new Menu();
 	}
 	
-	public void addDetectAction(DetectAction d){
+	public void addDetectAction(DetectAction d)
+	{
 		this.da = d;
 	}
 }//end class Menu

@@ -4,6 +4,7 @@
  */
 import javax.swing.*;
 
+//interface to handle changing windows and closing
 interface DetectAction
 {
 	void quitRequest();
@@ -18,6 +19,7 @@ public class Main
 		RTC rtc = new RTC();
 	}
 	
+	//class to handle the menu and game screen
 	static class RTC implements DetectAction
 	{
 		Menu mn;
