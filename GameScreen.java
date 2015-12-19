@@ -1,5 +1,5 @@
 /**
- *
+ * Game where the actual game is played
  * @author Tony Li
  */
 import java.awt.*;
@@ -49,6 +49,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		catch(Exception e)
 		{
 		}
+		//set layout and add contents
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		
 		Box b1 = Box.createHorizontalBox();
@@ -82,6 +83,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				boardPnl.revalidate();
 			}
 		};
+		//adds new timer
 		tm = new Timer(10, al);
 		tm.start();
 		board = new Piece[BOARD_W][BOARD_H];
@@ -93,6 +95,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		this.pack();
 	}
 	
+	//handle mouse actions
 	public void mouseClicked(MouseEvent e)
 	{
 	}
@@ -167,7 +170,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			}
 			for(int x = 0; x < BOARD_W; x++)
 			{
-				g.drawString((char)(x + 'A') + "", (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE, EDGE_SPACE / 2);
+				g.drawString((char) (x + 'A') + "", (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE, EDGE_SPACE / 2);
 			}
 			
 			//loop through every square on the board
@@ -175,6 +178,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				for(int y = 0; y < BOARD_H; y++)
 				{
+					//alternates between brown and white squares
 					if((x + y) % 2 == 0)
 					{
 						g.setColor(Color.white);
@@ -195,6 +199,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				{
 					g.setColor(Color.yellow);
 					g.fillRect(selectedPiece.moves.get(c).x * SQUARE_SIZE + EDGE_SPACE, selectedPiece.moves.get(c).y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+					//draws black border
 					g.setColor(Color.black);
 					g.drawRect(selectedPiece.moves.get(c).x * SQUARE_SIZE + EDGE_SPACE, selectedPiece.moves.get(c).y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
 				}
@@ -222,15 +227,16 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					g.drawString("{" + x + ", " + y + "}", x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
 				}
 			}
-			g.setColor(Color.green);
 			
 			//update mouse location
-			//System.out.println(mouseX + " " + mouseY);
+			//adds edge space and subtracts 1 to prevent bug where the mouse was outside but the green square was still drawn because it rounded negative decimals to 0
 			mouseSqX = (mouseX + SQUARE_SIZE - EDGE_SPACE) / SQUARE_SIZE - 1;
 			mouseSqY = (mouseY + SQUARE_SIZE - EDGE_SPACE) / SQUARE_SIZE - 1;
 			//System.out.println(mouseSqX + " " + mouseSqY);
 			
 			//draws green square around the selected square
+			g.setColor(Color.green);
+			//checks if the mouse is inside the board
 			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
 			{
 				g.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	

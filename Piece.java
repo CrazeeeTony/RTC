@@ -1,5 +1,5 @@
 /**
- *
+ * Class to store piece information
  * @author Tony Li
  */
 import java.awt.*;
@@ -22,7 +22,7 @@ public class Piece
 	//stores possible moves(not done)
 	public ArrayList <Coord> moves;
 	
-	//load images
+	//load images(img1 contains white pieces and imgs2 contains black pieces)
 	static
 	{
 		try
@@ -52,6 +52,7 @@ public class Piece
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.pieceID = pieceID;
+		//set piece color according to player
 		if(player == 1)
 		{
 			this.img = imgs1[pieceID];

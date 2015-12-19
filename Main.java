@@ -1,9 +1,8 @@
 /**
- *
+ * Class to handle program flow
  * @author Tony Li
  */
 import javax.swing.*;
-
 //interface to handle changing windows and closing
 interface DetectAction
 {
@@ -22,6 +21,7 @@ public class Main
 	//class to handle the menu and game screen
 	static class RTC implements DetectAction
 	{
+		//menu and game screen
 		Menu mn;
 		GameScreen gs;
 		public RTC(){
