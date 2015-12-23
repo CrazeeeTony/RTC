@@ -33,6 +33,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	
 	Piece selectedPiece;
 	
+	//variables to store the pixel and board coordinates of the mouse
 	int mouseX = -9999;
 	int mouseY = -9999;
 	int mouseSqX;
@@ -87,12 +88,39 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		tm = new Timer(10, al);
 		tm.start();
 		board = new Piece[BOARD_W][BOARD_H];
-		for(int x = 0; x < 6; x++)
-		{
-			board[0][x] = new Piece(1, 0, x, x);
-			board[1][x] = new Piece(2, 1, x, x);
+		board[0][0] = new Piece(2, 0, 0,Piece.ROOK);
+		board[BOARD_W - 1][0] = new Piece(2, BOARD_W - 1, 0, Piece.ROOK);
+		board[1][0] = new Piece(2, 1, 0, Piece.KNIGHT);
+		board[BOARD_W - 2][0] = new Piece(2, BOARD_W - 2, 0, Piece.KNIGHT);
+		board[2][0] = new Piece(2, 2, 0,Piece.BISHOP);
+		board[BOARD_W - 3][0] = new Piece(2, BOARD_W - 3, 0, Piece.BISHOP);
+		board[3][0] = new Piece(2, 3, 0, Piece.QUEEN);
+		board[4][0] = new Piece(2, 4, 0, Piece.KING);
+		for(int x = 0; x < BOARD_W; x++){
+			board[x][1] = new Piece(2, x, 1, Piece.PAWN);
 		}
+		
+		board[0][BOARD_H - 1] = new Piece(1, 0, BOARD_H - 1, Piece.ROOK);
+		board[BOARD_W - 1][BOARD_H - 1] = new Piece(1, BOARD_W - 1, BOARD_H - 1, Piece.ROOK);
+		board[1][BOARD_H - 1] = new Piece(1, 1, BOARD_H - 1, Piece.KNIGHT);
+		board[BOARD_W - 2][BOARD_H - 1] = new Piece(1, BOARD_W - 2, BOARD_H - 1, Piece.KNIGHT);
+		board[2][BOARD_H - 1] = new Piece(1, 2, BOARD_H - 1, Piece.BISHOP);
+		board[BOARD_W - 3][BOARD_H - 1] = new Piece(1, BOARD_W - 3, BOARD_H - 1, Piece.BISHOP);
+		board[3][BOARD_H - 1] = new Piece(1, 3, BOARD_H - 1, Piece.KING);
+		board[4][BOARD_H - 1] = new Piece(1, 4, BOARD_H - 1, Piece.QUEEN);
+		for(int x = 0; x < BOARD_W; x++){
+			board[x][BOARD_H - 2] = new Piece(1, x, BOARD_H - 2, Piece.PAWN);
+		}
+		
+		/*for(int x = 0; x < BOARD_W; x++){
+			for(int y = 0; y < BOARD_H; y++){
+				if(board[x][y] != null && (board[x][y].xPos != x || board[x][y].xPos != x)){
+					System.out.println(x + " " + y);
+				}
+			}
+		}*/
 		this.pack();
+		this.updateMoves();
 	}
 	
 	//handle mouse actions
@@ -149,6 +177,16 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public void addDetectAction(DetectAction d)
 	{
 		this.da = d;
+	}
+	
+	public static void updateMoves(){
+		for(int x = 0; x < BOARD_W; x++){
+			for(int y = 0; y < BOARD_H; y++){
+				if(board[x][y] != null){
+					board[x][y].updateMoves();
+				}
+			}
+		}
 	}
 	
 	//class where the actual board is drawn
