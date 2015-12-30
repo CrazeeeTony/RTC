@@ -73,13 +73,13 @@ public class Piece
 		this.yPos = y;
 		GameScreen.board[x][y] = this;
 		moved = true;
-		if(pieceID == PAWN && yPos == 0){
-			System.out.println("WTF");
+		if(pieceID == PAWN && yPos == 0)
+		{
 			this.pieceID = QUEEN;
 			this.img = imgs1[QUEEN];
 		}
-		if(pieceID == PAWN && yPos == GameScreen.BOARD_H - 1){
-			System.out.println("WTF");
+		if(pieceID == PAWN && yPos == GameScreen.BOARD_H - 1)
+		{
 			this.pieceID = QUEEN;
 			this.img = imgs2[QUEEN];
 		}
@@ -92,13 +92,18 @@ public class Piece
 		switch (pieceID)
 		{
 			case KING:
-				for(int i = -1; i <=1; i++){
-					for(int j = -1; j <= 1; j++){
-						if(i != 0 || j != 0){
+				for(int i = -1; i <=1; i++)
+				{
+					for(int j = -1; j <= 1; j++)
+					{
+						if(i != 0 || j != 0)
+						{
 							int newX = xPos + i;
 							int newY = yPos + j;
-							if(Coord.inBoard(newX, newY) && (GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player)){
-								if(newX == 0 && newY == 1){
+							if(Coord.inBoard(newX, newY) && (GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player))
+							{
+								if(newX == 0 && newY == 1)
+								{
 									System.out.println(GameScreen.board[newX][newY]);
 								}
 								moves.add(new Coord(newX, newY));
@@ -113,173 +118,223 @@ public class Piece
 				ArrayList<Coord> diagMoves = moves;
 				pieceID = ROOK;
 				updateMoves();
-				for(int x = 0; x < diagMoves.size(); x++){
+				for(int x = 0; x < diagMoves.size(); x++)
+				{
 					moves.add(diagMoves.get(x));
 				}
 				this.pieceID = QUEEN;
 				break;
 			case BISHOP:
-				for(int x = 1; x < GameScreen.BOARD_W; x++){
+				for(int x = 1; x < GameScreen.BOARD_W; x++)
+				{
 					int newX = xPos + x;
 					int newY = yPos + x;
-					if(Coord.inBoard(newX, newY)){
-						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player){
+					if(Coord.inBoard(newX, newY))
+					{
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player)
+						{
 							break;
 						}
 						moves.add(new Coord(newX, newY));
-						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player){
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player)
+						{
 							break;
 						}
 					}
-					else{
+					else
+					{
 						break;
 					}
 				}
-				for(int x = 1; x < GameScreen.BOARD_W; x++){
+				for(int x = 1; x < GameScreen.BOARD_W; x++)
+				{
 					int newX = xPos + x;
 					int newY = yPos - x;
-					if(Coord.inBoard(newX, newY)){
-						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player){
+					if(Coord.inBoard(newX, newY))
+					{
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player)
+						{
 							break;
 						}
 						moves.add(new Coord(newX, newY));
-						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player){
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player)
+						{
 							break;
 						}
 					}
-					else{
+					else
+					{
 						break;
 					}
 				}
-				for(int x = 1; x < GameScreen.BOARD_W; x++){
+				for(int x = 1; x < GameScreen.BOARD_W; x++)
+				{
 					int newX = xPos - x;
 					int newY = yPos + x;
-					if(Coord.inBoard(newX, newY)){
-						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player){
+					if(Coord.inBoard(newX, newY))
+					{
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player)
+						{
 							break;
 						}
 						moves.add(new Coord(newX, newY));
-						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player){
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player)
+						{
 							break;
 						}
 					}
-					else{
+					else
+					{
 						break;
 					}
 				}
-				for(int x = 1; x < GameScreen.BOARD_W; x++){
+				for(int x = 1; x < GameScreen.BOARD_W; x++)
+				{
 					int newX = xPos - x;
 					int newY = yPos - x;
-					if(Coord.inBoard(newX, newY)){
-						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player){
+					if(Coord.inBoard(newX, newY))
+					{
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player)
+						{
 							break;
 						}
 						moves.add(new Coord(newX, newY));
-						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player){
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player)
+						{
 							break;
 						}
 					}
-					else{
+					else
+					{
 						break;
 					}
 				}
 				break;
 			case KNIGHT:
 				int [][] offset = {{-2, -1}, {-2, 1}, {2, -1}, {2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}};
-				for(int x = 0; x < offset.length; x++){
+				for(int x = 0; x < offset.length; x++)
+				{
 					int newX = xPos + offset[x][0];
 					int newY = yPos + offset[x][1];
 					System.out.println(newX + " "+ newY);
-					if(Coord.inBoard(newX, newY) && (GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player)){
+					if(Coord.inBoard(newX, newY) && (GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player))
+					{
 						moves.add(new Coord(newX, newY));
 					}
 				}
 				break;
 			case ROOK:
-				for(int x = 1; x < GameScreen.BOARD_W; x++){
+				for(int x = 1; x < GameScreen.BOARD_W; x++)
+				{
 					int newX = xPos + x;
-					if(Coord.inBoard(newX, yPos)){
-						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player == this.player){
+					if(Coord.inBoard(newX, yPos))
+					{
+						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player == this.player)
+						{
 							break;
 						}
 						moves.add(new Coord(newX, yPos));
-						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player != this.player){
+						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player != this.player)
+						{
 							break;
 						}
 					}
-					else{
+					else
+					{
 						break;
 					}
 				}
-				for(int x = 1; x < GameScreen.BOARD_W; x++){
+				for(int x = 1; x < GameScreen.BOARD_W; x++)
+				{
 					int newX = xPos - x;
-					if(Coord.inBoard(newX, yPos)){
-						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player == this.player){
+					if(Coord.inBoard(newX, yPos))
+					{
+						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player == this.player)
+						{
 							break;
 						}
 						moves.add(new Coord(newX, yPos));
-						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player != this.player){
+						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player != this.player)
+						{
 							break;
 						}
 					}
-					else{
+					else
+					{
 						break;
 					}
 				}
-				for(int x = 1; x < GameScreen.BOARD_H; x++){
+				for(int x = 1; x < GameScreen.BOARD_H; x++)
+				{
 					int newY = yPos + x;
-					if(Coord.inBoard(xPos, newY)){
-						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player == this.player){
+					if(Coord.inBoard(xPos, newY))
+					{
+						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player == this.player)
+						{
 							break;
 						}
 						moves.add(new Coord(xPos, newY));
-						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player != this.player){
+						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player != this.player)
+						{
 							break;
 						}
 					}
-					else{
+					else
+					{
 						break;
 					}
 				}
-				for(int x = 1; x < GameScreen.BOARD_H; x++){
+				for(int x = 1; x < GameScreen.BOARD_H; x++)
+				{
 					int newY = yPos - x;
 					if(Coord.inBoard(xPos, newY)){
-						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player == this.player){
+						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player == this.player)
+						{
 							break;
 						}
 						moves.add(new Coord(xPos, newY));
-						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player != this.player){
+						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player != this.player)
+						{
 							break;
 						}
 					}
-					else{
+					else
+					{
 						break;
 					}
 				}
 				break;
 			case PAWN:
-				if(player == 1 && Coord.inBoard(xPos, yPos - 1) && GameScreen.board[xPos][yPos - 1] == null){
+				if(player == 1 && Coord.inBoard(xPos, yPos - 1) && GameScreen.board[xPos][yPos - 1] == null)
+				{
 					moves.add(new Coord(xPos, yPos - 1));
 				}
-				if(player == 1 && Coord.inBoard(xPos + 1, yPos - 1) && GameScreen.board[xPos + 1][yPos - 1] != null && GameScreen.board[xPos + 1][yPos - 1].player != this.player){
+				if(player == 1 && Coord.inBoard(xPos + 1, yPos - 1) && GameScreen.board[xPos + 1][yPos - 1] != null && GameScreen.board[xPos + 1][yPos - 1].player != this.player)
+				{
 					moves.add(new Coord(xPos + 1, yPos - 1));
 				}
-				if(player == 1 && Coord.inBoard(xPos - 1, yPos - 1) && GameScreen.board[xPos - 1][yPos - 1] != null && GameScreen.board[xPos - 1][yPos - 1].player != this.player){
+				if(player == 1 && Coord.inBoard(xPos - 1, yPos - 1) && GameScreen.board[xPos - 1][yPos - 1] != null && GameScreen.board[xPos - 1][yPos - 1].player != this.player)
+				{
 					moves.add(new Coord(xPos - 1, yPos - 1));
 				}
-				if(player == 1 && !moved && Coord.inBoard(xPos, yPos - 2) && GameScreen.board[xPos][yPos - 2] == null && GameScreen.board[xPos][yPos - 1] == null){
+				if(player == 1 && !moved && Coord.inBoard(xPos, yPos - 2) && GameScreen.board[xPos][yPos - 2] == null && GameScreen.board[xPos][yPos - 1] == null)
+				{
 					moves.add(new Coord(xPos, yPos - 2));
 				}
-				if(player == 2 && Coord.inBoard(xPos, yPos + 1) && GameScreen.board[xPos][yPos + 1] == null){
+				if(player == 2 && Coord.inBoard(xPos, yPos + 1) && GameScreen.board[xPos][yPos + 1] == null)
+				{
 					moves.add(new Coord(xPos, yPos + 1));
 				}
-				if(player == 2 && Coord.inBoard(xPos + 1, yPos + 1) && GameScreen.board[xPos + 1][yPos + 1] != null && GameScreen.board[xPos + 1][yPos + 1].player != this.player){
+				if(player == 2 && Coord.inBoard(xPos + 1, yPos + 1) && GameScreen.board[xPos + 1][yPos + 1] != null && GameScreen.board[xPos + 1][yPos + 1].player != this.player)
+				{
 					moves.add(new Coord(xPos + 1, yPos + 1));
 				}
-				if(player == 2 && Coord.inBoard(xPos - 1, yPos + 1) && GameScreen.board[xPos - 1][yPos + 1] != null && GameScreen.board[xPos - 1][yPos + 1].player != this.player){
+				if(player == 2 && Coord.inBoard(xPos - 1, yPos + 1) && GameScreen.board[xPos - 1][yPos + 1] != null && GameScreen.board[xPos - 1][yPos + 1].player != this.player)
+				{
 					moves.add(new Coord(xPos - 1, yPos + 1));
 				}
-				if(player == 2 && !moved && Coord.inBoard(xPos, yPos + 2) && GameScreen.board[xPos][yPos + 2] == null && GameScreen.board[xPos][yPos + 1] == null){
+				if(player == 2 && !moved && Coord.inBoard(xPos, yPos + 2) && GameScreen.board[xPos][yPos + 2] == null && GameScreen.board[xPos][yPos + 1] == null)
+				{
 					moves.add(new Coord(xPos, yPos + 2));
 				}
 				break;
