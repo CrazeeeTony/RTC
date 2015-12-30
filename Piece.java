@@ -108,10 +108,92 @@ public class Piece
 				}
 				break;
 			case QUEEN:
+				pieceID = BISHOP;
+				updateMoves();
+				ArrayList<Coord> diagMoves = moves;
+				pieceID = ROOK;
+				updateMoves();
+				for(int x = 0; x < diagMoves.size(); x++){
+					moves.add(diagMoves.get(x));
+				}
+				this.pieceID = QUEEN;
 				break;
 			case BISHOP:
+				for(int x = 1; x < GameScreen.BOARD_W; x++){
+					int newX = xPos + x;
+					int newY = yPos + x;
+					if(Coord.inBoard(newX, newY)){
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player){
+							break;
+						}
+						moves.add(new Coord(newX, newY));
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player){
+							break;
+						}
+					}
+					else{
+						break;
+					}
+				}
+				for(int x = 1; x < GameScreen.BOARD_W; x++){
+					int newX = xPos + x;
+					int newY = yPos - x;
+					if(Coord.inBoard(newX, newY)){
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player){
+							break;
+						}
+						moves.add(new Coord(newX, newY));
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player){
+							break;
+						}
+					}
+					else{
+						break;
+					}
+				}
+				for(int x = 1; x < GameScreen.BOARD_W; x++){
+					int newX = xPos - x;
+					int newY = yPos + x;
+					if(Coord.inBoard(newX, newY)){
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player){
+							break;
+						}
+						moves.add(new Coord(newX, newY));
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player){
+							break;
+						}
+					}
+					else{
+						break;
+					}
+				}
+				for(int x = 1; x < GameScreen.BOARD_W; x++){
+					int newX = xPos - x;
+					int newY = yPos - x;
+					if(Coord.inBoard(newX, newY)){
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player){
+							break;
+						}
+						moves.add(new Coord(newX, newY));
+						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player != this.player){
+							break;
+						}
+					}
+					else{
+						break;
+					}
+				}
 				break;
 			case KNIGHT:
+				int [][] offset = {{-2, -1}, {-2, 1}, {2, -1}, {2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}};
+				for(int x = 0; x < offset.length; x++){
+					int newX = xPos + offset[x][0];
+					int newY = yPos + offset[x][1];
+					System.out.println(newX + " "+ newY);
+					if(Coord.inBoard(newX, newY) && (GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player)){
+						moves.add(new Coord(newX, newY));
+					}
+				}
 				break;
 			case ROOK:
 				for(int x = 1; x < GameScreen.BOARD_W; x++){
@@ -176,17 +258,28 @@ public class Piece
 				}
 				break;
 			case PAWN:
-			if(xPos == GameScreen.BOARD_W - 1)System.out.println(xPos + " " + (yPos - 1));
 				if(player == 1 && Coord.inBoard(xPos, yPos - 1) && GameScreen.board[xPos][yPos - 1] == null){
 					moves.add(new Coord(xPos, yPos - 1));
 				}
-				if(player == 1 && !moved && Coord.inBoard(xPos, yPos - 2) && GameScreen.board[xPos][yPos - 2] == null){
+				if(player == 1 && Coord.inBoard(xPos + 1, yPos - 1) && GameScreen.board[xPos + 1][yPos - 1] != null && GameScreen.board[xPos + 1][yPos - 1].player != this.player){
+					moves.add(new Coord(xPos + 1, yPos - 1));
+				}
+				if(player == 1 && Coord.inBoard(xPos - 1, yPos - 1) && GameScreen.board[xPos - 1][yPos - 1] != null && GameScreen.board[xPos - 1][yPos - 1].player != this.player){
+					moves.add(new Coord(xPos - 1, yPos - 1));
+				}
+				if(player == 1 && !moved && Coord.inBoard(xPos, yPos - 2) && GameScreen.board[xPos][yPos - 2] == null && GameScreen.board[xPos][yPos - 1] == null){
 					moves.add(new Coord(xPos, yPos - 2));
 				}
 				if(player == 2 && Coord.inBoard(xPos, yPos + 1) && GameScreen.board[xPos][yPos + 1] == null){
 					moves.add(new Coord(xPos, yPos + 1));
 				}
-				if(player == 2 && !moved && Coord.inBoard(xPos, yPos + 2) && GameScreen.board[xPos][yPos + 2] == null){
+				if(player == 2 && Coord.inBoard(xPos + 1, yPos + 1) && GameScreen.board[xPos + 1][yPos + 1] != null && GameScreen.board[xPos + 1][yPos + 1].player != this.player){
+					moves.add(new Coord(xPos + 1, yPos + 1));
+				}
+				if(player == 2 && Coord.inBoard(xPos - 1, yPos + 1) && GameScreen.board[xPos - 1][yPos + 1] != null && GameScreen.board[xPos - 1][yPos + 1].player != this.player){
+					moves.add(new Coord(xPos - 1, yPos + 1));
+				}
+				if(player == 2 && !moved && Coord.inBoard(xPos, yPos + 2) && GameScreen.board[xPos][yPos + 2] == null && GameScreen.board[xPos][yPos + 1] == null){
 					moves.add(new Coord(xPos, yPos + 2));
 				}
 				break;
