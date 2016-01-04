@@ -86,7 +86,7 @@ public class Piece
 		GameScreen.updateMoves();
 	}
 	
-	//update the list of possible moves(not done)
+	//update the list of possible moves
 	public void updateMoves(){
 		moves = new ArrayList<Coord>();
 		switch (pieceID)
