@@ -1,8 +1,4 @@
-javac Main.java
-javac Piece.java
-javac GameScreen.java
-javac Menu.java
-javac Coord.java
+javac Main.java Piece.java GameScreen.java Menu.java Coord.java AI.java
 pause
 java Main
 pause
