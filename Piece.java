@@ -46,7 +46,14 @@ public class Piece
 	public BufferedImage img;
 	boolean moved;
 	
-	//constructor
+	/**
+	* Main function
+	* @param int player args - the number of the player who owns that piece
+	* @param int xPos - the x position of the piece on the board
+	* @param int yPos - the y position of the piece on the board
+	* @param int yPos - a number representing what the piece is
+	* @return void
+	* */
 	public Piece(int player,int xPos, int yPos, int pieceID)
 	{
 		this.player = player;
