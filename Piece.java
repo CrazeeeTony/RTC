@@ -20,7 +20,7 @@ public class Piece
 	private static BufferedImage[] imgs2;
 	
 	//stores possible moves(not done)
-	public ArrayList <Coord> moves;
+	public ArrayList <Coord> moves = new ArrayList<>();
 	
 	//load images(imgs1 contains white pieces and imgs2 contains black pieces)
 	static
