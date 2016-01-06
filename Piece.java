@@ -95,7 +95,7 @@ public class Piece
 	
 	//update the list of possible moves
 	public void updateMoves(){
-		moves.clear();
+		moves = new ArrayList<Coord>();
 		switch (pieceID)
 		{
 			case KING:
@@ -109,10 +109,6 @@ public class Piece
 							int newY = yPos + j;
 							if(Coord.inBoard(newX, newY) && (GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player))
 							{
-								if(newX == 0 && newY == 1)
-								{
-									System.out.println(GameScreen.board[newX][newY]);
-								}
 								moves.add(new Coord(newX, newY));
 							}
 						}
@@ -223,7 +219,6 @@ public class Piece
 				{
 					int newX = xPos + offset[x][0];
 					int newY = yPos + offset[x][1];
-					System.out.println(newX + " "+ newY);
 					if(Coord.inBoard(newX, newY) && (GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player))
 					{
 						moves.add(new Coord(newX, newY));
