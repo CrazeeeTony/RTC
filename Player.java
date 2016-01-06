@@ -8,7 +8,7 @@ public class Player
 	{
 		controllable = initialPieces;
 	}//end contructor (int, int)
-  
+	
 	/**
 	 * takes an x and y for a board's coordinates at which to find a piece
 	 * returns a success boolean: if null, then false, if a piece exists there, then true
