@@ -119,6 +119,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				}
 			}
 		}*/
+		
+		human = new Player(board, 1);
+		comp = new Player(board, 2);
+		
 		this.pack();
 		this.updateMoves();
 	}
@@ -142,6 +146,18 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 
 	public void mouseReleased(MouseEvent e)
 	{
+		//if a piece is selected, move it to the space
+		if (human.selected == null)
+		{
+			human.select(mouseSqX, mouseSqY);
+		}
+		else
+		{
+			human.move(mouseSqX, mouseSqY);
+			human.select(mouseSqX, mouseSqY);
+		}
+		
+		/*
 		//if a piece is not selected, select that piece
 		if(selectedPiece == null)
 		{
@@ -160,6 +176,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				selectedPiece = null;
 			}
 		}
+		*/
 	}
 	
 	public void mouseDragged(MouseEvent e)
@@ -231,6 +248,26 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				}
 			}
 			
+			//highlight squares the selected piece can move to
+			if (human.selected != null)
+			{
+				for (Coord e : human.selected.moves)
+				{
+					g.setColor(Color.yellow);
+					g.fillRect(e.x * SQUARE_SIZE + EDGE_SPACE, e.y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+					g.setColor(Color.black);
+					g.drawRect(e.x * SQUARE_SIZE + EDGE_SPACE, e.y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+				}
+			}
+			
+			//draw a blue square to indicate the selected piece
+			if (human.selected != null)
+			{
+				g.setColor(Color.blue);
+				g.fillRect(human.selected.xPos * SQUARE_SIZE + EDGE_SPACE, human.selected.yPos * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+			}
+			
+			/*
 			//highlights squares where you can move to
 			if(selectedPiece!=null){
 				for(int c = 0; c < selectedPiece.moves.size(); c++)
@@ -249,6 +286,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				g.setColor(Color.blue);
 				g.fillRect(selectedPiece.xPos * SQUARE_SIZE + EDGE_SPACE, selectedPiece.yPos * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
 			}
+			*/
 			
 			//draws the pieces
 			for(int x = 0; x < BOARD_W; x++)
