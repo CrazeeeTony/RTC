@@ -20,10 +20,23 @@ public class AI
 			this.targetY = targetY;
 		}
 		//gets an integer representing how optimal the move is (lower is better)
-		public int getOptimal()
+		public int getOptimal(Move [] enemyMoves)
 		{
-			//TEMP
-			return 1;
+			if(target != null && target.pieceID == Piece.KING)
+			{
+				return -999999999;
+			}
+			for(int x = 0; x < enemyMoves.length; x++)
+			{
+				if(enemyMoves[x].target.pieceID == Piece.KING && this.consider.pieceID == Piece.KING)
+				{
+					return -99999999;
+				}
+			}
+			int takenPieceVal = target.getValue();
+			int lossVal = 0;
+			//temp return statement so that this compiles
+			return 0;
 		}
 		
 		public boolean compare(Move other)

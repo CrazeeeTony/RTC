@@ -95,7 +95,7 @@ public class Piece
 	
 	//update the list of possible moves
 	public void updateMoves(){
-		moves = new ArrayList<Coord>();
+		moves.clear();
 		switch (pieceID)
 		{
 			case KING:
@@ -346,5 +346,24 @@ public class Piece
 				}
 				break;
 		}
+	}
+	
+	public int getValue(){
+		switch (pieceID)
+		{
+		case KING:
+			return 999;
+		case QUEEN:
+			return 9;
+		case ROOK:
+			return 5;
+		case BISHOP:
+			return 3;
+		case KNIGHT:
+			return 3;
+		case PAWN:
+			return 1;
+		}
+		return 0;
 	}
 }
