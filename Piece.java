@@ -78,6 +78,12 @@ public class Piece
 		GameScreen.board[xPos][yPos] = null;
 		this.xPos = x;
 		this.yPos = y;
+		//kill the current piece there if it exists
+		if (player == 2)
+			GameScreen.human.kill(GameScreen.board[x][y]);
+		else if (player == 1)
+			GameScreen.comp.kill(GameScreen.board[x][y]);
+		
 		GameScreen.board[x][y] = this;
 		moved = true;
 		if(pieceID == PAWN && yPos == 0)
@@ -346,18 +352,18 @@ public class Piece
 	public int getValue(){
 		switch (pieceID)
 		{
-		case KING:
-			return 999;
-		case QUEEN:
-			return 9;
-		case ROOK:
-			return 5;
-		case BISHOP:
-			return 3;
-		case KNIGHT:
-			return 3;
-		case PAWN:
-			return 1;
+			case KING:
+				return 999;
+			case QUEEN:
+				return 9;
+			case ROOK:
+				return 5;
+			case BISHOP:
+				return 3;
+			case KNIGHT:
+				return 3;
+			case PAWN:
+				return 1;
 		}
 		return 0;
 	}

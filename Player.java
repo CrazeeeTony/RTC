@@ -2,6 +2,7 @@ import java.util.ArrayList;
 public class Player
 {
 	ArrayList<Piece> controllable = new ArrayList<>();
+	ArrayList<Piece> captured = new ArrayList<>();
 	Piece selected;
 	
 	public Player(Piece[][] initialPieces, int identity)
@@ -76,6 +77,20 @@ public class Player
 			}
 		}
 		return validMoves;
+	}
+	
+	public boolean hasLost()
+	{
+		return controllable.size() == 0;
+	}
+	
+	public void kill(Piece e)
+	{
+		if (e != null)
+		{
+			controllable.remove(e);
+			captured.add(e);
+		}
 	}
 	
 }//end class Player
