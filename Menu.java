@@ -1,5 +1,5 @@
 /**
- *
+ * the main menu
  * @author Charles Lei
  */
 import java.awt.*;
@@ -15,6 +15,7 @@ public class Menu extends JFrame implements ActionListener
 	public static final String LINE_END = "<br>";
 	
 	DetectAction da;
+	//all the graphical components
 	JPanel everything = 	new JPanel();
 	JPanel information = 	new JPanel();
 	JPanel graphicPanel = 	new JPanel();
@@ -30,13 +31,15 @@ public class Menu extends JFrame implements ActionListener
 		new JButton("highscores"),
 		new JButton("quit")
 	};
+	
 	/**
-	 *
+	 * set up the menu
 	 */
 	public Menu()
 	{
 		super("RTC");
 		
+		//get the icon for the window bar
 		try
 		{
 			this.setIconImage(ImageIO.read(new File("Piece Images/1Knight.png")));
@@ -99,7 +102,7 @@ public class Menu extends JFrame implements ActionListener
 	}//end default constructor ()
 	
 	/**
-	 *
+	 * handle events from button clicks
 	 */
 	public void actionPerformed(ActionEvent ev)
 	{
@@ -149,14 +152,13 @@ public class Menu extends JFrame implements ActionListener
 				//for debugging purposes
 		}//end switch
 	}//end member actionPerformed
-
-	public static void main(String[] args)		//can test menu from here, but delete this for final version
-	{
-		new Menu();
-	}
 	
+	/**
+	 * @override
+	 */
 	public void addDetectAction(DetectAction d)
 	{
 		this.da = d;
-	}
+	}//end member addDetectAction
+	
 }//end class Menu
