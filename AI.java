@@ -8,7 +8,6 @@ public class AI
 	//also used to store information about moves easily (piece, place, etc.)
 	static class Move
 	{
-		static boolean danger[][] = new boolean [GameScreen.BOARD_W][GameScreen.BOARD_H];
 		Piece consider;
 		Piece target;
 		int targetX, targetY;
@@ -36,36 +35,8 @@ public class AI
 			}
 			int takenPieceVal = target.getValue();
 			int lossVal = 0;
-			if(danger[target.xPos][target.yPos])
-			{
-				lossVal += consider.getValue();
-			}
-			if(danger[consider.xPos][consider.yPos])
-			{
-				lossVal -= consider.getValue();
-			}
-			return lossVal - takenPieceVal;
-		}
-		
-		public static void updateDanger(Player pl)
-		{
-			for(int x = 0; x < danger.length; x++)
-			{
-				for(int y = 0; y < danger[x].length; y++)
-				{
-					danger[x][y] = false;
-				}
-			}
-			for(Piece pc : pl.controllable)
-			{
-				for(Coord move : pc.moves)
-				{
-					if(pc.pieceID != Piece.PAWN || move.x != pc.xPos)
-					{
-						danger[move.x][move.y] = true;
-					}
-				}
-			}
+			//temp return statement so that this compiles
+			return 0;
 		}
 		
 		public boolean compare(Move other)
@@ -74,7 +45,6 @@ public class AI
 			return true;
 		}
 	}
-	
 	//try to create a move object by moving a piece at a certain location to another location
 	//if no piece exists or the piece cannot move to the targeted location then returns NULL
 	public static Move attemptMove(Piece[][] state, int placeX, int placeY, int targetX, int targetY)
