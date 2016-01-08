@@ -305,11 +305,11 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			}
 			for (int e = 0; e < human.captured.size(); e++)
 			{
-				grfx.drawImage(human.captured.get(e).img, 50 + SQUARE_SIZE / 2 * e, 80, SQUARE_SIZE, SQUARE_SIZE, null);
+				grfx.drawImage(human.captured.get(e).img, EDGE_SPACE + (BOARD_W + 1) * SQUARE_SIZE, EDGE_SPACE -12 + SQUARE_SIZE / 2 * e, SQUARE_SIZE, SQUARE_SIZE, null);
 			}
 			for (int e = 0; e < comp.captured.size(); e++)
 			{
-				grfx.drawImage(comp.captured.get(e).img, 50 + SQUARE_SIZE / 2 * e, 470, SQUARE_SIZE, SQUARE_SIZE, null);
+				grfx.drawImage(comp.captured.get(e).img, EDGE_SPACE + BOARD_W * SQUARE_SIZE, EDGE_SPACE -12 + SQUARE_SIZE / 2 * e, SQUARE_SIZE, SQUARE_SIZE, null);
 			}
 			
 			//update mouse location
