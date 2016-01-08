@@ -88,12 +88,12 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				//check for either player having won
 				if (human.hasLost())
 				{
-					boardPnl.displayMessage("computer won");
+					boardPnl.message = "computer won";
 					tm.stop();
 				}
 				else if (comp.hasLost())
 				{
-					boardPnl.displayMessage("player won");
+					boardPnl.message = "player won";
 					tm.stop();
 				}
 			}
@@ -222,16 +222,12 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		Color brown = new Color(139, 69, 19);
 		//store the graphics object so we can use it in other methods
 		Graphics grfx;
+		//String for a message displayed
+		String message = "";
 		
 		public BoardPanel()
 		{
 			this.setPreferredSize(new Dimension(SQUARE_SIZE * BOARD_W + 2 * EDGE_SPACE, SQUARE_SIZE * BOARD_H + 2 * EDGE_SPACE));
-		}
-		
-		public void displayMessage(String message)
-		{
-			grfx.drawString(message, 50, 50);
-			this.repaint();
 		}
 		
 		public void paintComponent(Graphics g)
@@ -239,6 +235,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			super.paintComponent(g);
 			//set the stored graphics variable
 			grfx = g;
+			
+			//draw the message string
+			grfx.drawString(message, 50, 10);
 			
 			//draws the side labels
 			for(int x = 0; x < BOARD_H; x++)
@@ -310,7 +309,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			}
 			for (int e = 0; e < comp.captured.size(); e++)
 			{
-				grfx.drawImage(comp.captured.get(e).img, 50 + SQUARE_SIZE / 2 * e, 380, SQUARE_SIZE, SQUARE_SIZE, null);
+				grfx.drawImage(comp.captured.get(e).img, 50 + SQUARE_SIZE / 2 * e, 470, SQUARE_SIZE, SQUARE_SIZE, null);
 			}
 			
 			//update mouse location
