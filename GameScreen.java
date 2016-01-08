@@ -227,7 +227,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		
 		public BoardPanel()
 		{
-			this.setPreferredSize(new Dimension(SQUARE_SIZE * BOARD_W + 2 * EDGE_SPACE, SQUARE_SIZE * BOARD_H + 2 * EDGE_SPACE));
+			this.setPreferredSize(new Dimension(SQUARE_SIZE * (BOARD_W + 2) + 2 * EDGE_SPACE, SQUARE_SIZE * BOARD_H + 2 * EDGE_SPACE));
 		}
 		
 		public void paintComponent(Graphics g)
