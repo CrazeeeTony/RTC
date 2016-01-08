@@ -1,12 +1,17 @@
 import java.util.ArrayList;
 public class Player
 {
+	//list of pieces under this player's control, captured pieces, selected piece
 	ArrayList<Piece> controllable = new ArrayList<>();
 	ArrayList<Piece> captured = new ArrayList<>();
 	Piece selected;
 	
+	/**
+	 * give a board (Piece 2D array) and integer to find all belonging pieces
+	 */
 	public Player(Piece[][] initialPieces, int identity)
 	{
+		//go through everything
 		for (Piece[] row : initialPieces)
 		{
 			for (Piece p : row)
@@ -15,7 +20,7 @@ public class Player
 					controllable.add(p);
 			}
 		}
-	}//end contructor (int, int)
+	}//end contructor (Piece[][], int)
   
 	/**
 	 * takes an x and y for a board's coordinates at which to find a piece
@@ -43,8 +48,11 @@ public class Player
 				break;
 			}
 		}
-	}
+	}//end member select
 	
+	/**
+	 * move the selected piece
+	 */
 	public void move(int x, int y)
 	{
 		//confirm the validity of the proposed movement
@@ -60,8 +68,11 @@ public class Player
 			if (selected != null)
 				selected.moveTo(x, y);
 		}
-	}
+	}//end member move
 	
+	/**
+	 * returns a list of all possible moves for all possible pieces
+	 */
 	public ArrayList<AI.Move> getAllMoves()
 	{
 		ArrayList<AI.Move> validMoves = new ArrayList<>();
@@ -77,21 +88,28 @@ public class Player
 			}
 		}
 		return validMoves;
-	}
+	}//end member getAllMoves
 	
+	/**
+	 * has this player lost?
+	 */
 	public boolean hasLost()
 	{
 		return controllable.size() == 0;
-	}
+	}//end member hasLost
 	
+	/**
+	 * a piece belonging to this player should be considered captured, or "killed"
+	 */
 	public void kill(Piece e)
 	{
 		if (e != null)
 		{
+			//cannot be controlled any more, but add it to captured list
 			controllable.remove(e);
 			captured.add(e);
 		}
-	}
+	}//end member kill
 	
 }//end class Player
 
