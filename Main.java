@@ -34,7 +34,7 @@ public class Main
 		}
 		
 		/**
-		* 
+		* quits program
 		* */
 		public void quitRequest()
 		{
@@ -42,7 +42,7 @@ public class Main
 		}
 		
 		/**
-		* 
+		* starts the game after play is clicked
 		* */
 		public void startGameRequest()
 		{
@@ -53,7 +53,7 @@ public class Main
 		}
 		
 		/**
-		* 
+		* returns to menu
 		* */
 		public void returnToMenu()
 		{
@@ -62,4 +62,4 @@ public class Main
 			mn.setVisible(true);
 		}
 	}
-}
+}//end Main class

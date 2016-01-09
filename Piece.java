@@ -72,7 +72,9 @@ public class Piece
 		}
 	}
 	
-	//move to a position on the board
+	/**
+	 * move piece to a position on the board
+	 */
 	public void moveTo(int x, int y)
 	{
 		GameScreen.board[xPos][yPos] = null;
@@ -80,12 +82,17 @@ public class Piece
 		this.yPos = y;
 		//kill the current piece there if it exists
 		if (player == 2)
+		{
 			GameScreen.human.kill(GameScreen.board[x][y]);
+		}
 		else if (player == 1)
+		{
 			GameScreen.comp.kill(GameScreen.board[x][y]);
+		}
 		
 		GameScreen.board[x][y] = this;
 		moved = true;
+		//converts pawn to queen when the end of the board is reached
 		if(pieceID == PAWN && yPos == 0)
 		{
 			this.pieceID = QUEEN;
@@ -99,7 +106,9 @@ public class Piece
 		GameScreen.updateMoves();
 	}
 	
-	//update the list of possible moves
+	/**
+	 * updates list of possible moves
+	 */
 	public void updateMoves()
 	{
 		moves = new ArrayList<Coord>();
@@ -136,6 +145,7 @@ public class Piece
 				this.pieceID = QUEEN;
 				break;
 			case BISHOP:
+				//checks in four directions until it reaches the edge of the board or a piece
 				for(int x = 1; x < GameScreen.BOARD_W; x++)
 				{
 					int newX = xPos + x;
@@ -222,6 +232,7 @@ public class Piece
 				}
 				break;
 			case KNIGHT:
+				//array representing the x and y movements a knight can make
 				int [][] offset = {{-2, -1}, {-2, 1}, {2, -1}, {2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}};
 				for(int x = 0; x < offset.length; x++)
 				{
@@ -234,6 +245,7 @@ public class Piece
 				}
 				break;
 			case ROOK:
+				//checks in four directions until it reaches the edge of the board or a piece
 				for(int x = 1; x < GameScreen.BOARD_W; x++)
 				{
 					int newX = xPos + x;
@@ -351,6 +363,9 @@ public class Piece
 		}
 	}//end updateMoves
 	
+	/**
+	 * a method to return an estimated value of the piece
+	 */
 	public int getValue(){
 		switch (pieceID)
 		{
