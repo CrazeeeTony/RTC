@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+/**
+ * logic for each player of the game
+ * @author Charles Lei
+ */
 public class Player
 {
 	//list of pieces under this player's control, captured pieces, selected piece
