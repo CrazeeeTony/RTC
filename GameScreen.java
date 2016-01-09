@@ -43,6 +43,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	
 	/**
 	 *
+	 * @author Tony Li
 	 */
 	public GameScreen()
 	{
@@ -165,6 +166,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	{
 	}
 
+	/**
+	 *
+	 * @author Tony Li
+	 */
 	public void mouseReleased(MouseEvent e)
 	{
 		//if a piece is not selected, select one; otherwise, move it to the space
@@ -179,18 +184,30 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}
 	}
 	
+	/**
+	 *
+	 * @author Tony Li
+	 */
 	public void mouseDragged(MouseEvent e)
 	{
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
 	}
 
+	/**
+	 *
+	 * @author Tony Li
+	 */
 	public void mouseMoved(MouseEvent e)
 	{
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
 	}
 	
+	/**
+	 *
+	 * @author Tony Li
+	 */
 	public void addDetectAction(DetectAction d)
 	{
 		this.da = d;
@@ -211,7 +228,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}
 	}//end static member updateMoves
 	
-	//class where the actual board is drawn
+	/**
+	 * class where the actual board is drawn
+	 * @author Tony Li
+	 */
 	static class BoardPanel extends JPanel{
 		Color brown = new Color(139, 69, 19);
 		//store the graphics object so we can use it in other methods
@@ -229,6 +249,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		
 		/**
 		 *
+		 * @author Tony Li
 		 */
 		public void paintComponent(Graphics g)
 		{
