@@ -100,7 +100,8 @@ public class Piece
 	}
 	
 	//update the list of possible moves
-	public void updateMoves(){
+	public void updateMoves()
+	{
 		moves = new ArrayList<Coord>();
 		switch (pieceID)
 		{
@@ -122,6 +123,7 @@ public class Piece
 				}
 				break;
 			case QUEEN:
+				//generate queen moves by combining bishop and rook moves
 				pieceID = BISHOP;
 				updateMoves();
 				ArrayList<Coord> diagMoves = moves;
@@ -347,7 +349,7 @@ public class Piece
 				}
 				break;
 		}
-	}
+	}//end updateMoves
 	
 	public int getValue(){
 		switch (pieceID)

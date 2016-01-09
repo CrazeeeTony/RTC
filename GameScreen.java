@@ -357,5 +357,5 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				grfx.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
 			}
 		}//end member paintSelection
-	}
-}
+	}//end BoardPanel
+}//end GameScreen

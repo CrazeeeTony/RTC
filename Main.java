@@ -24,17 +24,26 @@ public class Main
 		//menu and game screen
 		Menu mn;
 		GameScreen gs;
+		/**
+		* Default constructor: 
+		* */
 		public RTC(){
 			mn = new Menu();
 			mn.addDetectAction(this);
 			mn.setVisible(true);
 		}
 		
+		/**
+		* 
+		* */
 		public void quitRequest()
 		{
 			System.exit(0);
 		}
 		
+		/**
+		* 
+		* */
 		public void startGameRequest()
 		{
 			mn.setVisible(false);
@@ -43,6 +52,9 @@ public class Main
 			gs.setVisible(true);
 		}
 		
+		/**
+		* 
+		* */
 		public void returnToMenu()
 		{
 			gs.setVisible(false);
