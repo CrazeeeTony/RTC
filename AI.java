@@ -108,6 +108,7 @@ public class AI extends Player
  	
  	/**
  	 * get a move out of all possible ones
+	 * @author Charles Lei
  	 */
  	public Move makeMove(Player opponent)
  	{
