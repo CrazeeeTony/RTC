@@ -30,20 +30,18 @@ public class AI extends Player
 		
 		/**
 		 * gets an integer representing how optimal the move is (lower is better)
+		 * 
 		 * @author Tony Li
 		 */
-		public int getOptimal(Move [] enemyMoves)
+		public int getOptimal()
 		{
 			if(target != null && target.pieceID == Piece.KING)
 			{
 				return -999999999;
 			}
-			for(int x = 0; x < enemyMoves.length; x++)
+			if(consider.pieceID == Piece.KING && danger[consider.xPos][consider.yPos] && !danger[targetX][targetY])
 			{
-				if(enemyMoves[x].target.pieceID == Piece.KING && this.consider.pieceID == Piece.KING)
-				{
-					return -99999999;
-				}
+				return -99999999;
 			}
 			int takenPieceVal = target.getValue();
 			int lossVal = 0;
@@ -59,7 +57,8 @@ public class AI extends Player
 		}
 		
 		/**
-		 *
+		 * Update the 2D array which indicates dangerous squares
+		 * @param Player pl - the human player
 		 * @author Tony Li
 		 */
 		public static void updateDanger(Player pl)
@@ -99,6 +98,7 @@ public class AI extends Player
  	
  	/**
  	 * initialize the underlying Player, but also add in a parameter for the difficulty
+	 * @author Charles Lei
  	 */
  	public AI(Piece[][] baseBoard, int baseIdentity, int difficulty)
  	{
@@ -126,6 +126,7 @@ public class AI extends Player
  	/**
  	 * quicksorts an array of Move objects, using the instance compare method
  	 * ascending order, best moves at the front
+	 * @author Charles Lei
  	 */
   	public static void quicksort(Move[] ll, int lBound, int rBound)
   	{
