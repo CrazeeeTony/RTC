@@ -232,7 +232,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 * class where the actual board is drawn
 	 * @author Tony Li
 	 */
-	static class BoardPanel extends JPanel{
+	class BoardPanel extends JPanel{
 		Color brown = new Color(139, 69, 19);
 		//store the graphics object so we can use it in other methods
 		Graphics grfx;
@@ -291,7 +291,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			}
 			
 			//draw blue square, highlighting
-			paintSelection();
+			paintSelection(g);
 			
 			//draws the pieces
 			for(int x = 0; x < BOARD_W; x++)
