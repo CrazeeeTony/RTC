@@ -16,10 +16,13 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int SQUARE_SIZE = 50;
 	public static final int EDGE_SPACE = 75;
 	
+	int prevMove = 0;
+	public static final int COMP_TIME = 10;
+	
 	static Piece[][] board;
 	
 	//player instances for computer and human player
-	static Player comp;
+	static AI comp;
 	static Player human;
 	
 	DetectAction da;
@@ -100,6 +103,14 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					boardPnl.message = "player won";
 					tm.stop();
 				}
+				prevMove++;
+				if(prevMove == COMP_TIME)
+				{
+					AI.Move toMake = comp.makeMove(human);
+					comp.selected = toMake.consider;
+					comp.move(toMake.targetX, toMake.targetY);
+					prevMove = 0;
+				}
 			}
 		};
 		//adds new timer
@@ -143,7 +154,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}*/
 		
 		human = new Player(board, 1);
-		comp = new Player(board, 2);
+		comp = new AI(board, 2, 1);
 		
 		this.pack();
 		this.updateMoves();
