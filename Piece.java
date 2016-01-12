@@ -16,6 +16,7 @@ public class Piece
 	public static final int KNIGHT = 3;
 	public static final int ROOK = 4;
 	public static final int PAWN = 5;
+	public static final int COOL_DOWN = 100;
 	private static BufferedImage[] imgs1;
 	private static BufferedImage[] imgs2;
 	
@@ -42,9 +43,9 @@ public class Piece
 	int xPos;
 	int yPos;
 	int pieceID;
-	long coolDown = 0;
 	public BufferedImage img;
 	boolean moved;
+	int coolDown = 0;
 	
 	/**
 	* Main function
@@ -103,6 +104,7 @@ public class Piece
 			this.pieceID = QUEEN;
 			this.img = imgs2[QUEEN];
 		}
+		this.coolDown = COOL_DOWN;
 		GameScreen.updateMoves();
 	}
 	
@@ -112,6 +114,10 @@ public class Piece
 	public void updateMoves()
 	{
 		moves = new ArrayList<Coord>();
+		if(this.coolDown != 0)
+		{
+			return;
+		}
 		switch (pieceID)
 		{
 			case KING:

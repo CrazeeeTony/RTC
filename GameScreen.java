@@ -17,7 +17,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int EDGE_SPACE = 75;
 	
 	int prevMove = 0;
-	public static final int COMP_TIME = 10;
+	public static final int COMP_TIME = 100;
 	
 	static Piece[][] board;
 	
@@ -90,6 +90,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				updateMoves();
 				boardPnl.repaint();
 				boardPnl.revalidate();
 				//check for either player having won
@@ -110,6 +111,15 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					comp.selected = toMake.consider;
 					comp.move(toMake.targetX, toMake.targetY);
 					prevMove = 0;
+				}
+				for(int x = 0; x < BOARD_W; x++)
+				{
+					for(int y = 0; y < BOARD_H; y++)
+					{
+						if(board[x][y] != null && board[x][y].coolDown > 0){
+							board[x][y].coolDown--;
+						}
+					}
 				}
 			}
 		};
@@ -228,7 +238,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 * updates all the moves (for all pieces)
 	 * @author Charles Lei
 	 */
-	public static void updateMoves(){
+	public static void updateMoves()
+	{
 		for (Piece[] row : board)
 		{
 			for (Piece e : row)
@@ -303,7 +314,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			
 			//draw blue square, highlighting
 			paintSelection(g);
-			
+			g.setColor(Color.red);
 			//draws the pieces
 			for(int x = 0; x < BOARD_W; x++)
 			{
@@ -311,9 +322,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				{
 					if(board[x][y] != null)
 					{
+						double ratio = (double)board[x][y].coolDown / Piece.COOL_DOWN;
+						g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, (int)((double)(y + 1 - ratio) * SQUARE_SIZE + EDGE_SPACE), SQUARE_SIZE, (int)(SQUARE_SIZE * ratio + 0.5));
 						//draws the piece
 						g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
-
 					}
 					g.setColor(Color.red);
 					g.drawString("{" + x + ", " + y + "}", x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);

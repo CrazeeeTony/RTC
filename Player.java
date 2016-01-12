@@ -82,7 +82,6 @@ public class Player
 		ArrayList<AI.Move> validMoves = new ArrayList<>();
 		for (Piece considering : controllable)
 		{
-			considering.updateMoves();
 			for (Coord e : considering.moves)
 			{
 				//caution: may be null
