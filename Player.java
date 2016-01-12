@@ -111,6 +111,9 @@ public class Player
 			//cannot be controlled any more, but add it to captured list
 			controllable.remove(e);
 			captured.add(e);
+			//deselect it
+			if (selected == e)
+				selected = null;
 		}
 	}//end member kill
 	
