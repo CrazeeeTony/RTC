@@ -160,7 +160,7 @@ public class AI extends Player
  		//put the pivot in the space remaining
   		buffer[lPoint] = pivot;
  		//write the buffer
-  		for (int e = lBound; e <= rBound; e++)
+  		for(int e = lBound; e <= rBound; e++)
   		{
   			ll[e] = buffer[e];
   		}
