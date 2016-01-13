@@ -105,12 +105,14 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					tm.stop();
 				}
 				prevMove++;
-				if(prevMove == COMP_TIME)
+				if(prevMove >= COMP_TIME)
 				{
 					AI.Move toMake = comp.makeMove(human);
-					comp.selected = toMake.consider;
-					comp.move(toMake.targetX, toMake.targetY);
-					prevMove = 0;
+					if(toMake != null){
+						comp.selected = toMake.consider;
+						comp.move(toMake.targetX, toMake.targetY);
+						prevMove = 0;
+					}
 				}
 				for(int x = 0; x < BOARD_W; x++)
 				{

@@ -121,6 +121,10 @@ public class AI extends Player
  		//sort the moves
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
  		//based on difficulty, select a better or worse move (but never select one out of bounds of the array)
+		if(sortedMoves.length == 0)
+		{
+			return null;
+		}
  		return sortedMoves[Math.min(difficulty, sortedMoves.length - 1)];
  	}//end member makeMove
   	
