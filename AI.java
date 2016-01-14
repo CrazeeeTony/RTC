@@ -40,12 +40,14 @@ public class AI extends Player
 			if (target != null)
 			{
 				if(target.pieceID == Piece.KING)
+				{
 					return -999999999;
+				}
 				takenPieceVal = target.getValue();
 				if(danger[target.xPos][target.yPos])
 				{
 					lossVal += consider.getValue();
-				}	
+				}
 			}
 			if(consider.pieceID == Piece.KING && danger[consider.xPos][consider.yPos] && !danger[targetX][targetY])
 			{
@@ -53,7 +55,7 @@ public class AI extends Player
 			}
 			if(danger[consider.xPos][consider.yPos])
 			{
-				lossVal -= consider.getValue();
+				lossVal += consider.getValue();
 			}
 			return lossVal - takenPieceVal;
 		}
