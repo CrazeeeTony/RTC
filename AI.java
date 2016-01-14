@@ -35,19 +35,21 @@ public class AI extends Player
 		 */
 		public int getOptimal()
 		{
-			if(target != null && target.pieceID == Piece.KING)
+			int takenPieceVal = 0;
+			int lossVal = 0;
+			if (target != null)
 			{
-				return -999999999;
+				if(target.pieceID == Piece.KING)
+					return -999999999;
+				takenPieceVal = target.getValue();
+				if(danger[target.xPos][target.yPos])
+				{
+					lossVal += consider.getValue();
+				}	
 			}
 			if(consider.pieceID == Piece.KING && danger[consider.xPos][consider.yPos] && !danger[targetX][targetY])
 			{
 				return -99999999;
-			}
-			int takenPieceVal = target.getValue();
-			int lossVal = 0;
-			if(danger[target.xPos][target.yPos])
-			{
-				lossVal += consider.getValue();
 			}
 			if(danger[consider.xPos][consider.yPos])
 			{
@@ -70,11 +72,11 @@ public class AI extends Player
 					danger[x][y] = false;
 				}
 			}
-			for(Piece pc : pl.controllable)
+			for (Piece pc : pl.controllable)
 			{
-				for(Coord move : pc.moves)
+				for (Coord move : pc.moves)
 				{
-					if(pc.pieceID != Piece.PAWN || move.x != pc.xPos)
+					if (pc.pieceID != Piece.PAWN || move.x != pc.xPos)
 					{
 						danger[move.x][move.y] = true;
 					}
@@ -88,19 +90,18 @@ public class AI extends Player
 		 */
 		public boolean compare(Move other)
 		{
-			//TEMP
-			return true;
+			return this.getOptimal() < other.getOptimal();
 		}
 	}
 	
  	//represents difficulty: lower is better (subject to change)
- 	public int difficulty;
+ 	public double difficulty;
  	
  	/**
  	 * initialize the underlying Player, but also add in a parameter for the difficulty
 	 * @author Charles Lei
  	 */
- 	public AI(Piece[][] baseBoard, int baseIdentity, int difficulty)
+ 	public AI(Piece[][] baseBoard, int baseIdentity, double difficulty)
  	{
  		super(baseBoard, baseIdentity);
  		this.difficulty = difficulty;
@@ -121,9 +122,10 @@ public class AI extends Player
  		//sort the moves
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
  		//based on difficulty, select a better or worse move (but never select one out of bounds of the array)
-		if(sortedMoves.length == 0)
+		int lastDecentMove = binarySearch(sortedMoves, 1);
+		if(lastDecentMove == -1)
 			return;
- 		Move selectedMove = sortedMoves[Math.min(difficulty, sortedMoves.length - 1)];
+ 		Move selectedMove = sortedMoves[(int)(Math.random() * lastDecentMove)];
 		//make the move
 		this.selected = selectedMove.consider;
 		this.move(selectedMove.targetX, selectedMove.targetY);
@@ -169,4 +171,22 @@ public class AI extends Player
   		quicksort(ll, lBound, lPoint - 1);
   		quicksort(ll, rPoint + 1, rBound);
 	}//end static member quicksort
+	
+	/**
+	 * binary search an array for an element
+	 * returns the last element which is strictly less than the target value
+	 */
+	public int binarySearch(Move[] arr, int val)
+	{
+		int place = -1, jump = arr.length;
+		//this is a totally legit binary search
+		while (jump > 0)
+		{
+			if (place + jump < arr.length && arr[place + jump].getOptimal() < val)
+				place += jump;
+			jump /= 2;
+		}
+		while (place + 1 < arr.length && arr[place + 1].getOptimal() < val) place++;
+		return place;
+	}
  }//end class AI

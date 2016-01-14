@@ -32,11 +32,11 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	BoardPanel boardPnl;
 	
 	JButton btnMenu;
-	JButton btnB;
+	JButton btnOptions;
 	JPanel everything;
 	JLabel message;
 	
-	Piece selectedPiece;
+	//Piece selectedPiece;    DEPRECIATED
 	
 	//variables to store the pixel and board coordinates of the mouse
 	int mouseX = -9999;
@@ -78,9 +78,16 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				da.returnToMenu();
 			}
 		});
-		btnB = new JButton("B");
+		btnOptions = new JButton("B");
+		btnOptions.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				
+			}
+		});
 		b2.add(btnMenu);
-		b2.add(btnB);
+		b2.add(btnOptions);
 		
 		this.add(b1);
 		this.add(b2);
@@ -90,7 +97,11 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				//update all possible moves for players and pieces
 				updateMoves();
+				//update the danger!
+				AI.Move.updateDanger(human);
+				
 				boardPnl.repaint();
 				boardPnl.revalidate();
 				//check for either player having won
