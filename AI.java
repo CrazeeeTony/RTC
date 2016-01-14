@@ -125,7 +125,7 @@ public class AI extends Player
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
  		//based on difficulty, select a better or worse move (but never select one out of bounds of the array)
 		int lastDecentMove = binarySearch(sortedMoves, 1);
-		if(lastDecentMove == -1)
+		if (lastDecentMove == -1)
 			return;
  		Move selectedMove = sortedMoves[(int)(Math.random() * lastDecentMove)];
 		//make the move
@@ -133,18 +133,24 @@ public class AI extends Player
 		this.move(selectedMove.targetX, selectedMove.targetY);
  	}//end member makeMove
   	
+	/**
+	 * overload of quicksort for convenient function calling
+	 */
+	public static void quicksort(Move[] ll, int lBound, int rBound)
+	{
+		quicksort(ll, lBound, rBound, new Move[ll.length]);
+	}
+	
  	/**
  	 * quicksorts an array of Move objects, using the instance compare method
  	 * ascending order, best moves at the front
 	 * @author Charles Lei
  	 */
-  	public static void quicksort(Move[] ll, int lBound, int rBound)
+  	public static void quicksort(Move[] ll, int lBound, int rBound, Move[] buffer)
   	{
  		//if the length within the bound is already sorted (one element or less), stop
   		if (lBound >= rBound) return;
   
- 		//standard quicksort: buffer to store items, pivot
-  		Move[] buffer = new Move[ll.length];
   		Move pivot = ll[lBound];
  		//dynamic pointer variables within the array
   		int lPoint = lBound, rPoint = rBound;
@@ -170,8 +176,8 @@ public class AI extends Player
   			ll[e] = buffer[e];
   		}
 		//done; quicksort the two parts beside the pivot
-  		quicksort(ll, lBound, lPoint - 1);
-  		quicksort(ll, rPoint + 1, rBound);
+  		quicksort(ll, lBound, lPoint - 1, buffer);
+  		quicksort(ll, rPoint + 1, rBound, buffer);
 	}//end static member quicksort
 	
 	/**
