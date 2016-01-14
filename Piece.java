@@ -16,7 +16,7 @@ public class Piece
 	public static final int KNIGHT = 3;
 	public static final int ROOK = 4;
 	public static final int PAWN = 5;
-	public static final int COOL_DOWN = 100;
+	public static int COOL_DOWN = 100;
 	private static BufferedImage[] imgs1;
 	private static BufferedImage[] imgs2;
 	

@@ -25,7 +25,8 @@ public class Main
 		Menu mn;
 		GameScreen gs;
 		/**
-		* Default constructor: 
+		* Default constructor:
+		* @return - void
 		* */
 		public RTC(){
 			mn = new Menu();
@@ -35,6 +36,7 @@ public class Main
 		
 		/**
 		* quits program
+		* @return - void
 		* */
 		public void quitRequest()
 		{
@@ -43,6 +45,7 @@ public class Main
 		
 		/**
 		* starts the game after play is clicked
+		* @return - void
 		* */
 		public void startGameRequest()
 		{
@@ -54,6 +57,7 @@ public class Main
 		
 		/**
 		* returns to menu
+		* @return - void
 		* */
 		public void returnToMenu()
 		{
