@@ -78,7 +78,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				da.returnToMenu();
 			}
 		});
-		btnOptions = new JButton("B");
+		btnOptions = new JButton("pause/options");
 		btnOptions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
