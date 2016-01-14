@@ -337,10 +337,13 @@ public class Piece
 				}
 				break;
 			case PAWN:
+				//human
+				//move forward one square
 				if(player == 1 && Coord.inBoard(xPos, yPos - 1) && GameScreen.board[xPos][yPos - 1] == null)
 				{
 					moves.add(new Coord(xPos, yPos - 1));
 				}
+				//
 				if(player == 1 && Coord.inBoard(xPos + 1, yPos - 1) && GameScreen.board[xPos + 1][yPos - 1] != null && GameScreen.board[xPos + 1][yPos - 1].player != this.player)
 				{
 					moves.add(new Coord(xPos + 1, yPos - 1));
@@ -349,14 +352,17 @@ public class Piece
 				{
 					moves.add(new Coord(xPos - 1, yPos - 1));
 				}
+				//move an extra square the first move
 				if(player == 1 && !moved && Coord.inBoard(xPos, yPos - 2) && GameScreen.board[xPos][yPos - 2] == null && GameScreen.board[xPos][yPos - 1] == null)
 				{
 					moves.add(new Coord(xPos, yPos - 2));
 				}
+				//computer
 				if(player == 2 && Coord.inBoard(xPos, yPos + 1) && GameScreen.board[xPos][yPos + 1] == null)
 				{
 					moves.add(new Coord(xPos, yPos + 1));
 				}
+				//move forward one square
 				if(player == 2 && Coord.inBoard(xPos + 1, yPos + 1) && GameScreen.board[xPos + 1][yPos + 1] != null && GameScreen.board[xPos + 1][yPos + 1].player != this.player)
 				{
 					moves.add(new Coord(xPos + 1, yPos + 1));
@@ -365,6 +371,7 @@ public class Piece
 				{
 					moves.add(new Coord(xPos - 1, yPos + 1));
 				}
+				//move an extra square the first move
 				if(player == 2 && !moved && Coord.inBoard(xPos, yPos + 2) && GameScreen.board[xPos][yPos + 2] == null && GameScreen.board[xPos][yPos + 1] == null)
 				{
 					moves.add(new Coord(xPos, yPos + 2));
