@@ -8,6 +8,7 @@ interface DetectAction
 {
 	void quitRequest();
 	void startGameRequest();
+	void gameOver();
 	void returnToMenu();
 }
 
@@ -24,6 +25,8 @@ public class Main
 		//menu and game screen
 		Menu mn;
 		GameScreen gs;
+		//game over screen
+		GameOverScreen gv;
 		/**
 		* Default constructor:
 		* @return - void
@@ -56,13 +59,25 @@ public class Main
 		}
 		
 		/**
+		 * go to game over screen
+		 *
+		 */
+		public void gameOver()
+		{
+			gs.dispose();
+			gs = null;
+			gv = new GameOverScreen();
+			gv.addDetectAction(this);
+		}
+		
+		/**
 		* returns to menu
 		* @return - void
 		* */
 		public void returnToMenu()
 		{
-			gs.setVisible(false);
-			gs = null;
+			gv.dispose();
+			gv = null;
 			mn.setVisible(true);
 		}
 	}

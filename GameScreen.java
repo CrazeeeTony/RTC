@@ -70,15 +70,17 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		b1.add(boardPnl);
 		
 		Box b2 = Box.createHorizontalBox();
-		btnMenu = new JButton("Return to Menu");
+		btnMenu = new JButton("Quit");
+		btnMenu.setPreferredSize(new Dimension(150, 50));
 		btnMenu.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				da.returnToMenu();
+				da.gameOver();
 			}
 		});
 		btnOptions = new JButton("pause/options");
+		btnOptions.setPreferredSize(new Dimension(150, 50));
 		btnOptions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
