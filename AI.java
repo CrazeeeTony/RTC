@@ -110,7 +110,7 @@ public class AI extends Player
  	 * get a move out of all possible ones
 	 * @author Charles Lei
  	 */
- 	public Move makeMove(Player opponent)
+ 	public void makeMove(Player opponent)
  	{
  		//opponent is unused right now, will be implemented later to increase the "danger" values of certain spaces
  		
@@ -122,10 +122,11 @@ public class AI extends Player
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
  		//based on difficulty, select a better or worse move (but never select one out of bounds of the array)
 		if(sortedMoves.length == 0)
-		{
-			return null;
-		}
- 		return sortedMoves[Math.min(difficulty, sortedMoves.length - 1)];
+			return;
+ 		Move selectedMove = sortedMoves[Math.min(difficulty, sortedMoves.length - 1)];
+		//make the move
+		this.selected = selectedMove.consider;
+		this.move(selectedMove.targetX, selectedMove.targetY);
  	}//end member makeMove
   	
  	/**

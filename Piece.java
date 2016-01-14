@@ -113,6 +113,10 @@ public class Piece
 	 */
 	public void updateMoves()
 	{
+		//update the cooldown first
+		if (coolDown > 0)
+			coolDown--;
+		
 		moves = new ArrayList<Coord>();
 		if(this.coolDown != 0)
 		{

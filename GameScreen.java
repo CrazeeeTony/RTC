@@ -107,21 +107,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				prevMove++;
 				if(prevMove >= COMP_TIME)
 				{
-					AI.Move toMake = comp.makeMove(human);
-					if(toMake != null){
-						comp.selected = toMake.consider;
-						comp.move(toMake.targetX, toMake.targetY);
-						prevMove = 0;
-					}
-				}
-				for(int x = 0; x < BOARD_W; x++)
-				{
-					for(int y = 0; y < BOARD_H; y++)
-					{
-						if(board[x][y] != null && board[x][y].coolDown > 0){
-							board[x][y].coolDown--;
-						}
-					}
+					comp.makeMove(human);
+					prevMove = 0;
 				}
 			}
 		};
@@ -156,14 +143,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		for(int x = 0; x < BOARD_W; x++){
 			board[x][BOARD_H - 2] = 		new Piece(1, x, BOARD_H - 2, Piece.PAWN);
 		}
-		
-		/*for(int x = 0; x < BOARD_W; x++){
-			for(int y = 0; y < BOARD_H; y++){
-				if(board[x][y] != null && (board[x][y].xPos != x || board[x][y].xPos != x)){
-					System.out.println(x + " " + y);
-				}
-			}
-		}*/
 		
 		human = new Player(board, 1);
 		comp = new AI(board, 2, 1);
@@ -242,6 +221,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 */
 	public static void updateMoves()
 	{
+		human.updateMoves();
+		comp.updateMoves();
+		/*
 		for (Piece[] row : board)
 		{
 			for (Piece e : row)
@@ -250,6 +232,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					e.updateMoves();
 			}
 		}
+		*/
 	}//end static member updateMoves
 	
 	/**

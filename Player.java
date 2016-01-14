@@ -9,6 +9,8 @@ public class Player
 	ArrayList<Piece> controllable = new ArrayList<>();
 	ArrayList<Piece> captured = new ArrayList<>();
 	Piece selected;
+	//score for the highscore
+	double score = 100.0;
 	
 	/**
 	 * give a board (Piece 2D array) and integer to find all belonging pieces
@@ -114,8 +116,22 @@ public class Player
 			//deselect it
 			if (selected == e)
 				selected = null;
+			//update score for a piece lost
+			score -= 5.0;
 		}
 	}//end member kill
+	
+	/**
+	 * update moves for all this player's pieces
+	 */
+	public void updateMoves()
+	{
+		//update all moves for all pieces
+		for (Piece e : controllable)
+			e.updateMoves();
+		//update score (score goes down 0.001% every game tick, from 100%)
+		score -= 0.001;
+	}
 	
 }//end class Player
 
