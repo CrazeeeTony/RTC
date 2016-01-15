@@ -24,12 +24,12 @@ public class GameOverScreen extends JFrame implements ActionListener
 	ArrayList<Double> scores = new ArrayList<>();
 	double score;
 	
-	public GameOverScreen()
+	public GameOverScreen(int windowX, int windowY)
 	{
-		this(GameScreen.human, GameScreen.comp);
+		this(GameScreen.human, GameScreen.comp, windowX, windowY);
 	}
 	
-	public GameOverScreen(Player user, Player computer)
+	public GameOverScreen(Player user, Player computer, int windowX, int windowY)
 	{
 		//set the message
 		super((user.hasLost()) ? "computer wins" : ((computer.hasLost()) ? "user wins" : "stalemate"));
@@ -65,7 +65,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 		everything.setLayout(new BoxLayout(everything, BoxLayout.X_AXIS));
 		everything.setPreferredSize(new Dimension(600, 400));
 		
-		setSize(1000, 700);
+		this.changeSize(windowX, windowY);
 		
 		this.add(everything);
 		this.pack();
@@ -154,7 +154,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 		}
 	}
 	
-	public void setSize(int newX, int newY)
+	public void changeSize(int newX, int newY)
 	{
 		everything.setPreferredSize(new Dimension(newX, newY));
 		info.setPreferredSize(new Dimension(newX - 300, newY));

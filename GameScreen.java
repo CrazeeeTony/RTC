@@ -46,7 +46,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 *
 	 * @author Tony Li
 	 */
-	public GameScreen()
+	public GameScreen(int windowX, int windowY)
 	{
 		super("RTC");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,6 +163,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		human = new Player(board, 1);
 		comp = new AI(board, 2, 1);
 		
+		changeSize(windowX, windowY);
+		
 		this.pack();
 		this.updateMoves();
 	}//end default constructor GameScreen()
@@ -239,17 +241,12 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	{
 		human.updateMoves();
 		comp.updateMoves();
-		/*
-		for (Piece[] row : board)
-		{
-			for (Piece e : row)
-			{
-				if (e != null)
-					e.updateMoves();
-			}
-		}
-		*/
 	}//end static member updateMoves
+	
+	public void changeSize(int newX, int newY)    //////////////////////////////////////
+	{
+		
+	}
 	
 	/**
 	 * class where the actual board is drawn

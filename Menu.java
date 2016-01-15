@@ -36,7 +36,7 @@ public class Menu extends JFrame implements ActionListener
 	/**
 	 * set up the menu
 	 */
-	public Menu()
+	public Menu(int windowX, int windowY)
 	{
 		super("RTC");
 		
@@ -98,7 +98,8 @@ public class Menu extends JFrame implements ActionListener
 		everything.setPreferredSize(new Dimension(600,400));
 		everything.setLayout(new BoxLayout(everything, BoxLayout.X_AXIS));
 		
-		changeSize(1000, 700);
+		this.changeSize(windowX, windowY);
+		
 		//set up the frame
 		this.add(everything);
 		this.pack();
@@ -171,12 +172,6 @@ public class Menu extends JFrame implements ActionListener
 		graphicPanel.setPreferredSize(new Dimension(newX - 300, newY));
 		information.setPreferredSize(new Dimension(300, newY));
 		textPanel.setPreferredSize(new Dimension(300, newY - 200));
-	}
-	
-	public void validate()           /////////////////////////
-	{
-		super.validate();
-		changeSize(this.getContentPane().getSize().width, this.getContentPane().getSize().height);
 	}
 	
 	/**

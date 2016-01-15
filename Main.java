@@ -25,17 +25,20 @@ public class Main
 //class to handle the menu and game screen
 class DetectAction// implements DetectAction
 {
+	//size of all windows
+	int windowX = 1000, windowY = 700;
 	//menu and game screen
 	Menu mn;
 	GameScreen gs;
 	//game over screen
 	GameOverScreen gv;
+	
 	/**
 	* Default constructor:
 	* @return - void
 	* */
 	public DetectAction(){
-		mn = new Menu();
+		mn = new Menu(windowX, windowY);
 		mn.addDetectAction(this);
 		mn.setVisible(true);
 	}
@@ -57,7 +60,7 @@ class DetectAction// implements DetectAction
 	{
 		terminate(mn);
 		terminate(gv);
-		gs = new GameScreen();
+		gs = new GameScreen(windowX, windowY);
 		gs.addDetectAction(this);
 		gs.setVisible(true);
 	}
@@ -70,7 +73,7 @@ class DetectAction// implements DetectAction
 	{
 		terminate(mn);
 		terminate(gs);
-		gv = new GameOverScreen();
+		gv = new GameOverScreen(windowX, windowY);
 		gv.addDetectAction(this);
 		gv.setVisible(true);
 	}
@@ -83,7 +86,7 @@ class DetectAction// implements DetectAction
 	{
 		terminate(gs);
 		terminate(gv);
-		mn = new Menu();
+		mn = new Menu(windowX, windowY);
 		mn.addDetectAction(this);
 		mn.setVisible(true);
 	}

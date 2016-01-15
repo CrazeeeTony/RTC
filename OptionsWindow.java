@@ -40,7 +40,7 @@ public class OptionsWindow extends JFrame implements ActionListener
 		everything.setLayout(new BoxLayout(everything, BoxLayout.X_AXIS));
 		everything.setPreferredSize(new Dimension(600, 400));
 		
-		setSize(1000, 700);
+		changeSize(creator.da.windowX, creator.da.windowY);
 		
 		this.add(everything);
 		this.pack();
@@ -65,7 +65,7 @@ public class OptionsWindow extends JFrame implements ActionListener
 		}
 	}
 	
-	public void setSize(int newX, int newY)
+	public void changeSize(int newX, int newY)
 	{
 		everything.setPreferredSize(new Dimension(newX, newY));
 		message.setPreferredSize(new Dimension(newX - 300, newY));

@@ -106,9 +106,7 @@ public class AI extends Player
 	 * @author Charles Lei
  	 */
  	public void makeMove(Player opponent)
- 	{
- 		//opponent is unused right now, will be implemented later to increase the "danger" values of certain spaces
- 		
+ 	{ 		
  		//get all the moves, convert from ArrayList to array
  		ArrayList<Move> availableMoves = this.getAllMoves();
  		Move[] sortedMoves = new Move[availableMoves.size()];
@@ -116,11 +114,15 @@ public class AI extends Player
  		//sort the moves
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
  		//based on difficulty, select a better or worse move (but never select one out of bounds of the array)
-		int lastDecentMove = binarySearch(sortedMoves, 0);
-		if (lastDecentMove == -1)
+		int lastGoodMove = binarySearch(sortedMoves, 0);
+		//no good move available, make a neutral move
+		if (lastGoodMove == -1)
+			lastGoodMove = binarySearch(sortedMoves, 1);
+		//no decent move available, don't make any move
+		if (lastGoodMove == -1)
 			return;
- 		Move selectedMove = sortedMoves[(int)(Math.random() * lastDecentMove)];
 		//make the move
+ 		Move selectedMove = sortedMoves[(int)(Math.random() * lastGoodMove)];
 		this.selected = selectedMove.consider;
 		this.move(selectedMove.targetX, selectedMove.targetY);
  	}//end member makeMove
