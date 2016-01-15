@@ -178,15 +178,19 @@ public class AI extends Player
 	 */
 	public int binarySearch(Move[] arr, int val)
 	{
+		//place: keep track of the lowest possible place to be searched
+		//jump: keep track of the distance from the lowest place to the highest
 		int place = -1, jump = arr.length;
 		//this is a totally legit binary search
 		while (jump > 0)
 		{
 			if (place + jump < arr.length && arr[place + jump].getOptimal() < val)
 				place += jump;
+			//jump repreatedly halves
 			jump /= 2;
 		}
-		while (place + 1 < arr.length && arr[place + 1].getOptimal() < val) place++;
+		while (place + 1 < arr.length && arr[place + 1].getOptimal() < val)
+			place++;
 		return place;
 	}
  }//end class AI

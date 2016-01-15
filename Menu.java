@@ -29,6 +29,7 @@ public class Menu extends JFrame implements ActionListener
 		new JButton("play game"),
 		new JButton("help"),
 		new JButton("highscores"),
+		new JButton("settings"),
 		new JButton("quit")
 	};
 	
@@ -58,6 +59,7 @@ public class Menu extends JFrame implements ActionListener
 		textPanel.add(title);
 		textPanel.add(message);
 		textPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
+		textPanel.setPreferredSize(new Dimension(300, 200));
 		
 		for (JButton e : buttons)
 		{
@@ -68,6 +70,7 @@ public class Menu extends JFrame implements ActionListener
 
 		//button panel contains the interactive components (JButtons) in the bottom right
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
+		buttonPanel.setPreferredSize(new Dimension(300, 200));
 
 		//add panels to a background panel for message display and buttons, set layout
 		information.add(textPanel);
@@ -95,6 +98,7 @@ public class Menu extends JFrame implements ActionListener
 		everything.setPreferredSize(new Dimension(600,400));
 		everything.setLayout(new BoxLayout(everything, BoxLayout.X_AXIS));
 		
+		changeSize(1000, 700);
 		//set up the frame
 		this.add(everything);
 		this.pack();
@@ -144,6 +148,10 @@ public class Menu extends JFrame implements ActionListener
 				}
 				break;
 			case 3:
+				//clicked "settings"
+				//da.setupWindow();
+				break;
+			case 4:
 				//clicked "quit"
 				da.quitRequest();
 				break;
@@ -153,7 +161,26 @@ public class Menu extends JFrame implements ActionListener
 	}//end member actionPerformed
 	
 	/**
-	 * @override
+	 * resize method
+	 * shifts all components
+	 */
+	public void changeSize(int newX, int newY)
+	{
+		everything.setPreferredSize(new Dimension(newX, newY));
+		picture.setPreferredSize(new Dimension(newX - 300, newY));
+		graphicPanel.setPreferredSize(new Dimension(newX - 300, newY));
+		information.setPreferredSize(new Dimension(300, newY));
+		textPanel.setPreferredSize(new Dimension(300, newY - 200));
+	}
+	
+	public void validate()           /////////////////////////
+	{
+		super.validate();
+		changeSize(this.getContentPane().getSize().width, this.getContentPane().getSize().height);
+	}
+	
+	/**
+	 * 
 	 */
 	public void addDetectAction(DetectAction d)
 	{
