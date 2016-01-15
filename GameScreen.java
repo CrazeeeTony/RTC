@@ -99,10 +99,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				AI.Move.clearDanger();
 				//update all possible moves for players and pieces
 				updateMoves();
-				//update the danger!
-				AI.Move.updateDanger(human);
+				//clear the danger!
 				
 				boardPnl.repaint();
 				boardPnl.revalidate();
@@ -295,6 +295,12 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				for(int y = 0; y < BOARD_H; y++)
 				{
+					if(AI.danger[x][y])
+					{
+						g.setColor(Color.orange);
+						g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+						System.out.println((x * SQUARE_SIZE + EDGE_SPACE) + " " + (y * SQUARE_SIZE + EDGE_SPACE) + " " + SQUARE_SIZE + " " + SQUARE_SIZE);
+					}
 					//alternates between brown and white squares
 					if((x + y) % 2 == 0)
 					{
@@ -309,7 +315,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
 				}
 			}
-			
 			//draw blue square, highlighting
 			paintSelection(g);
 			g.setColor(Color.red);

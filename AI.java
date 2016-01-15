@@ -5,12 +5,12 @@ import java.util.ArrayList;
  */
 public class AI extends Player
 {
+	static boolean danger[][] = new boolean [GameScreen.BOARD_W][GameScreen.BOARD_H];
 	//objects used to represent possible moves
 	//used to classify moves by how optimal they are
 	//also used to store information about moves easily (piece, place, etc.)
 	static class Move
 	{
-		static boolean danger[][] = new boolean [GameScreen.BOARD_W][GameScreen.BOARD_H];
 		Piece consider;
 		Piece target;
 		int targetX, targetY;
@@ -61,27 +61,17 @@ public class AI extends Player
 		}
 		
 		/**
-		 * Update the 2D array which indicates dangerous squares
+		 * Set the entire 2D array which indicates dangerous squares as safe
 		 * @param Player pl - the human player
 		 * @author Tony Li
 		 */
-		public static void updateDanger(Player pl)
+		public static void clearDanger()
 		{
 			for(int x = 0; x < danger.length; x++)
 			{
 				for(int y = 0; y < danger[x].length; y++)
 				{
 					danger[x][y] = false;
-				}
-			}
-			for (Piece pc : pl.controllable)
-			{
-				for (Coord move : pc.moves)
-				{
-					if (pc.pieceID != Piece.PAWN || move.x != pc.xPos)
-					{
-						danger[move.x][move.y] = true;
-					}
 				}
 			}
 		}
