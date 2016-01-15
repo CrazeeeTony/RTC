@@ -11,12 +11,14 @@ public class GameOverScreen extends JFrame implements ActionListener
 	public static final String LINE_END = "<br><\br>";
 	
 	DetectAction da;
-	JLabel scoreDisplay = new JLabel();
-	JLabel message = new JLabel();
-	JTextField nameField = new JTextField();
-	JButton submit = new JButton("submit score");
-	JButton toMenu = new JButton("return to menu");
-	JPanel everything = new JPanel();
+	JPanel info = 			new JPanel();
+	JLabel scoreDisplay = 	new JLabel();
+	JLabel message = 		new JLabel();
+	JTextField nameField = 	new JTextField();
+	JPanel buttonPanel = 	new JPanel();
+	JButton submit = 		new JButton("submit score");
+	JButton toMenu = 		new JButton("return to menu");
+	JPanel everything = 	new JPanel();
 	//high score variables
 	ArrayList<String> names = new ArrayList<>();
 	ArrayList<Double> scores = new ArrayList<>();
@@ -36,28 +38,37 @@ public class GameOverScreen extends JFrame implements ActionListener
 		this.score = user.score;
 		updateScores();
 		
-		everything.add(scoreDisplay);
+		info.add(scoreDisplay);
 		
 		message.setText("Your final score is " + score + ". Enter your name:");
-		everything.add(message);
+		info.add(message);
 		
 		nameField.setPreferredSize(new Dimension(150, 50));
-		everything.add(nameField);
+		info.add(nameField);
 		
-		submit.setPreferredSize(new Dimension(150, 50));
+		info.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
+		info.setPreferredSize(new Dimension(300, 400));
+		
+		submit.setPreferredSize(new Dimension(150, 35));
 		submit.addActionListener(this);
-		everything.add(submit);
+		buttonPanel.add(submit);
 		
-		toMenu.setPreferredSize(new Dimension(150, 50));
+		toMenu.setPreferredSize(new Dimension(150, 35));
 		toMenu.addActionListener(this);
-		everything.add(toMenu);
+		buttonPanel.add(toMenu);
 		
-		everything.setLayout(new BoxLayout(everything, BoxLayout.Y_AXIS));
-		//everything.setPreferredSize(new Dimension(600, 400));
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
+		buttonPanel.setPreferredSize(new Dimension(300, 400));
+		
+		everything.add(info);
+		everything.add(buttonPanel);
+		everything.setLayout(new BoxLayout(everything, BoxLayout.X_AXIS));
+		everything.setPreferredSize(new Dimension(600, 400));
+		
+		setSize(1000, 700);
 		
 		this.add(everything);
 		this.pack();
-		this.setVisible(true);
 	}
 	
 	public void updateScores()
@@ -72,7 +83,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 			while (reading.hasNext())
 			{
 				//scan a name & score (double)
-				names.add(reading.next());
+				names.add(reading.next());				//ISSUE: does not work if user enters spaces
 				scores.add(reading.nextDouble());
 				reading.nextLine();
 			}
@@ -141,6 +152,13 @@ public class GameOverScreen extends JFrame implements ActionListener
 			//back to menu
 			da.returnToMenu();
 		}
+	}
+	
+	public void setSize(int newX, int newY)
+	{
+		everything.setPreferredSize(new Dimension(newX, newY));
+		info.setPreferredSize(new Dimension(newX - 300, newY));
+		buttonPanel.setPreferredSize(new Dimension(300, newY));
 	}
 	
 	public void addDetectAction(DetectAction da)
