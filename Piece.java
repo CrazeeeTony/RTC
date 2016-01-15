@@ -132,7 +132,8 @@ public class Piece
 						{
 							int newX = xPos + i;
 							int newY = yPos + j;
-							if(Coord.inBoard(newX, newY)){
+							if(Coord.inBoard(newX, newY))
+							{
 								if(this.player == 1)
 								{
 									AI.danger[newX][newY] = true;
@@ -170,12 +171,12 @@ public class Piece
 					int newY = yPos + x;
 					if(Coord.inBoard(newX, newY))
 					{
+						if(this.player == 1)
+						{
+							AI.danger[newX][newY] = true;
+						}
 						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player)
 						{
-							if(this.player == 1)
-							{
-								AI.danger[newX][newY] = true;
-							}
 							break;
 						}
 						if(this.coolDown == 0)
@@ -198,12 +199,12 @@ public class Piece
 					int newY = yPos - x;
 					if(Coord.inBoard(newX, newY))
 					{
+						if(this.player == 1)
+						{
+							AI.danger[newX][newY] = true;
+						}
 						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player)
 						{
-							if(this.player == 1)
-							{
-								AI.danger[newX][newY] = true;
-							}
 							break;
 						}
 						if(this.coolDown == 0)
@@ -226,12 +227,12 @@ public class Piece
 					int newY = yPos + x;
 					if(Coord.inBoard(newX, newY))
 					{
+						if(this.player == 1)
+						{
+							AI.danger[newX][newY] = true;
+						}
 						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player)
 						{
-							if(this.player == 1)
-							{
-								AI.danger[newX][newY] = true;
-							}
 							break;
 						}
 						if(this.coolDown == 0)
@@ -254,12 +255,13 @@ public class Piece
 					int newY = yPos - x;
 					if(Coord.inBoard(newX, newY))
 					{
+						if(this.player == 1)
+						{
+							AI.danger[newX][newY] = true;
+						}
 						if(GameScreen.board[newX][newY] != null && GameScreen.board[newX][newY].player == this.player)
 						{
-							if(this.player == 1)
-							{
-								AI.danger[newX][newY] = true;
-							}
+
 							break;
 						}
 						if(this.coolDown == 0)
@@ -286,7 +288,10 @@ public class Piece
 					int newY = yPos + offset[x][1];
 					if(Coord.inBoard(newX, newY))
 					{
-						AI.danger[newX][newY] = true;
+						if(this.player == 1)
+						{
+							AI.danger[newX][newY] = true;
+						}
 						if((GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player))
 						{
 							moves.add(new Coord(newX, newY));
@@ -301,11 +306,18 @@ public class Piece
 					int newX = xPos + x;
 					if(Coord.inBoard(newX, yPos))
 					{
+						if(this.player == 1)
+						{
+							AI.danger[newX][yPos] = true;
+						}
 						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player == this.player)
 						{
 							break;
 						}
-						moves.add(new Coord(newX, yPos));
+						if(this.coolDown == 0)
+						{
+							moves.add(new Coord(newX, yPos));
+						}
 						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player != this.player)
 						{
 							break;
@@ -321,11 +333,18 @@ public class Piece
 					int newX = xPos - x;
 					if(Coord.inBoard(newX, yPos))
 					{
+						if(this.player == 1)
+						{
+							AI.danger[newX][yPos] = true;
+						}
 						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player == this.player)
 						{
 							break;
 						}
-						moves.add(new Coord(newX, yPos));
+						if(this.coolDown == 0)
+						{
+							moves.add(new Coord(newX, yPos));
+						}
 						if(GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player != this.player)
 						{
 							break;
@@ -341,11 +360,19 @@ public class Piece
 					int newY = yPos + x;
 					if(Coord.inBoard(xPos, newY))
 					{
+						if(this.player == 1)
+						{
+							AI.danger[xPos][newY] = true;
+						}
+
 						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player == this.player)
 						{
 							break;
 						}
-						moves.add(new Coord(xPos, newY));
+						if(this.coolDown == 0)
+						{
+							moves.add(new Coord(xPos, newY));
+						}
 						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player != this.player)
 						{
 							break;
@@ -359,12 +386,20 @@ public class Piece
 				for(int x = 1; x < GameScreen.BOARD_H; x++)
 				{
 					int newY = yPos - x;
-					if(Coord.inBoard(xPos, newY)){
+					if(Coord.inBoard(xPos, newY))
+					{
+						if(this.player == 1)
+						{
+							AI.danger[xPos][newY] = true;
+						}
 						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player == this.player)
 						{
 							break;
 						}
-						moves.add(new Coord(xPos, newY));
+						if(this.coolDown == 0)
+						{
+							moves.add(new Coord(xPos, newY));
+						}
 						if(GameScreen.board[xPos][newY] != null && GameScreen.board[xPos][newY].player != this.player)
 						{
 							break;
@@ -379,44 +414,56 @@ public class Piece
 			case PAWN:
 				//human
 				//move forward one square
-				if(player == 1 && Coord.inBoard(xPos, yPos - 1) && GameScreen.board[xPos][yPos - 1] == null)
+				if(player == 1 && Coord.inBoard(xPos, yPos - 1) && GameScreen.board[xPos][yPos - 1] == null && this.coolDown == 0)
 				{
 					moves.add(new Coord(xPos, yPos - 1));
 				}
 				//
-				if(player == 1 && Coord.inBoard(xPos + 1, yPos - 1) && GameScreen.board[xPos + 1][yPos - 1] != null && GameScreen.board[xPos + 1][yPos - 1].player != this.player)
+				if(player == 1 && Coord.inBoard(xPos + 1, yPos - 1))
 				{
-					moves.add(new Coord(xPos + 1, yPos - 1));
+					AI.danger[xPos + 1][yPos - 1] = true;
+					if(GameScreen.board[xPos + 1][yPos - 1] != null && GameScreen.board[xPos + 1][yPos - 1].player != this.player && this.coolDown == 0)
+					{
+						moves.add(new Coord(xPos + 1, yPos - 1));
+					}
 				}
-				if(player == 1 && Coord.inBoard(xPos - 1, yPos - 1) && GameScreen.board[xPos - 1][yPos - 1] != null && GameScreen.board[xPos - 1][yPos - 1].player != this.player)
+				if(player == 1 && Coord.inBoard(xPos - 1, yPos - 1))
 				{
-					moves.add(new Coord(xPos - 1, yPos - 1));
+					AI.danger[xPos - 1][yPos - 1] = true;
+					if(GameScreen.board[xPos - 1][yPos - 1] != null && GameScreen.board[xPos - 1][yPos - 1].player != this.player && this.coolDown == 0)
+					{
+						moves.add(new Coord(xPos - 1, yPos - 1));
+					}
 				}
 				//move an extra square the first move
 				if(player == 1 && !moved && Coord.inBoard(xPos, yPos - 2) && GameScreen.board[xPos][yPos - 2] == null && GameScreen.board[xPos][yPos - 1] == null)
 				{
 					moves.add(new Coord(xPos, yPos - 2));
 				}
-				//computer
-				if(player == 2 && Coord.inBoard(xPos, yPos + 1) && GameScreen.board[xPos][yPos + 1] == null)
-				{
-					moves.add(new Coord(xPos, yPos + 1));
+				if(player == 2 && coolDown == 0){
+					if(Coord.inBoard(xPos, yPos + 1) && GameScreen.board[xPos][yPos + 1] == null)
+					{
+						moves.add(new Coord(xPos, yPos + 1));
+					}
+					//move forward one square
+					if(Coord.inBoard(xPos + 1, yPos + 1) && GameScreen.board[xPos + 1][yPos + 1] != null && GameScreen.board[xPos + 1][yPos + 1].player != this.player)
+					{
+						moves.add(new Coord(xPos + 1, yPos + 1));
+					}
+					if(Coord.inBoard(xPos - 1, yPos + 1) && GameScreen.board[xPos - 1][yPos + 1] != null && GameScreen.board[xPos - 1][yPos + 1].player != this.player)
+					{
+						moves.add(new Coord(xPos - 1, yPos + 1));
+					}
+					//move an extra square the first move
+					if(!moved && Coord.inBoard(xPos, yPos + 2) && GameScreen.board[xPos][yPos + 2] == null && GameScreen.board[xPos][yPos + 1] == null)
+					{
+						moves.add(new Coord(xPos, yPos + 2));
+					}
+					break;
 				}
-				//move forward one square
-				if(player == 2 && Coord.inBoard(xPos + 1, yPos + 1) && GameScreen.board[xPos + 1][yPos + 1] != null && GameScreen.board[xPos + 1][yPos + 1].player != this.player)
-				{
-					moves.add(new Coord(xPos + 1, yPos + 1));
+				else{
+					break;
 				}
-				if(player == 2 && Coord.inBoard(xPos - 1, yPos + 1) && GameScreen.board[xPos - 1][yPos + 1] != null && GameScreen.board[xPos - 1][yPos + 1].player != this.player)
-				{
-					moves.add(new Coord(xPos - 1, yPos + 1));
-				}
-				//move an extra square the first move
-				if(player == 2 && !moved && Coord.inBoard(xPos, yPos + 2) && GameScreen.board[xPos][yPos + 2] == null && GameScreen.board[xPos][yPos + 1] == null)
-				{
-					moves.add(new Coord(xPos, yPos + 2));
-				}
-				break;
 		}
 	}//end updateMoves
 	
@@ -429,15 +476,15 @@ public class Piece
 			case KING:
 				return 999;
 			case QUEEN:
-				return 9;
+				return 18;
 			case ROOK:
-				return 5;
+				return 10;
 			case BISHOP:
-				return 3;
+				return 6;
 			case KNIGHT:
-				return 3;
+				return 6;
 			case PAWN:
-				return 1;
+				return 2;
 		}
 		return 0;
 	}

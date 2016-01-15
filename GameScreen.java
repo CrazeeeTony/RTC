@@ -79,7 +79,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		});
 		btnOptions = new JButton("pause/options");
 		btnOptions.setPreferredSize(new Dimension(150, 50));
-		GameScreen this_ = this;
+		final GameScreen this_ = this;
 		btnOptions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -298,12 +298,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				for(int y = 0; y < BOARD_H; y++)
 				{
-					if(AI.danger[x][y])
-					{
-						g.setColor(Color.orange);
-						g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
-						System.out.println((x * SQUARE_SIZE + EDGE_SPACE) + " " + (y * SQUARE_SIZE + EDGE_SPACE) + " " + SQUARE_SIZE + " " + SQUARE_SIZE);
-					}
 					//alternates between brown and white squares
 					if((x + y) % 2 == 0)
 					{
@@ -385,6 +379,13 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				grfx.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
 			}
+			for(int x = 0; x < 8; x++)
+							for(int y = 0; y < 8; y++)
+								if(AI.danger[x][y])
+					{
+						grfx.setColor(Color.orange);
+						grfx.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+					}
 		}//end member paintSelection
 	}//end BoardPanel
 }//end GameScreen
