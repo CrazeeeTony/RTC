@@ -36,8 +36,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	JPanel everything;
 	JLabel message;
 	
-	//Piece selectedPiece;    DEPRECIATED
-	
 	//variables to store the pixel and board coordinates of the mouse
 	int mouseX = -9999;
 	int mouseY = -9999;
@@ -81,11 +79,13 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		});
 		btnOptions = new JButton("pause/options");
 		btnOptions.setPreferredSize(new Dimension(150, 50));
+		GameScreen this_ = this;
 		btnOptions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				new OptionsWindow(this_);
+				tm.stop();
 			}
 		});
 		b2.add(btnMenu);
@@ -111,11 +111,14 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				{
 					boardPnl.message = "computer won";
 					tm.stop();
+					//disable the options menu because otherwise the timer can be restarted through there
+					btnOptions.setEnabled(false);
 				}
 				else if (comp.hasLost())
 				{
 					boardPnl.message = "player won";
 					tm.stop();
+					btnOptions.setEnabled(false);
 				}
 				prevMove++;
 				if(prevMove >= COMP_TIME)

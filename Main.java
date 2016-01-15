@@ -19,6 +19,15 @@ public class Main
 		RTC rtc = new RTC();
 	}
 	
+	/**
+	 * given a JFrame of some kind, checks for null and closes it
+	 */
+	public static void terminate(JFrame item)
+	{
+		if (item != null)
+			item.dispose();
+	}
+	
 	//class to handle the menu and game screen
 	static class RTC implements DetectAction
 	{
@@ -52,7 +61,8 @@ public class Main
 		* */
 		public void startGameRequest()
 		{
-			mn.setVisible(false);
+			terminate(mn);
+			terminate(gv);
 			gs = new GameScreen();
 			gs.addDetectAction(this);
 			gs.setVisible(true);
@@ -64,10 +74,11 @@ public class Main
 		 */
 		public void gameOver()
 		{
-			gs.dispose();
-			gs = null;
+			terminate(mn);
+			terminate(gs);
 			gv = new GameOverScreen();
 			gv.addDetectAction(this);
+			gv.setVisible(true);
 		}
 		
 		/**
@@ -76,8 +87,10 @@ public class Main
 		* */
 		public void returnToMenu()
 		{
-			gv.dispose();
-			gv = null;
+			terminate(gs);
+			terminate(gv);
+			mn = new Menu();
+			mn.addDetectAction(this);
 			mn.setVisible(true);
 		}
 	}

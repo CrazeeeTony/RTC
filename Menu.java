@@ -98,7 +98,6 @@ public class Menu extends JFrame implements ActionListener
 		//set up the frame
 		this.add(everything);
 		this.pack();
-		this.setVisible(true);
 	}//end default constructor ()
 	
 	/**

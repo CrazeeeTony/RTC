@@ -3,6 +3,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
+/**
+ * pops up when game is over
+ */
 public class GameOverScreen extends JFrame implements ActionListener
 {
 	public static final String LINE_END = "<br><\br>";
