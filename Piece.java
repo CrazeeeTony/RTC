@@ -292,7 +292,7 @@ public class Piece
 						{
 							AI.danger[newX][newY] = true;
 						}
-						if((GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player))
+						if((GameScreen.board[newX][newY] == null || GameScreen.board[newX][newY].player != this.player) && this.coolDown == 0)
 						{
 							moves.add(new Coord(newX, newY));
 						}
@@ -461,7 +461,8 @@ public class Piece
 					}
 					break;
 				}
-				else{
+				else
+				{
 					break;
 				}
 		}

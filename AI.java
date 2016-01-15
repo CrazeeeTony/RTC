@@ -37,32 +37,29 @@ public class AI extends Player
 		{
 			int takenPieceVal = 0;
 			int lossVal = 0;
-			int saveVal = 0;
-			if (target != null)
+			if(target != null)
 			{
+				//capturing a king is the best
 				if(target.pieceID == Piece.KING)
 				{
 					return -999999999;
 				}
 				takenPieceVal = target.getValue() + 1;
-				if(danger[target.xPos][target.yPos])
-				{
-					lossVal += consider.getValue();
-				}
 			}
+			//always try to protect the king
 			if(consider.pieceID == Piece.KING && danger[consider.xPos][consider.yPos] && !danger[targetX][targetY])
 			{
 				return -99999999;
 			}
-			if(danger[consider.xPos][consider.yPos])
+			if(danger[targetX][targetY])
 			{
 				lossVal += consider.getValue();
-				if(!danger[targetX][targetY])
+				if(danger[consider.xPos][consider.yPos])
 				{
-					saveVal = consider.getValue();
+					lossVal -= consider.getValue();
 				}
 			}
-			return lossVal - takenPieceVal - saveVal;
+			return (lossVal - takenPieceVal) * 10 + consider.yPos - targetY;
 		}
 		
 		/**
@@ -119,7 +116,7 @@ public class AI extends Player
  		//sort the moves
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
  		//based on difficulty, select a better or worse move (but never select one out of bounds of the array)
-		int lastDecentMove = binarySearch(sortedMoves, 1);
+		int lastDecentMove = binarySearch(sortedMoves, 0);
 		if (lastDecentMove == -1)
 			return;
  		Move selectedMove = sortedMoves[(int)(Math.random() * lastDecentMove)];
