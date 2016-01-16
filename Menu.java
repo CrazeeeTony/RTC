@@ -191,6 +191,8 @@ public class Menu extends JFrame implements ActionListener
 				catch (IOException e)
 				{
 					System.out.println("Error: could not read the highscores file.");
+					//reset the file!!!!!!
+					
 				}
 				//button removes all scores
 				JButton rmvAll = new JButton("remove all");
@@ -224,6 +226,8 @@ public class Menu extends JFrame implements ActionListener
 				//clicked "settings"
 				graphicPanel.removeAll();
 				graphicPanel.add(new JButton("click me"));
+				//difficulty, resolution, hotkeys, scoring system, player starts as black all go here
+				
 				graphicPanel.revalidate();
 				graphicPanel.repaint();
 				break;
