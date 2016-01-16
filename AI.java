@@ -81,10 +81,14 @@ public class AI extends Player
 			else
 			{
 				for (Coord e : consider.moves)
+				{
 					safety[e.x][e.y]--;
+				}
 			}
 			if (safety[targetX][targetY] > 0)
-				positionAdvantage -= 50;
+			{
+				positionAdvantage -= consider.getValue();
+			}
 			if (consider.pieceID == Piece.PAWN)
 			{
 				if (Coord.inBoard(consider.xPos - 1, consider.yPos + 1))    //assuming AI is black always
