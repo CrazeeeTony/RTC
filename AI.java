@@ -71,13 +71,33 @@ public class AI extends Player
 			//for now, just moving forward is a good thing
 			positionAdvantage = consider.yPos - targetY;
 			//moving into safety is also preferred
-			for (Coord e : consider.moves)
-				safety[e.x][e.y]--;
+			if (consider.pieceID == Piece.PAWN)
+			{
+				if (Coord.inBoard(consider.xPos - 1, consider.yPos + 1))    //assuming AI is black always
+					safety[consider.xPos - 1][consider.yPos + 1]--;
+				if (Coord.inBoard(consider.xPos + 1, consider.yPos + 1))
+					safety[consider.xPos + 1][consider.yPos + 1]--;
+			}
+			else
+			{
+				for (Coord e : consider.moves)
+					safety[e.x][e.y]--;
+			}
 			if (safety[targetX][targetY] > 0)
-				positionAdvantage -= 5;
-			for (Coord e : consider.moves)
-				safety[e.x][e.y]++;
-			return (lossVal - takenPieceVal) * 10 + consider.yPos - targetY;
+				positionAdvantage -= 50;
+			if (consider.pieceID == Piece.PAWN)
+			{
+				if (Coord.inBoard(consider.xPos - 1, consider.yPos + 1))    //assuming AI is black always
+					safety[consider.xPos - 1][consider.yPos + 1]++;
+				if (Coord.inBoard(consider.xPos + 1, consider.yPos + 1))
+					safety[consider.xPos + 1][consider.yPos + 1]++;
+			}
+			else
+			{
+				for (Coord e : consider.moves)
+					safety[e.x][e.y]++;
+			}
+			return (lossVal - takenPieceVal) * 10 + positionAdvantage;
 		}
 		
 		/**
@@ -91,6 +111,7 @@ public class AI extends Player
 		
 		/**
 		 * Set the entire 2D array which indicates dangerous squares as safe
+		 * also reset the entire 2D array indicating protection (safety)
 		 * @param Player pl - the human player
 		 * @author Tony Li
 		 */
@@ -101,6 +122,7 @@ public class AI extends Player
 				for(int y = 0; y < danger[x].length; y++)
 				{
 					danger[x][y] = false;
+					safety[x][y] = 0;
 				}
 			}
 		}
@@ -173,7 +195,21 @@ public class AI extends Player
 		super.updateMoves();
 		for (Move e : this.getAllMoves())
 		{
-			safety[e.targetX][e.targetY]++;
+			//special case for pawn: check the diagonals and make sure to only add consideration for one move per pawn
+			if (e.consider.pieceID == Piece.PAWN)
+			{
+				if (e.targetY - e.consider.yPos == 1)
+				{
+					if (Coord.inBoard(e.consider.xPos - 1, e.consider.yPos + 1))
+						safety[e.consider.xPos - 1][e.consider.yPos + 1]++;
+					if (Coord.inBoard(e.consider.xPos + 1, e.consider.yPos + 1))
+						safety[e.consider.xPos + 1][e.consider.yPos + 1]++;
+				}
+			}
+			else
+			{
+				safety[e.targetX][e.targetY]++;
+			}
 		}
 	}
   	

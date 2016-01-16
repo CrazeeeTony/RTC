@@ -1,3 +1,4 @@
+///////////////////////BUG: AI moves multiple times per cycle if new games are started by returning to the menu
 /**
  * Game where the actual game is played
  * @author Tony Li, Charles Lei
@@ -17,7 +18,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int EDGE_SPACE = 75;
 	
 	int prevMove = 0;
-	public static final int COMP_TIME = 100;
+	public static final int COMP_TIME = 300;
 	
 	static Piece[][] board;
 	
@@ -79,7 +80,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		});
 		btnOptions = new JButton("pause/options");
 		btnOptions.setPreferredSize(new Dimension(150, 50));
-		final GameScreen this_ = this;
+		GameScreen this_ = this;
 		btnOptions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -133,7 +134,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		tm.start();
 		
 		board = new Piece[BOARD_W][BOARD_H];
-		
 		//black pieces
 		board[0][0] = 						new Piece(2, 0, 0,Piece.ROOK);
 		board[BOARD_W - 1][0] = 			new Piece(2, BOARD_W - 1, 0, Piece.ROOK);
@@ -324,6 +324,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 						//draws the piece
 						g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
 					}
+					g.drawString("" + AI.safety[x][y], x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
 					//g.setColor(Color.red);
 					//g.drawString("{" + x + ", " + y + "}", x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
 				}
