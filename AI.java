@@ -61,10 +61,10 @@ public class AI extends Player
 			if(danger[targetX][targetY])
 			{
 				lossVal += consider.getValue();
-				if(danger[consider.xPos][consider.yPos])
-				{
-					lossVal -= consider.getValue();
-				}
+			}
+			if(danger[consider.xPos][consider.yPos])
+			{
+				lossVal -= consider.getValue();
 			}
 			//take into account how this moves affects the AI's control of the board
 			int positionAdvantage = 0;
@@ -193,22 +193,20 @@ public class AI extends Player
 	public void updateMoves()
 	{
 		super.updateMoves();
-		for (Move e : this.getAllMoves())
+		for (Piece e : this.controllable)
 		{
-			//special case for pawn: check the diagonals and make sure to only add consideration for one move per pawn
-			if (e.consider.pieceID == Piece.PAWN)
+			//pawn: check diagonals only
+			if (e.pieceID == Piece.PAWN)
 			{
-				if (e.targetY - e.consider.yPos == 1)
-				{
-					if (Coord.inBoard(e.consider.xPos - 1, e.consider.yPos + 1))
-						safety[e.consider.xPos - 1][e.consider.yPos + 1]++;
-					if (Coord.inBoard(e.consider.xPos + 1, e.consider.yPos + 1))
-						safety[e.consider.xPos + 1][e.consider.yPos + 1]++;
-				}
+				if (Coord.inBoard(e.xPos - 1, e.yPos + 1))
+					safety[e.xPos - 1][e.yPos + 1]++;
+				if (Coord.inBoard(e.xPos + 1, e.yPos + 1))
+					safety[e.xPos + 1][e.yPos + 1]++;
 			}
 			else
 			{
-				safety[e.targetX][e.targetY]++;
+				for (Coord mv : e.moves)
+					safety[mv.x][mv.y]++;
 			}
 		}
 	}

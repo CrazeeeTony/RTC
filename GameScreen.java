@@ -1,4 +1,3 @@
-///////////////////////BUG: AI moves multiple times per cycle if new games are started by returning to the menu
 /**
  * Game where the actual game is played
  * @author Tony Li, Charles Lei
@@ -6,7 +5,8 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.File;
+import java.io.*;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 import java.awt.image.*;
 public class GameScreen extends JFrame implements MouseListener, MouseMotionListener, KeyListener
@@ -34,7 +34,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	
 	JButton btnMenu;
 	JButton btnOptions;
-	JPanel everything;
 	JLabel message;
 	
 	//variables to store the pixel and board coordinates of the mouse
@@ -44,6 +43,20 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	int mouseSqY;
 	
 	/**
+	 * stores all the keyboard controls, saved in a file
+	 * the indexes correspond with the char that must be typed as follows:
+	 * 0 -> pause/options
+	 * 1 -> select next pawn
+	 * 2 -> select next bishop
+	 * 3 -> select next knight
+	 * 4 -> select next rook
+	 * 5 -> select queen
+	 * 6 -> select king
+	 * 7 -> take a piece with the one selected, if possible
+	 */
+	char[] hotkeyControls;
+	
+	/**
 	 *
 	 * @author Tony Li
 	 */
@@ -51,12 +64,47 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	{
 		super("RTC");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//get window bar icon
 		try
 		{
 			this.setIconImage(ImageIO.read(new File("Piece Images/1Knight.png")));
 		}
 		catch(Exception e)
 		{
+		}
+		
+		//get hotkey configuration from file
+		try
+		{
+			Scanner reading = new Scanner(new File("hotkeys.txt"));
+			hotkeyControls = reading.nextLine().toCharArray();
+			//make sure there are 8 hotkeys
+			int assert_ = hotkeyControls[7];
+			//make sure none of them are repeated
+			for (int e = 0; e < 8; e++)
+				for (int ee = e + 1; ee < 8; ee++)
+					if (hotkeyControls[e] == hotkeyControls[ee])
+						//throw an exception
+						throw new ArrayIndexOutOfBoundsException();
+		}
+		catch (Exception ex)
+		{
+			System.out.println("hotkey file may be modified or corrupted; it has been reset to defaults");
+			try
+			{
+				PrintWriter reset = new PrintWriter("hotkeys.txt");
+				//default sequence of characters
+				reset.println(" asdfwet");
+				reset.flush();
+				reset.close();
+				
+				hotkeyControls = " asdfwet".toCharArray();
+			}
+			catch (IOException exc)
+			{
+				
+			}
 		}
 		
 		//set layout and add contents
@@ -170,6 +218,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		
 		changeSize(windowX, windowY);
 		
+		boardPnl.setFocusable(true);
+		boardPnl.addKeyListener(this);
+		boardPnl.requestFocusInWindow();
+		
 		this.pack();
 		this.updateMoves();
 	}//end default constructor GameScreen()
@@ -227,6 +279,68 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	{
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
+	}
+	
+	//keyboard events
+	public void keyTyped(KeyEvent ev)
+	{
+		//try to match the key character pressed
+		char pressed = ev.getKeyChar();
+		int takeAction = -1;
+		for (int e = 0; e < 8; e++)
+		{
+			if (hotkeyControls[e] == pressed)
+				takeAction = e;
+		}
+		System.out.println(takeAction);
+		switch (takeAction)
+		{
+			case 0:
+				//pause hotkey
+				new OptionsWindow(this);
+				tm.stop();
+				break;
+			case 1:
+				//select next pawn
+				human.nextPiece(Piece.PAWN);
+				break;
+			case 2:
+				//select next bishop
+				human.nextPiece(Piece.BISHOP);
+				break;
+			case 3:
+				//select next knight
+				human.nextPiece(Piece.KNIGHT);
+				break;
+			case 4:
+				//select next rook
+				human.nextPiece(Piece.ROOK);
+				break;
+			case 5:
+				//select next queen
+				human.nextPiece(Piece.QUEEN);
+				break;
+			case 6:
+				//select next king
+				human.nextPiece(Piece.KING);
+				break;
+			case 7:
+				//take a piece
+				human.takePiece();
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public void keyPressed(KeyEvent ev)
+	{
+		
+	}
+	
+	public void keyReleased(KeyEvent ev)
+	{
+		
 	}
 	
 	/**

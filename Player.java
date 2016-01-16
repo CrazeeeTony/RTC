@@ -57,6 +57,33 @@ public class Player
 	}//end member select
 	
 	/**
+	 * given a specific ID of piece, select the first one
+	 * but if one is already selected, select the first one to appear after it in the list
+	 */
+	public void nextPiece(int identity)
+	{
+		if (selected != null && selected.pieceID == identity)
+		{
+			for (int e = controllable.indexOf(selected) + 1; e < controllable.size(); e++)
+			{
+				if (controllable.get(e).pieceID == identity)
+				{
+					selected = controllable.get(e);
+					return;
+				}
+			}
+		}
+		for (Piece e : controllable)
+		{
+			if (e.pieceID == identity)
+			{
+				selected = e;
+				return;
+			}
+		}
+	}
+	
+	/**
 	 * move the selected piece
 	 */
 	public void move(int x, int y)
@@ -75,6 +102,24 @@ public class Player
 				selected.moveTo(x, y);
 		}
 	}//end member move
+	
+	/**
+	 * given the opportunity, takes a piece with the selected
+	 */
+	public void takePiece()
+	{
+		if (selected != null)
+		{
+			for (Coord e : selected.moves)
+			{
+				if (GameScreen.board[e.x][e.y] != null)
+				{
+					this.move(e.x, e.y);
+					return;
+				}
+			}
+		}
+	}
 	
 	/**
 	 * has this player lost?
