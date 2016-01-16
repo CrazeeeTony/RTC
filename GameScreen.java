@@ -114,10 +114,12 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		boardPnl = new BoardPanel();
 		boardPnl.addMouseListener(this);
 		boardPnl.addMouseMotionListener(this);
+		this.addKeyListener(this);
 		b1.add(boardPnl);
 		
 		Box b2 = Box.createHorizontalBox();
 		btnMenu = new JButton("Quit");
+		btnMenu.setFocusable(false);
 		btnMenu.setPreferredSize(new Dimension(150, 50));
 		btnMenu.addActionListener(new ActionListener()
 		{
@@ -128,8 +130,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			}
 		});
 		btnOptions = new JButton("pause/options");
+		btnOptions.setFocusable(false);
 		btnOptions.setPreferredSize(new Dimension(150, 50));
-		GameScreen this_ = this;
+		final GameScreen this_ = this;
 		btnOptions.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -363,6 +366,73 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	{
 		
 	}
+	
+    public void keyTyped(KeyEvent e)
+	{
+    }
+
+    public void keyPressed(KeyEvent e)
+	{
+		int keyCode = e.getKeyCode();
+		System.out.println(keyCode);
+		if (keyCode >= 49 && keyCode <= 54)
+		{
+			keyCode -= 49;
+			int startX = 0;
+			int startY = 0;
+			boolean selected = false;
+			if(human.selected != null)
+			{
+				startX = human.selected.xPos;
+				startY = human.selected.yPos;
+				selected = true;
+			}
+			int searchX = startX;
+			int searchY = startY;
+			if(!selected)
+			{
+				searchX--;
+			}
+			boolean cont = true;
+			while(cont)
+			{
+				//System.out.println("START" + startX + " " + startY);
+				searchX++;
+				if(searchX >= BOARD_W)
+				{
+					searchX = 0;
+					searchY++;
+				}
+				if(searchY >= BOARD_H)
+				{
+					searchY = 0;
+				}
+				//System.out.println(searchX + " " + searchY);
+				if(searchX == startX && searchY == startY)
+				{
+					if(!selected)
+					{
+						System.out.println("FIRST");
+						selected = true;
+					}
+					else
+					{
+						System.out.println("SECOND");
+						cont = false;
+					}
+				}
+				if(board[searchX][searchY] != null && board[searchX][searchY].player == 1 && board[searchX][searchY].pieceID == keyCode && board[searchX][searchY].coolDown == 0)
+				{
+					human.selected = board[searchX][searchY];
+					break;
+				}
+			}
+		}
+    }
+
+    public void keyReleased(KeyEvent e)
+	{
+    }
 	
 	/**
 	 * class where the actual board is drawn

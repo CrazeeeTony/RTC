@@ -162,6 +162,10 @@ public class Piece
 				this.pieceID = QUEEN;
 				//queen is cooled down twice when it turns into a rook
 				coolDown += 2;
+				if(coolDown <= 2)
+				{
+					coolDown = 0;
+				}
 				break;
 			case BISHOP:
 				//checks in four directions until it reaches the edge of the board or a piece
