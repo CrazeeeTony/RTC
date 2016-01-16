@@ -138,12 +138,12 @@ public class Menu extends JFrame implements ActionListener
 			case 2:
 				//clicked "highscores"
 				graphicPanel.removeAll();
-				JLabel tmp_ = new JLabel("Highscores:");
+				final JLabel tmp_ = new JLabel("Highscores:");
 				tmp_.setFont(TBMS);
 				graphicPanel.add(tmp_);
 				//to store the highscores read from file form
-				ArrayList<String> names = new ArrayList<>();
-				ArrayList<Double> scores = new ArrayList<>();
+				final ArrayList<String> names = new ArrayList<>();
+				final ArrayList<Double> scores = new ArrayList<>();
 				try
 				{
 					Scanner reading = new Scanner(new File("highscores.txt"));
@@ -151,15 +151,15 @@ public class Menu extends JFrame implements ActionListener
 					{
 						JPanel current = new JPanel();
 						current.setLayout(new FlowLayout());
-						String name = reading.nextLine();
-						double score = reading.nextDouble();
+						final String name = reading.nextLine();
+						final double score = reading.nextDouble();
 						names.add(name);
 						scores.add(score);
 						JLabel txt_ = new JLabel(String.format("%d --- %-10s --- %10.3f  ", e, name, score));
 						txt_.setFont(TBMS);
 						current.add(txt_);
 						reading.nextLine();
-						JButton rmv_ = new JButton("remove");
+						final JButton rmv_ = new JButton("remove");
 						rmv_.addActionListener(new ActionListener(){
 								public void actionPerformed(ActionEvent ev)
 								{
@@ -193,7 +193,7 @@ public class Menu extends JFrame implements ActionListener
 					System.out.println("Error: could not read the highscores file.");
 				}
 				//button removes all scores
-				JButton rmvAll = new JButton("remove all");
+				final JButton rmvAll = new JButton("remove all");
 				rmvAll.addActionListener(new ActionListener(){
 						public void actionPerformed(ActionEvent ev)
 						{
