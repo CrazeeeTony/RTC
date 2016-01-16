@@ -66,7 +66,7 @@ public class Player
 		{
 			for (int e = controllable.indexOf(selected) + 1; e < controllable.size(); e++)
 			{
-				if (controllable.get(e).pieceID == identity)
+				if (controllable.get(e).pieceID == identity && controllable.get(e).moves.size() > 0)
 				{
 					selected = controllable.get(e);
 					return;

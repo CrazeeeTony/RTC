@@ -18,7 +18,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int EDGE_SPACE = 75;
 	
 	int prevMove = 0;
-	public static final int COMP_TIME = 300;
+	public static final int COMP_TIME = 75;
 	
 	static Piece[][] board;
 	
@@ -366,73 +366,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	{
 		
 	}
-	
-    public void keyTyped(KeyEvent e)
-	{
-    }
-
-    public void keyPressed(KeyEvent e)
-	{
-		int keyCode = e.getKeyCode();
-		System.out.println(keyCode);
-		if (keyCode >= 49 && keyCode <= 54)
-		{
-			keyCode -= 49;
-			int startX = 0;
-			int startY = 0;
-			boolean selected = false;
-			if(human.selected != null)
-			{
-				startX = human.selected.xPos;
-				startY = human.selected.yPos;
-				selected = true;
-			}
-			int searchX = startX;
-			int searchY = startY;
-			if(!selected)
-			{
-				searchX--;
-			}
-			boolean cont = true;
-			while(cont)
-			{
-				//System.out.println("START" + startX + " " + startY);
-				searchX++;
-				if(searchX >= BOARD_W)
-				{
-					searchX = 0;
-					searchY++;
-				}
-				if(searchY >= BOARD_H)
-				{
-					searchY = 0;
-				}
-				//System.out.println(searchX + " " + searchY);
-				if(searchX == startX && searchY == startY)
-				{
-					if(!selected)
-					{
-						System.out.println("FIRST");
-						selected = true;
-					}
-					else
-					{
-						System.out.println("SECOND");
-						cont = false;
-					}
-				}
-				if(board[searchX][searchY] != null && board[searchX][searchY].player == 1 && board[searchX][searchY].pieceID == keyCode && board[searchX][searchY].coolDown == 0)
-				{
-					human.selected = board[searchX][searchY];
-					break;
-				}
-			}
-		}
-    }
-
-    public void keyReleased(KeyEvent e)
-	{
-    }
 	
 	/**
 	 * class where the actual board is drawn
