@@ -75,7 +75,7 @@ public class Player
 		}
 		for (Piece e : controllable)
 		{
-			if (e.pieceID == identity)
+			if (e.pieceID == identity && e.moves.size()> 0)
 			{
 				selected = e;
 				return;
