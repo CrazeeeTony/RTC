@@ -75,6 +75,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				tm.stop();
 				da.gameOver();
 			}
 		});
@@ -122,6 +123,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					btnOptions.setEnabled(false);
 				}
 				prevMove++;
+				System.out.println(e.getSource());
 				if(prevMove >= COMP_TIME)
 				{
 					comp.makeMove(human);
