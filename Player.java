@@ -77,25 +77,6 @@ public class Player
 	}//end member move
 	
 	/**
-	 * returns a list of all possible moves for all possible pieces
-	 */
-	public ArrayList<AI.Move> getAllMoves()
-	{
-		ArrayList<AI.Move> validMoves = new ArrayList<>();
-		for (Piece considering : controllable)
-		{
-			for (Coord e : considering.moves)
-			{
-				//caution: may be null
-				Piece target = GameScreen.board[e.x][e.y];
-				//NEEDED: confirm a move is valid
-				validMoves.add(new AI.Move(considering, target, e.x, e.y));
-			}
-		}
-		return validMoves;
-	}//end member getAllMoves
-	
-	/**
 	 * has this player lost?
 	 */
 	public boolean hasLost()

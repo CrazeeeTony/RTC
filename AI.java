@@ -5,10 +5,16 @@ import java.util.ArrayList;
  */
 public class AI extends Player
 {
+	//represents which squares will put a piece in danger of being captured
 	static boolean danger[][] = new boolean [GameScreen.BOARD_W][GameScreen.BOARD_H];
-	//objects used to represent possible moves
-	//used to classify moves by how optimal they are
-	//also used to store information about moves easily (piece, place, etc.)
+	//represents which squares will deter a capture via a friendly piece being able to protect that square
+	static int safety[][] = new int[GameScreen.BOARD_W][GameScreen.BOARD_H];
+	/**
+	 * objects used to represent possible moves
+	 * used to classify moves by how optimal they are
+	 * also used to store information about moves easily (piece, place, etc.)
+	 * @author Tony Li, Charles Lei
+	 */
 	static class Move
 	{
 		Piece consider;
@@ -51,6 +57,7 @@ public class AI extends Player
 			{
 				return -99999999;
 			}
+			//consider danger
 			if(danger[targetX][targetY])
 			{
 				lossVal += consider.getValue();
@@ -59,7 +66,27 @@ public class AI extends Player
 					lossVal -= consider.getValue();
 				}
 			}
+			//take into account how this moves affects the AI's control of the board
+			int positionAdvantage = 0;
+			//for now, just moving forward is a good thing
+			positionAdvantage = consider.yPos - targetY;
+			//moving into safety is also preferred
+			for (Coord e : consider.moves)
+				safety[e.x][e.y]--;
+			if (safety[targetX][targetY] > 0)
+				positionAdvantage -= 5;
+			for (Coord e : consider.moves)
+				safety[e.x][e.y]++;
 			return (lossVal - takenPieceVal) * 10 + consider.yPos - targetY;
+		}
+		
+		/**
+		 *
+		 * @author Tony Li
+		 */
+		public boolean compare(Move other)
+		{
+			return this.getOptimal() < other.getOptimal();
 		}
 		
 		/**
@@ -77,15 +104,6 @@ public class AI extends Player
 				}
 			}
 		}
-		
-		/**
-		 *
-		 * @author Tony Li
-		 */
-		public boolean compare(Move other)
-		{
-			return this.getOptimal() < other.getOptimal();
-		}
 	}
 	
  	//represents difficulty: lower is better (subject to change)
@@ -100,6 +118,24 @@ public class AI extends Player
  		super(baseBoard, baseIdentity);
  		this.difficulty = difficulty;
  	}//end constructor (Piece[][], int, int)
+	
+	/**
+	 * returns a list of all possible moves for all possible pieces
+	 */
+	public ArrayList<Move> getAllMoves()
+	{
+		ArrayList<Move> validMoves = new ArrayList<>();
+		for (Piece considering : controllable)
+		{
+			for (Coord e : considering.moves)
+			{
+				//caution: may be null
+				Piece target = GameScreen.board[e.x][e.y];
+				validMoves.add(new AI.Move(considering, target, e.x, e.y));
+			}
+		}
+		return validMoves;
+	}//end member getAllMoves
  	
  	/**
  	 * get a move out of all possible ones
@@ -126,6 +162,20 @@ public class AI extends Player
 		this.selected = selectedMove.consider;
 		this.move(selectedMove.targetX, selectedMove.targetY);
  	}//end member makeMove
+	
+	/**
+	 * updates all available moves just like the underlying Player class
+	 * also updates the safety array
+	 * @override
+	 */
+	public void updateMoves()
+	{
+		super.updateMoves();
+		for (Move e : this.getAllMoves())
+		{
+			safety[e.targetX][e.targetY]++;
+		}
+	}
   	
 	/**
 	 * overload of quicksort for convenient function calling

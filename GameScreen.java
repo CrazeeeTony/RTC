@@ -324,8 +324,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 						//draws the piece
 						g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
 					}
-					g.setColor(Color.red);
-					g.drawString("{" + x + ", " + y + "}", x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
+					//g.setColor(Color.red);
+					//g.drawString("{" + x + ", " + y + "}", x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
 				}
 			}
 			for (int e = 0; e < human.captured.size(); e++)
