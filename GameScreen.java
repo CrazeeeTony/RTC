@@ -376,6 +376,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				grfx.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
 			}
+			/*
 			for(int x = 0; x < 8; x++)
 							for(int y = 0; y < 8; y++)
 								if(AI.danger[x][y])
@@ -383,6 +384,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 						grfx.setColor(Color.orange);
 						grfx.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
 					}
+					*/
 		}//end member paintSelection
 	}//end BoardPanel
 }//end GameScreen

@@ -8,7 +8,8 @@ import java.io.*;
  */
 public class GameOverScreen extends JFrame implements ActionListener
 {
-	public static final String LINE_END = "<br><\br>";
+	public static final String LINE_END = "<br>";
+	public static final Font TBMS = new Font("Trebuchet MS", Font.PLAIN, 17);
 	
 	DetectAction da;
 	JPanel info = 			new JPanel();
@@ -37,17 +38,18 @@ public class GameOverScreen extends JFrame implements ActionListener
 		//get the scores from the game details and the file
 		this.score = user.score;
 		updateScores();
+		scoreDisplay.setFont(TBMS);
 		
 		info.add(scoreDisplay);
 		
 		message.setText("Your final score is " + score + ". Enter your name:");
+		message.setFont(TBMS);
 		info.add(message);
 		
 		nameField.setPreferredSize(new Dimension(150, 50));
 		info.add(nameField);
 		
 		info.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
-		info.setPreferredSize(new Dimension(300, 400));
 		
 		submit.setPreferredSize(new Dimension(150, 35));
 		submit.addActionListener(this);
@@ -58,12 +60,10 @@ public class GameOverScreen extends JFrame implements ActionListener
 		buttonPanel.add(toMenu);
 		
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
-		buttonPanel.setPreferredSize(new Dimension(300, 400));
 		
 		everything.add(info);
 		everything.add(buttonPanel);
 		everything.setLayout(new BoxLayout(everything, BoxLayout.X_AXIS));
-		everything.setPreferredSize(new Dimension(600, 400));
 		
 		this.changeSize(windowX, windowY);
 		
@@ -83,7 +83,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 			while (reading.hasNext())
 			{
 				//scan a name & score (double)
-				names.add(reading.next());				//ISSUE: does not work if user enters spaces
+				names.add(reading.nextLine());
 				scores.add(reading.nextDouble());
 				reading.nextLine();
 			}
@@ -132,7 +132,8 @@ public class GameOverScreen extends JFrame implements ActionListener
 				PrintWriter rewrite = new PrintWriter("highscores.txt", "UTF-8");
 				for (int e = 0; e < names.size(); e++)
 				{
-					rewrite.println(names.get(e) + " " + scores.get(e));
+					rewrite.println(names.get(e));
+					rewrite.println(scores.get(e));
 				}
 				rewrite.flush();
 				rewrite.close();

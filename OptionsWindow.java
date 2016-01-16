@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.event.*;
 public class OptionsWindow extends JFrame implements ActionListener
 {
+	public static final Font TBMS = new Font("Trebuchet MS", Font.PLAIN, 17);
+	
 	GameScreen creator;
 	JPanel everything = new JPanel();
 	JLabel message = new JLabel();
@@ -24,7 +26,7 @@ public class OptionsWindow extends JFrame implements ActionListener
 		this.creator = creator;
 		
 		message.setText("Your score is " + creator.human.score);
-		message.setPreferredSize(new Dimension(300, 400));
+		message.setFont(TBMS);
 		
 		for (JButton e : buttons)
 		{
@@ -33,12 +35,10 @@ public class OptionsWindow extends JFrame implements ActionListener
 			buttonPanel.add(e);
 		}
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
-		buttonPanel.setPreferredSize(new Dimension(300, 400));
 		
 		everything.add(message);
 		everything.add(buttonPanel);
 		everything.setLayout(new BoxLayout(everything, BoxLayout.X_AXIS));
-		everything.setPreferredSize(new Dimension(600, 400));
 		
 		changeSize(creator.da.windowX, creator.da.windowY);
 		
