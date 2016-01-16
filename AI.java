@@ -73,10 +73,14 @@ public class AI extends Player
 			//moving into safety is also preferred
 			if (consider.pieceID == Piece.PAWN)
 			{
-				if (Coord.inBoard(consider.xPos - 1, consider.yPos + 1))    //assuming AI is black always
+				if (Coord.inBoard(consider.xPos - 1, consider.yPos + 1))	//assuming AI is black always
+				{
 					safety[consider.xPos - 1][consider.yPos + 1]--;
+				}
 				if (Coord.inBoard(consider.xPos + 1, consider.yPos + 1))
+				{
 					safety[consider.xPos + 1][consider.yPos + 1]--;
+				}
 			}
 			else
 			{
@@ -87,14 +91,18 @@ public class AI extends Player
 			}
 			if (safety[targetX][targetY] > 0)
 			{
-				positionAdvantage -= consider.getValue();
+				positionAdvantage -= 10 *(4 - consider.getValue());
 			}
 			if (consider.pieceID == Piece.PAWN)
 			{
 				if (Coord.inBoard(consider.xPos - 1, consider.yPos + 1))    //assuming AI is black always
+				{
 					safety[consider.xPos - 1][consider.yPos + 1]++;
+				}
 				if (Coord.inBoard(consider.xPos + 1, consider.yPos + 1))
+				{
 					safety[consider.xPos + 1][consider.yPos + 1]++;
+				}
 			}
 			else
 			{

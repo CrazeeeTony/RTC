@@ -160,30 +160,31 @@ public class Menu extends JFrame implements ActionListener
 						current.add(txt_);
 						reading.nextLine();
 						JButton rmv_ = new JButton("remove");
-						rmv_.addActionListener(new ActionListener(){
-								public void actionPerformed(ActionEvent ev)
+						rmv_.addActionListener(new ActionListener()
+						{
+							public void actionPerformed(ActionEvent ev)
+							{
+								graphicPanel.remove(rmv_.getParent());
+								graphicPanel.revalidate();
+								graphicPanel.repaint();
+								
+								//update the file with scores
+								names.remove(name);
+								scores.remove(score);
+								try
 								{
-									graphicPanel.remove(rmv_.getParent());
-									graphicPanel.revalidate();
-									graphicPanel.repaint();
-									
-									//update the file with scores
-									names.remove(name);
-									scores.remove(score);
-									try
-									{
-										PrintWriter rewrite = new PrintWriter("highscores.txt");
-										for (int e = 0; e < names.size(); e++)
-											rewrite.println(names.get(e) + scores.get(e));
-										rewrite.flush();
-										rewrite.close();
-									}
-									catch (IOException ex)
-									{
-										
-									}
+									PrintWriter rewrite = new PrintWriter("highscores.txt");
+									for (int e = 0; e < names.size(); e++)
+										rewrite.println(names.get(e) + scores.get(e));
+									rewrite.flush();
+									rewrite.close();
 								}
-							});
+								catch (IOException ex)
+								{
+									
+								}
+							}
+						});
 						current.add(rmv_);
 						graphicPanel.add(current);
 					}

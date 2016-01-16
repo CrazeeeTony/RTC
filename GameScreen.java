@@ -18,7 +18,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int EDGE_SPACE = 75;
 	
 	int prevMove = 0;
-	public static final int COMP_TIME = 75;
+	public static final int COMP_TIME = 100;
 	
 	static Piece[][] board;
 	
@@ -292,7 +292,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			if (hotkeyControls[e] == pressed)
 				takeAction = e;
 		}
-		System.out.println(takeAction);
+		//System.out.println(takeAction);
 		switch (takeAction)
 		{
 			case 0:
