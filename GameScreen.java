@@ -281,6 +281,68 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		this.mouseY = e.getY();
 	}
 	
+	//keyboard events
+	public void keyTyped(KeyEvent ev)
+	{
+		//try to match the key character pressed
+		char pressed = ev.getKeyChar();
+		int takeAction = -1;
+		for (int e = 0; e < 8; e++)
+		{
+			if (hotkeyControls[e] == pressed)
+				takeAction = e;
+		}
+		System.out.println(takeAction);
+		switch (takeAction)
+		{
+			case 0:
+				//pause hotkey
+				new OptionsWindow(this);
+				tm.stop();
+				break;
+			case 1:
+				//select next pawn
+				human.nextPiece(Piece.PAWN);
+				break;
+			case 2:
+				//select next bishop
+				human.nextPiece(Piece.BISHOP);
+				break;
+			case 3:
+				//select next knight
+				human.nextPiece(Piece.KNIGHT);
+				break;
+			case 4:
+				//select next rook
+				human.nextPiece(Piece.ROOK);
+				break;
+			case 5:
+				//select next queen
+				human.nextPiece(Piece.QUEEN);
+				break;
+			case 6:
+				//select next king
+				human.nextPiece(Piece.KING);
+				break;
+			case 7:
+				//take a piece
+				human.takePiece();
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public void keyPressed(KeyEvent ev)
+	{
+		
+	}
+	
+	public void keyReleased(KeyEvent ev)
+	{
+		
+	}
+	
 	/**
 	 *
 	 * @author Tony Li
