@@ -1,8 +1,8 @@
-import java.util.ArrayList;
 /**
  * class for algorithm based decision making
  * @author Charles Lei, Tony Li
  */
+import java.util.ArrayList;
 public class AI extends Player
 {
 	//represents which squares will put a piece in danger of being captured

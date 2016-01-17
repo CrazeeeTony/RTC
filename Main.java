@@ -26,6 +26,7 @@ class DetectAction
 	boolean smallWindow = false;
 	int windowX = 1000, windowY = 700;
 	static boolean cheat = false;
+	static boolean completeKillMode = false;
 	
 	/**
 	* Default constructor:
@@ -35,7 +36,6 @@ class DetectAction
 	{
 		mn = new Menu(windowX, windowY);
 		mn.addDetectAction(this);
-		mn.setVisible(true);
 	}
 		
 	/**
@@ -71,7 +71,6 @@ class DetectAction
 		terminate(gs);
 		gv = new GameOverScreen(windowX, windowY);
 		gv.addDetectAction(this);
-		gv.setVisible(true);
 	}
 	
 	/**
@@ -84,7 +83,6 @@ class DetectAction
 		terminate(gv);
 		mn = new Menu(windowX, windowY);
 		mn.addDetectAction(this);
-		mn.setVisible(true);
 	}
 	
 	/**
