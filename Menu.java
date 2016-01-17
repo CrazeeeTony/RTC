@@ -138,87 +138,105 @@ public class Menu extends JFrame implements ActionListener
 			case 2:
 				//clicked "highscores"
 				graphicPanel.removeAll();
-				JLabel tmp_ = new JLabel("Highscores:");
-				tmp_.setFont(TBMS);
-				graphicPanel.add(tmp_);
-				//to store the highscores read from file form
-				ArrayList<String> names = new ArrayList<>();
-				ArrayList<Double> scores = new ArrayList<>();
+				JPanel threeScores = new JPanel();
+				threeScores.setLayout(new FlowLayout());
+				JLabel _tmp = new JLabel("by time taken     by pieces lost     by overall score");
+				_tmp.setFont(TBMS);
+				graphicPanel.add(_tmp);
+				graphicPanel.add(threeScores);
 				try
 				{
 					Scanner reading = new Scanner(new File("highscores.txt"));
-					for (int e = 0; reading.hasNext(); e++)
+					String[][] names = {null, null, null};
+					double[][] scores = {null, null, null};
+					for (int e = 0; e < 3; e++)
 					{
-						JPanel current = new JPanel();
-						current.setLayout(new FlowLayout());
-						String name = reading.nextLine();
-						double score = reading.nextDouble();
-						names.add(name);
-						scores.add(score);
-						JLabel txt_ = new JLabel(String.format("%d --- %-10s --- %10.3f  ", e, name, score));
-						txt_.setFont(TBMS);
-						current.add(txt_);
-						reading.nextLine();
-						JButton rmv_ = new JButton("remove");
-						rmv_.addActionListener(new ActionListener()
+						JPanel board = new JPanel();
+						board.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
+						int num = Integer.parseInt(reading.nextLine());
+						names[e] = new String[num];
+						scores[e] = new double[num];
+						for (int ee = 0; ee < num; ee++)
 						{
-							public void actionPerformed(ActionEvent ev)
-							{
-								graphicPanel.remove(rmv_.getParent());
-								graphicPanel.revalidate();
-								graphicPanel.repaint();
-								
-								//update the file with scores
-								names.remove(name);
-								scores.remove(score);
-								try
+							String name = reading.nextLine();
+							names[e][ee] = name;
+							double score = Double.parseDouble(reading.nextLine());
+							scores[e][ee] = score;
+							JPanel current = new JPanel();
+							JLabel _tmp2 = new JLabel(String.format("%-8s..%8.3f", name, score));
+							JButton rmv = new JButton("remove");
+							final int e_ = e, ee_ = ee;
+							rmv.addActionListener(new ActionListener(){
+								public void actionPerformed(ActionEvent ev)
 								{
-									PrintWriter rewrite = new PrintWriter("highscores.txt");
-									for (int e = 0; e < names.size(); e++)
-										rewrite.println(names.get(e) + scores.get(e));
-									rewrite.flush();
-									rewrite.close();
+									board.remove(current);
+									//rewrite the file without the currently indexed score
+									try
+									{
+										PrintWriter rewrite = new PrintWriter("highscores.txt");
+										for (int x = 0; x < 3; x++)
+										{
+											if (x == e_)
+												rewrite.println(names[x].length - 1);
+											else
+												rewrite.println(names[x].length);
+											for (int y = 0; y < names[x].length; y++)
+											{
+												if (!(x == e_ && y == ee_))
+												{
+													rewrite.println(names[x][y]);
+													rewrite.println(scores[x][y]);
+												}
+											}
+										}
+										rewrite.flush();
+										rewrite.close();
+									}
+									catch (IOException exc) {}
+									board.revalidate();
+									board.repaint();
 								}
-								catch (IOException ex)
-								{
-									
-								}
-							}
-						});
-						current.add(rmv_);
-						graphicPanel.add(current);
+							});
+							current.setLayout(new FlowLayout());
+							current.add(_tmp2);
+							current.add(rmv);
+							board.add(current);
+						}
+						board.setPreferredSize(new Dimension(250, 500));
+						threeScores.add(board);
 					}
 				}
-				catch (IOException e)
+				catch (NoSuchElementException ex) {}
+				catch (Exception ex)
 				{
-					System.out.println("Error: could not read the highscores file.");
-					//reset the file!!!!!!
+					System.out.println(ex);
+					
+					System.out.println("The highscores file may have been modified or corrupted.");
+					//reset file
+					try
+					{
+						new PrintWriter("highscores.txt").close();
+					}
+					catch (IOException exc) {}
 					
 				}
 				//button removes all scores
 				JButton rmvAll = new JButton("remove all");
 				rmvAll.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent ev)
+					public void actionPerformed(ActionEvent ev)
+					{
+						threeScores.removeAll();
+						threeScores.revalidate();
+						threeScores.repaint();
+						
+						//update file
+						try
 						{
-							graphicPanel.removeAll();
-							graphicPanel.add(tmp_);
-							graphicPanel.add(rmvAll);
-							graphicPanel.revalidate();
-							graphicPanel.repaint();
-							
-							//update file
-							scores.clear();
-							names.clear();
-							try
-							{
-								(new PrintWriter("highscores.txt")).close();
-							}
-							catch (IOException ex)
-							{
-								
-							}
+							new PrintWriter("highscores.txt").close();
 						}
-					});
+						catch (IOException ex) {}
+					}
+				});
 				graphicPanel.add(rmvAll);
 				graphicPanel.revalidate();
 				graphicPanel.repaint();

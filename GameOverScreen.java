@@ -13,7 +13,12 @@ public class GameOverScreen extends JFrame implements ActionListener
 	
 	DetectAction da;
 	JPanel info = 			new JPanel();
-	JLabel scoreDisplay = 	new JLabel();
+	JLabel scoreSummary = 	new JLabel();
+	JPanel scorePanel = 	new JPanel();
+	JLabel scoreDisplay[] =
+	 {
+		new JLabel(), new JLabel(), new JLabel()
+	 };
 	JLabel message = 		new JLabel();
 	JTextField nameField = 	new JTextField();
 	JPanel buttonPanel = 	new JPanel();
@@ -21,9 +26,9 @@ public class GameOverScreen extends JFrame implements ActionListener
 	JButton toMenu = 		new JButton("return to menu");
 	JPanel everything = 	new JPanel();
 	//high score variables
-	ArrayList<String> names = new ArrayList<>();
-	ArrayList<Double> scores = new ArrayList<>();
-	double score;
+	ArrayList<ArrayList<String>> names = new ArrayList<>();
+	ArrayList<ArrayList<Double>> scores = new ArrayList<>();
+	double[] score = new double[3];
 	
 	public GameOverScreen(int windowX, int windowY)
 	{
@@ -35,14 +40,38 @@ public class GameOverScreen extends JFrame implements ActionListener
 		//set the message
 		super((user.hasLost()) ? "computer wins" : ((computer.hasLost()) ? "user wins" : "stalemate"));
 		
+		names.add(new ArrayList<>());
+		names.add(new ArrayList<>());
+		names.add(new ArrayList<>());
+		scores.add(new ArrayList<>());
+		scores.add(new ArrayList<>());
+		scores.add(new ArrayList<>());
 		//get the scores from the game details and the file
-		this.score = user.score;
+		score[0] = user.timeTaken;
+		score[1] = user.piecesLost;
+		score[2] = user.score;
 		updateScores();
-		scoreDisplay.setFont(TBMS);
 		
-		info.add(scoreDisplay);
+		scoreSummary.setText(
+			"<html><font color=\"red\">time taken   </font>" +
+			"<font color=\"blue\">pieces lost   </font>" +
+			"<font color=\"green\">overall score</font></html>"
+			);
+		scoreSummary.setFont(TBMS);
+		info.add(scoreSummary);
 		
-		message.setText("Your final score is " + score + ". Enter your name:");
+		scoreDisplay[0].setForeground(Color.red);
+		scoreDisplay[1].setForeground(Color.blue);
+		scoreDisplay[2].setForeground(Color.green);
+		for (JLabel e : scoreDisplay)
+		{
+			scorePanel.add(e);
+		}
+		
+		scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 3));
+		info.add(scorePanel);
+		
+		message.setText("Time: " + score[0] + "  Pieces lost: " + score[1] + "   Final score: " + score[2]);
 		message.setFont(TBMS);
 		info.add(message);
 		
@@ -73,80 +102,97 @@ public class GameOverScreen extends JFrame implements ActionListener
 	
 	public void updateScores()
 	{
-		names.clear();
-		scores.clear();
+		for (ArrayList<String> e : names)
+			e.clear();
+		for (ArrayList<Double> e : scores)
+			e.clear();
 		
 		//try to parse the file of highscores
 		try
 		{
 			Scanner reading = new Scanner(new File("highscores.txt"));
-			while (reading.hasNext())
+			for (int e = 0; e < 3; e++)
 			{
-				//scan a name & score (double)
-				names.add(reading.nextLine());
-				scores.add(reading.nextDouble());
-				reading.nextLine();
+				int num = Integer.parseInt(reading.nextLine());
+				for (int ee = 0; ee < num; ee++)
+				{
+					names.get(e).add(reading.nextLine());
+					scores.get(e).add(Double.parseDouble(reading.nextLine()));
+				}
 			}
 		}
+		catch (NoSuchElementException ex) {}
 		catch (Exception ex)
 		{
-			System.out.println("could not open the file or found a name with no score");
+			System.out.println(ex);
+			
+			//empty the file if it could not be parsed
+			System.out.println("The highscore data has been modified or corrupted. All scores have been reset.");
+			try
+			{
+				new PrintWriter("highscores.txt").close();
+			}
+			catch (IOException exc) {}
+			
 		}
 		
-		//update the text
-		String scoreText = "<html>Highscores:" + LINE_END;
-		for (int e = 0; e < names.size(); e++)
+		//update all the text fields
+		for (int ee = 0; ee < 3; ee++)
 		{
-			scoreText += names.get(e) + " --- " + scores.get(e) + LINE_END;
+			String scoreText = "<html>";
+			for (int e = 0; e < names.get(ee).size(); e++)
+			{
+				scoreText += String.format("%-8s .....%8.3f", names.get(ee).get(e), scores.get(ee).get(e)) + LINE_END;
+			}
+			scoreDisplay[ee].setText(scoreText + "</html>");
+			System.out.println(scoreText + ee);
 		}
-		scoreDisplay.setText(scoreText + "</html>");
 	}
 	
 	public void actionPerformed(ActionEvent ev)
 	{
 		if (ev.getSource() == submit)
 		{
-			if (!nameField.getText().equals(""))
+			if (!nameField.getText().equals("") && nameField.getText().length() <= 10)
 			{
-				//insert the new element via insertion sort function
-				int insertIndex = names.size();
-				names.add("");
-				scores.add(0.0);
-				while (insertIndex > 0 && scores.get(insertIndex - 1) <= score)
+				String enteredName = nameField.getText();
+				//insert the new element to all score lists
+				for (int e = 0; e < 3; e++)
 				{
-					names.set(insertIndex, names.get(insertIndex - 1));
-					scores.set(insertIndex, scores.get(insertIndex - 1));
-					insertIndex--;
+					int place = 0;
+					while (place < names.get(e).size() && scores.get(e).get(place) < score[e])
+						place++;
+					names.get(e).add(place, enteredName);
+					scores.get(e).add(place, score[e]);
 				}
-				names.set(insertIndex, nameField.getText());
-				scores.set(insertIndex, this.score);
+				//rewrite the file
+				try
+				{
+					PrintWriter rewrite = new PrintWriter("highscores.txt");
+					for (int e = 0; e < 3; e++)
+					{
+						rewrite.println(names.get(e).size());
+						for (int ee = 0; ee < names.get(e).size(); ee++)
+						{
+							rewrite.println(names.get(e).get(ee));
+							rewrite.println(scores.get(e).get(ee));
+						}
+					}
+					rewrite.flush();
+					rewrite.close();
+				}
+				catch (IOException ex) {}
+			
+				//update the scores
+				updateScores();
+				//can't submit more than once
+				submit.setEnabled(false);
 			}
 			else
 			{
 				//tell the user that a valid name must be entered
 				
 			}
-			//rewrite the file
-			try
-			{
-				PrintWriter rewrite = new PrintWriter("highscores.txt", "UTF-8");
-				for (int e = 0; e < names.size(); e++)
-				{
-					rewrite.println(names.get(e));
-					rewrite.println(scores.get(e));
-				}
-				rewrite.flush();
-				rewrite.close();
-			}
-			catch (Exception ex)
-			{
-				
-			}
-			
-			//update the scores
-			updateScores();
-			//can't submit more than once
-			submit.setEnabled(false);
 		}
 		else
 		{

@@ -9,7 +9,9 @@ public class Player
 	ArrayList<Piece> controllable = new ArrayList<>();
 	ArrayList<Piece> captured = new ArrayList<>();
 	Piece selected;
-	//score for the highscore
+	//scores for the highscore: by time taken (milliseconds), pieces lost, and both
+	int timeTaken = 0;
+	int piecesLost = 0;
 	double score = 100.0;
 	
 	/**
@@ -143,6 +145,7 @@ public class Player
 			if (selected == e)
 				selected = null;
 			//update score for a piece lost
+			piecesLost++;
 			score -= 5.0;
 		}
 	}//end member kill
@@ -156,6 +159,7 @@ public class Player
 		for (Piece e : controllable)
 			e.updateMoves();
 		//update score (score goes down 0.001% every game tick, from 100%)
+		timeTaken += 10;
 		score -= 0.001;
 	}
 	
