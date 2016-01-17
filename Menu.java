@@ -154,7 +154,7 @@ public class Menu extends JFrame implements ActionListener
 		this.add(everything);
 		this.pack();
 		this.setVisible(true);
-	}//end constructor (int, int)
+	}//end constructor (int, $
 	
 	/**
 	 * handle events from button clicks
@@ -449,7 +449,7 @@ public class Menu extends JFrame implements ActionListener
 					//reset to default
 					try
 					{
-						PrintWriter wr = new PrintWriter("hotkeys.txt");
+						PrintWriter wr = new PrintWriter(new FileOutputStream(new File("hotkeys.txt")), true);
 						wr.println(" asdfwet");
 						wr.flush();
 						wr.close();
