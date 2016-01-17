@@ -45,6 +45,13 @@ public class OptionsWindow extends JFrame implements ActionListener
 		this.add(everything);
 		this.pack();
 		this.setVisible(true);
+		this.addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent e)
+			{
+				buttons[0].doClick();
+			}
+		});
 	}
 	
 	public void actionPerformed(ActionEvent ev)
@@ -70,5 +77,11 @@ public class OptionsWindow extends JFrame implements ActionListener
 		everything.setPreferredSize(new Dimension(newX, newY));
 		message.setPreferredSize(new Dimension(newX - 300, newY));
 		buttonPanel.setPreferredSize(new Dimension(300, newY));
+	}
+	
+	public void windowClosing(WindowEvent e)
+	{
+		System.out.println("CLOSEING");
+		buttons[0].doClick();
 	}
 }
