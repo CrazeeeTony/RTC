@@ -32,6 +32,15 @@ public class Menu extends JFrame implements ActionListener
 		new JButton("settings"),
 		new JButton("quit")
 	};
+	//all components in the settings part of the menu must be accessed globally
+	static JSlider difficulty = 	new JSlider(1, 10, 5);
+	static JCheckBox cheat = 		new JCheckBox("cheat mode");
+	static JCheckBox startBlack = 	new JCheckBox("start as black");
+	static JCheckBox resolution = 	new JCheckBox("compact menu interface");
+	JPanel hotkeys = 				new JPanel();
+	JTextField[] changeHotkeys = 	new JTextField[8];
+	JButton saveHotkeys = 			new JButton("save hotkeys");
+	JLabel hotkeyMessage = 			new JLabel("hotkey configuration");
 	
 	/**
 	 * set up the menu
@@ -124,6 +133,7 @@ public class Menu extends JFrame implements ActionListener
 		{
 			case 0:
 				//clicked "play game"
+				da.difficulty = difficulty.getValue();
 				da.startGameRequest();
 				break;
 			case 1:
@@ -163,7 +173,7 @@ public class Menu extends JFrame implements ActionListener
 							double score = Double.parseDouble(reading.nextLine());
 							scores[e][ee] = score;
 							JPanel current = new JPanel();
-							JLabel _tmp2 = new JLabel(String.format("%-8s..%8.3f", name, score));
+							JLabel _tmp2 = new JLabel(String.format("%-8s%8.3f", name, score));
 							JButton rmv = new JButton("remove");
 							final int e_ = e, ee_ = ee;
 							rmv.addActionListener(new ActionListener(){
@@ -202,7 +212,7 @@ public class Menu extends JFrame implements ActionListener
 							current.add(rmv);
 							board.add(current);
 						}
-						board.setPreferredSize(new Dimension(250, 500));
+						board.setPreferredSize(new Dimension(graphicPanel.getWidth() / 3, 500));
 						threeScores.add(board);
 					}
 				}
@@ -244,8 +254,84 @@ public class Menu extends JFrame implements ActionListener
 			case 3:
 				//clicked "settings"
 				graphicPanel.removeAll();
-				graphicPanel.add(new JButton("click me"));
 				//difficulty, resolution, hotkeys, scoring system, player starts as black all go here
+				graphicPanel.add(new JLabel("difficulty"));
+				graphicPanel.add(difficulty);
+				graphicPanel.add(cheat);
+				cheat.addItemListener(new ItemListener(){
+					public void itemStateChanged(ItemEvent ev)
+					{
+						da.cheat = ev.getStateChange() == 1;
+					}
+				});
+				graphicPanel.add(startBlack);
+				startBlack.addItemListener(new ItemListener(){
+					public void itemStateChanged(ItemEvent ev)
+					{
+						da.startBlack = ev.getStateChange() == 1;
+					}
+				});
+				graphicPanel.add(resolution);
+				resolution.addItemListener(new ItemListener(){
+					public void itemStateChanged(ItemEvent ev)
+					{
+						da.smallWindow = ev.getStateChange() == 1;
+						if (da.smallWindow)
+						{
+							da.windowX = 850;
+							da.windowY = 500;
+						}
+						else
+						{
+							da.windowX = 1000;
+							da.windowY = 700;
+						}
+					}
+				});
+				for (int e = 0; e < 8; e++)
+					changeHotkeys[e] = new JTextField(1);
+				for (JTextField e : changeHotkeys)
+					hotkeys.add(e);
+				hotkeys.add(saveHotkeys);
+				saveHotkeys.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent ev)
+					{
+						for (int e = 0; e < 8; e++)
+						{
+							if (changeHotkeys[e].getText().length() != 1)
+							{
+								hotkeyMessage.setText("invalid configuration");
+								return;
+							}
+							for (int ee = e; ee < 8; ee++)
+							{
+								if (changeHotkeys[e].getText() == changeHotkeys[ee].getText())
+								{
+									hotkeyMessage.setText("invalid configuration");
+									return;
+								}
+							}
+						}
+						try
+						{
+							PrintWriter wr = new PrintWriter("hotkeys.txt");
+							for (JTextField e : changeHotkeys)
+							{
+								wr.print(e);
+							}
+							wr.println();
+							wr.flush();
+							wr.close();
+						}
+						catch (IOException exc)
+						{
+							hotkeyMessage.setText("failed to change hotkeys, reset to default");
+							
+						}
+					}
+				});
+				hotkeys.add(hotkeyMessage);
+				graphicPanel.add(hotkeys);
 				
 				graphicPanel.revalidate();
 				graphicPanel.repaint();

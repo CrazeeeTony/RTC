@@ -3,16 +3,6 @@
  * @author Tony Li
  */
 import javax.swing.*;
-//interface to handle changing windows and closing
-/*
-interface DetectAction
-{
-	void quitRequest();
-	void startGameRequest();
-	void gameOver();
-	void returnToMenu();
-}
-*/
 
 public class Main
 {
@@ -22,16 +12,20 @@ public class Main
 	}
 }//end Main class
 	
-//class to handle the menu and game screen
-class DetectAction// implements DetectAction
+//class to handle the menu and game screens
+class DetectAction
 {
-	//size of all windows
-	int windowX = 1000, windowY = 700;
 	//menu and game screen
 	Menu mn;
 	GameScreen gs;
 	//game over screen
 	GameOverScreen gv;
+	//other relevant details
+	double difficulty = 5;
+	boolean cheat = false;
+	boolean startBlack = false;
+	boolean smallWindow = false;
+	int windowX = 1000, windowY = 700;
 	
 	/**
 	* Default constructor:
@@ -96,7 +90,9 @@ class DetectAction// implements DetectAction
 	 */
 	public static void terminate(JFrame item)
 	{
-		if (item != null)
+		if (item instanceof Menu)
+			item.setVisible(false);
+		else if (item != null)
 			item.dispose();
 	}
 }//end DetectAction class
