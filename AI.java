@@ -168,6 +168,17 @@ public class AI extends Player
 				validMoves.add(new AI.Move(considering, target, e.x, e.y));
 			}
 		}
+		//if cheat mode is on, the AI cannot take any pieces
+		if (DetectAction.cheat)
+		{
+			ArrayList<Move> cheatingMoves = new ArrayList<>();
+			for (Move e : validMoves)
+			{
+				if (e.target == null)
+					cheatingMoves.add(e);
+			}
+			validMoves = cheatingMoves;
+		}
 		return validMoves;
 	}//end member getAllMoves
  	

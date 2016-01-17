@@ -22,10 +22,10 @@ class DetectAction
 	GameOverScreen gv;
 	//other relevant details
 	double difficulty = 5;
-	boolean cheat = false;
 	boolean startBlack = false;
 	boolean smallWindow = false;
 	int windowX = 1000, windowY = 700;
+	static boolean cheat = false;
 	
 	/**
 	* Default constructor:

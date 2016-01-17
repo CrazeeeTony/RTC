@@ -261,7 +261,7 @@ public class Menu extends JFrame implements ActionListener
 				cheat.addItemListener(new ItemListener(){
 					public void itemStateChanged(ItemEvent ev)
 					{
-						da.cheat = ev.getStateChange() == 1;
+						DetectAction.cheat = ev.getStateChange() == 1;
 					}
 				});
 				graphicPanel.add(startBlack);
