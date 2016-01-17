@@ -187,10 +187,18 @@ public class Menu extends JFrame implements ActionListener
 				//remove all components from left half of the screen
 				graphicPanel.removeAll();
 				
-				//replace them with some text detailing how to play the game
-				JLabel inst = new JLabel("instructions go here");
-				inst.setFont(TBMS);
-				graphicPanel.add(inst);
+				//replace them with a picture detailing how to play the game
+				try
+				{
+					//read the picture
+					BufferedImage instPic = ImageIO.read(new File("instructions.png"));
+					JLabel inst = new JLabel(new ImageIcon(instPic));
+					graphicPanel.add(inst);
+				}
+				catch (IOException ex)
+				{
+					System.out.println("Could not read the instruction image file.");
+				}//end try/catch
 				
 				//display the left side of the screen by revalidating and repainting
 				graphicPanel.revalidate();
