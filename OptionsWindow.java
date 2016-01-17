@@ -81,7 +81,6 @@ public class OptionsWindow extends JFrame implements ActionListener
 	
 	public void windowClosing(WindowEvent e)
 	{
-		System.out.println("CLOSEING");
 		buttons[0].doClick();
 	}
 }

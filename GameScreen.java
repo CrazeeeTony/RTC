@@ -60,7 +60,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 *
 	 * @author Tony Li
 	 */
-	public GameScreen(int windowX, int windowY)
+	public GameScreen(int windowX, int windowY, boolean swap)
 	{
 		super("RTC");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -185,6 +185,15 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		//adds new timer
 		tm = new Timer(10, al);
 		tm.start();
+		
+		if(swap)
+		{
+			Piece.swap = true;
+		}
+		else
+		{
+			Piece.swap = false;
+		}
 		
 		board = new Piece[BOARD_W][BOARD_H];
 		//black pieces

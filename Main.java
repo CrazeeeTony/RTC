@@ -31,7 +31,8 @@ class DetectAction
 	* Default constructor:
 	* @return - void
 	* */
-	public DetectAction(){
+	public DetectAction()
+	{
 		mn = new Menu(windowX, windowY);
 		mn.addDetectAction(this);
 		mn.setVisible(true);
@@ -54,7 +55,8 @@ class DetectAction
 	{
 		terminate(mn);
 		terminate(gv);
-		gs = new GameScreen(windowX, windowY);
+		System.out.println(startBlack);
+		gs = new GameScreen(windowX, windowY, startBlack);
 		gs.addDetectAction(this);
 		gs.setVisible(true);
 	}

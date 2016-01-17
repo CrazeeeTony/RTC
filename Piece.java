@@ -17,6 +17,7 @@ public class Piece
 	public static final int ROOK = 4;
 	public static final int PAWN = 5;
 	public static int COOL_DOWN = 100;
+	public static boolean swap = false;
 	private static BufferedImage[] imgs1;
 	private static BufferedImage[] imgs2;
 	
@@ -65,11 +66,25 @@ public class Piece
 		//set piece color according to player
 		if(player == 1)
 		{
-			this.img = imgs1[pieceID];
+			if(swap)
+			{
+				this.img = imgs2[pieceID];
+			}
+			else
+			{
+				this.img = imgs1[pieceID];				
+			}
 		}
 		else if(player == 2)
 		{
-			this.img = imgs2[pieceID];
+			if(swap)
+			{
+				this.img = imgs1[pieceID];
+			}
+			else
+			{
+				this.img = imgs2[pieceID];				
+			}
 		}
 	}
 	
@@ -98,13 +113,27 @@ public class Piece
 		//converts pawn to queen when the end of the board is reached
 		if(pieceID == PAWN && yPos == 0)
 		{
+			System.out.println(swap);
 			this.pieceID = QUEEN;
-			this.img = imgs1[QUEEN];
+			if(swap)
+			{
+				this.img = imgs2[QUEEN];
+			}
+			else
+			{
+				this.img = imgs1[QUEEN];
+			}
 		}
 		if(pieceID == PAWN && yPos == GameScreen.BOARD_H - 1)
 		{
-			this.pieceID = QUEEN;
-			this.img = imgs2[QUEEN];
+			if(swap)
+			{
+				this.img = imgs1[QUEEN];
+			}
+			else
+			{
+				this.img = imgs2[QUEEN];
+			}
 		}
 		this.coolDown = COOL_DOWN;
 		GameScreen.updateMoves();
