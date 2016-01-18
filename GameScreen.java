@@ -83,6 +83,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}//end try catch
 		
 		//#error
+		//#read
 		//get hotkey configuration from file
 		try
 		{

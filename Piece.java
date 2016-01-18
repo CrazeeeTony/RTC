@@ -35,6 +35,7 @@ public class Piece
 	static
 	{
 		//#error
+		//#read
 		try
 		{
 			imgs1 = new BufferedImage[] {
@@ -117,6 +118,7 @@ public class Piece
 	 * @param int x - the x coordinate to move to
 	 * @param int y - the y coordinate to move to
 	 * @return void
+	 *    #method
 	 */
 	public void moveTo(int x, int y)
 	{
@@ -176,6 +178,7 @@ public class Piece
 	 * also updates the list of dangerous squares
 	 * @param - none
 	 * @return void
+	 *    #level : getting all moves for all pieces
 	 */
 	public void updateMoves()
 	{

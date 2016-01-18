@@ -2,6 +2,7 @@
  * Class to launch program
  * @author Tony Li
  */
+//#main
 import javax.swing.*;
 public class Main
 {
@@ -37,8 +38,8 @@ class DetectAction
 	GameOverScreen gv;
 	int difficulty = 5;
 	boolean startBlack = false;
-	boolean smallWindow = false;
-	int windowX = 1000, windowY = 700;
+	boolean smallWindow = true;
+	int windowX = 850, windowY = 510;
 	static boolean cheat = false;
 	static boolean completeKillMode = false;
 	static boolean noAnimations = false;
@@ -52,6 +53,7 @@ class DetectAction
 	{
 		mn = new Menu(windowX, windowY);
 		mn.addDetectAction(this);
+		Menu.resolution.setSelected(true);
 	}//end default constructor ()
 		
 	/**
@@ -115,6 +117,7 @@ class DetectAction
 	 * given a JFrame of some kind, checks for null and closes it
 	 * @param JFrame item - the item to terminate
 	 * @return void
+	 *    #static
 	 */
 	public static void terminate(JFrame item)
 	{	

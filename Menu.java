@@ -210,6 +210,7 @@ public class Menu extends JFrame implements ActionListener
 				
 			case 2:
 				//clicked "highscores"
+				//#level : removing individual scores is possible, which is quite difficult
 				//remove everything from left of screen
 				graphicPanel.removeAll();
 				
@@ -267,6 +268,7 @@ public class Menu extends JFrame implements ActionListener
 									board.remove(current);
 									
 									//rewrite the file without the currently indexed score
+									//#save
 									try
 									{
 										PrintWriter rewrite = new PrintWriter("highscores.txt");
@@ -416,7 +418,7 @@ public class Menu extends JFrame implements ActionListener
 						if (da.smallWindow)
 						{
 							da.windowX = 850;
-							da.windowY = 500;
+							da.windowY = 510;
 						}
 						else
 						{
@@ -510,6 +512,7 @@ public class Menu extends JFrame implements ActionListener
 						}//end for
 						
 						//rewrite the file
+						//#save
 						try
 						{
 							PrintWriter wr = new PrintWriter("hotkeys.txt");
@@ -569,6 +572,7 @@ public class Menu extends JFrame implements ActionListener
 	 * @param int newX - new width of window
 	 * @param int newY - new height of window
 	 * @return void
+	 *    #level : resizeable interface with detail in the form of buttons, labels, etc.
 	 */
 	public void changeSize(int newX, int newY)
 	{

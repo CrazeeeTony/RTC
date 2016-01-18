@@ -167,6 +167,8 @@ public class GameOverScreen extends JFrame implements ActionListener
 	 * open the file with highscores and try to parse it, then display the info
 	 * @param none
 	 * @return void
+	 *    #level : maintaining high score lists in three categories, all separate
+	 *    #read
 	 */
 	public void updateScores()
 	{
@@ -253,6 +255,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 				}//end for
 				
 				//rewrite the file
+				//#save
 				try
 				{
 					PrintWriter rewrite = new PrintWriter("highscores.txt");

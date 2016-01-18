@@ -53,6 +53,7 @@ public class AI extends Player
 		 * @param none
 		 * @return int - an integer representing how good the move is, where < 0 is good, 0 is neutral, > 0 is bad
 		 * @author Tony Li
+		 *    #level : precise calculations result in a substantially better AI than one which makes random decisions
 		 *    #Tony
 		 */
 		public int getOptimal()
@@ -363,6 +364,7 @@ public class AI extends Player
  	 * ascending order, best moves at the front
 	 * @author Charles Lei
 	 *    #alg
+	 *    #level : algorithm not learned in class
 	 *    #Charles
  	 */
   	public static void quicksort(Move[] ll, int lBound, int rBound, Move[] buffer)
