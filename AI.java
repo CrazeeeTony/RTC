@@ -140,18 +140,28 @@ public class AI extends Player
 		}
 	}
 	
- 	//represents difficulty: lower is better (subject to change)
- 	public double difficulty;
- 	
- 	/**
- 	 * initialize the underlying Player, but also add in a parameter for the difficulty
-	 * @author Charles Lei
- 	 */
- 	public AI(Piece[][] baseBoard, int baseIdentity, double difficulty)
- 	{
- 		super(baseBoard, baseIdentity);
- 		this.difficulty = difficulty;
- 	}//end constructor (Piece[][], int, int)
+ 	//represents difficulty: higher is harder, from 1 to 10
+ 	public int difficulty = 5;
+	
+	/**
+	 * same constructor as Player
+	 * @Piece[][] initialPieces - the board array from which pieces will be detected
+	 * @int identity - the identity of the player, where each belonging piece has this identity as well
+	 */
+	public AI(Piece[][] board, int identity)
+	{
+		super(board, identity);
+	}//end constructor(Piece[][], identity)
+	
+	/**
+	 * change difficulty
+	 * @param int difficulty - difficulty level to be set
+	 * @return void
+	 */
+ 	public void setDifficulty(int difficulty)
+	{
+		this.difficulty = difficulty;
+	}//end member setDifficulty
 	
 	/**
 	 * returns a list of all possible moves for all possible pieces
@@ -192,18 +202,27 @@ public class AI extends Player
  		ArrayList<Move> availableMoves = this.getAllMoves();
  		Move[] sortedMoves = new Move[availableMoves.size()];
  		sortedMoves = availableMoves.toArray(sortedMoves);
+		
  		//sort the moves
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
- 		//based on difficulty, select a better or worse move (but never select one out of bounds of the array)
+		
+ 		//only consider moves which are better than neutral, or exactly neutral if no good moves are available
 		int lastGoodMove = binarySearch(sortedMoves, 0);
-		//no good move available, make a neutral move
 		if (lastGoodMove == -1)
 			lastGoodMove = binarySearch(sortedMoves, 1);
-		//no decent move available, don't make any move
+		//if no acceptable moves are found, don't make any move
 		if (lastGoodMove == -1)
 			return;
+		
+		//get a move from the range (higher difficulty = better moves)
+		int randomSelect = lastGoodMove;
+		for (int e = 0; e < difficulty; e++)
+		{
+			randomSelect = Math.min(randomSelect, (int)(Math.random() * lastGoodMove));
+		}
+ 		Move selectedMove = sortedMoves[randomSelect];
+		
 		//make the move
- 		Move selectedMove = sortedMoves[(int)(Math.random() * lastGoodMove)];
 		this.selected = selectedMove.consider;
 		this.move(selectedMove.targetX, selectedMove.targetY);
  	}//end member makeMove

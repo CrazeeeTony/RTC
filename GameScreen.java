@@ -60,7 +60,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 *
 	 * @author Tony Li
 	 */
-	public GameScreen(int windowX, int windowY, boolean swap)
+	public GameScreen(boolean swap)
 	{
 		super("RTC");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -186,6 +186,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		tm = new Timer(10, al);
 		tm.start();
 		
+		//Piece class handles the swap (changing colours of the pieces)
 		if(swap)
 		{
 			Piece.swap = true;
@@ -216,16 +217,24 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		board[BOARD_W - 2][BOARD_H - 1] = 	new Piece(1, BOARD_W - 2, BOARD_H - 1, Piece.KNIGHT);
 		board[2][BOARD_H - 1] = 			new Piece(1, 2, BOARD_H - 1, Piece.BISHOP);
 		board[BOARD_W - 3][BOARD_H - 1] = 	new Piece(1, BOARD_W - 3, BOARD_H - 1, Piece.BISHOP);
-		board[3][BOARD_H - 1] = 			new Piece(1, 3, BOARD_H - 1, Piece.KING);
-		board[4][BOARD_H - 1] = 			new Piece(1, 4, BOARD_H - 1, Piece.QUEEN);
+		board[3][BOARD_H - 1] = 			new Piece(1, 3, BOARD_H - 1, Piece.QUEEN);
+		board[4][BOARD_H - 1] = 			new Piece(1, 4, BOARD_H - 1, Piece.KING);
 		for(int x = 0; x < BOARD_W; x++){
 			board[x][BOARD_H - 2] = 		new Piece(1, x, BOARD_H - 2, Piece.PAWN);
 		}
 		
-		human = new Player(board, 1);
-		comp = new AI(board, 2, 1);
+		if (swap)
+		{
+			//in case the "player starts as black" setting is enabled
+			board[3][BOARD_H - 1] = 			new Piece(1, 3, BOARD_H - 1, Piece.KING);
+			board[4][BOARD_H - 1] = 			new Piece(1, 4, BOARD_H - 1, Piece.QUEEN);
+			board[3][0] = 						new Piece(2, 3, 0, Piece.KING);
+			board[4][0] = 						new Piece(2, 4, 0, Piece.QUEEN);
+		}
 		
-		changeSize(windowX, windowY);
+		//initialize the human and AI players, and set the difficulty of the AI to the setting saved globally
+		human = new Player(board, 1);
+		comp = new AI(board, 2);
 		
 		boardPnl.setFocusable(true);
 		boardPnl.addKeyListener(this);
@@ -359,6 +368,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public void addDetectAction(DetectAction d)
 	{
 		this.da = d;
+		comp.setDifficulty(da.difficulty);
 	}
 	
 	/**
@@ -371,19 +381,12 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		comp.updateMoves();
 	}//end static member updateMoves
 	
-	public void changeSize(int newX, int newY)    //////////////////////////////////////
-	{
-		
-	}
-	
 	/**
 	 * class where the actual board is drawn
 	 * @author Tony Li
 	 */
 	class BoardPanel extends JPanel{
 		Color brown = new Color(139, 69, 19);
-		//store the graphics object so we can use it in other methods
-		Graphics grfx;
 		//String for a message displayed
 		String message = "";
 		
@@ -402,13 +405,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		public void paintComponent(Graphics g)
 		{
 			super.paintComponent(g);
-			//set the stored graphics variable
-			grfx = g;
-			
-			//draw the message string
-			grfx.drawString(message, 50, 10);
 			
 			//draws the side labels
+			g.setFont(new Font("Trebuchet MS", Font.PLAIN, 16));
 			for(int x = 0; x < BOARD_H; x++)
 			{
 				g.drawString(-x + BOARD_H + "", EDGE_SPACE / 2, (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE);
@@ -452,19 +451,52 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 						//draws the piece
 						g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
 					}
-					g.drawString("" + AI.safety[x][y], x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
-					//g.setColor(Color.red);
-					//g.drawString("{" + x + ", " + y + "}", x * SQUARE_SIZE + EDGE_SPACE + 20, y * SQUARE_SIZE + EDGE_SPACE + 20);
 				}
 			}
 			for (int e = 0; e < human.captured.size(); e++)
 			{
-				grfx.drawImage(human.captured.get(e).img, EDGE_SPACE + (BOARD_W + 1) * SQUARE_SIZE, EDGE_SPACE -12 + SQUARE_SIZE / 2 * e, SQUARE_SIZE, SQUARE_SIZE, null);
+				//if a king was captured, highlight it
+				if (human.captured.get(e).pieceID == Piece.KING)
+				{
+					g.setColor(Color.red);
+					g.fillRect(
+						EDGE_SPACE + (BOARD_W + 1) * SQUARE_SIZE,
+						EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,
+						SQUARE_SIZE,
+						SQUARE_SIZE);
+				}
+				g.drawImage(human.captured.get(e).img,
+					EDGE_SPACE + (BOARD_W + 1) * SQUARE_SIZE,
+					EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,
+					SQUARE_SIZE,
+					SQUARE_SIZE,
+					null);
 			}
 			for (int e = 0; e < comp.captured.size(); e++)
 			{
-				grfx.drawImage(comp.captured.get(e).img, EDGE_SPACE + BOARD_W * SQUARE_SIZE, EDGE_SPACE -12 + SQUARE_SIZE / 2 * e, SQUARE_SIZE, SQUARE_SIZE, null);
+				//same for AI
+				if (comp.captured.get(e).pieceID == Piece.KING)
+				{
+					g.setColor(Color.red);
+					g.fillRect(
+						EDGE_SPACE + BOARD_W * SQUARE_SIZE,
+						EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,
+						SQUARE_SIZE,
+						SQUARE_SIZE
+					);
+				}
+				g.drawImage(comp.captured.get(e).img,
+					EDGE_SPACE + BOARD_W * SQUARE_SIZE,
+					EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,
+					SQUARE_SIZE,
+					SQUARE_SIZE,
+					null);
 			}
+			
+			//draw the message string, in case someone won
+			g.setFont(new Font("Trebuchet MS", Font.BOLD, 60));
+			g.setColor(Color.red);
+			g.drawString(message, 80, 525);
 			
 			//update mouse location
 			//adds edge space and subtracts 1 to prevent bug where the mouse was outside but the green square was still drawn because it rounded negative decimals to 0
@@ -505,15 +537,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				grfx.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
 			}
-			/*
-			for(int x = 0; x < 8; x++)
-							for(int y = 0; y < 8; y++)
-								if(AI.danger[x][y])
-					{
-						grfx.setColor(Color.orange);
-						grfx.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
-					}
-					*/
 		}//end member paintSelection
 	}//end BoardPanel
 }//end GameScreen

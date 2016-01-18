@@ -21,7 +21,7 @@ class DetectAction
 	//game over screen
 	GameOverScreen gv;
 	//other relevant details
-	double difficulty = 5;
+	int difficulty = 5;
 	boolean startBlack = false;
 	boolean smallWindow = false;
 	int windowX = 1000, windowY = 700;
@@ -55,8 +55,7 @@ class DetectAction
 	{
 		terminate(mn);
 		terminate(gv);
-		System.out.println(startBlack);
-		gs = new GameScreen(windowX, windowY, startBlack);
+		gs = new GameScreen(startBlack);
 		gs.addDetectAction(this);
 		gs.setVisible(true);
 	}
