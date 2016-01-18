@@ -18,7 +18,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int EDGE_SPACE = 75;
 	
 	int prevMove = 0;
-	public static final int COMP_TIME = 100;
+	public static int COMP_TIME;
 	
 	static Piece[][] board;
 	
@@ -60,7 +60,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 *
 	 * @author Tony Li
 	 */
-	public GameScreen(boolean swap)
+	public GameScreen(boolean swap, int difficulty)
 	{
 		super("RTC");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,6 +106,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				
 			}
 		}
+		
+		//adjust difficulty
+		COMP_TIME = (15 - difficulty) * 10;
+		Piece.COOL_DOWN = (20 - difficulty) * 15;
 		
 		//set layout and add contents
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
@@ -153,10 +157,11 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				//clear the danger!
 				AI.Move.clearDanger();
+				
 				//update all possible moves for players and pieces
 				updateMoves();
-				//clear the danger!
 				
 				boardPnl.repaint();
 				boardPnl.revalidate();
@@ -449,16 +454,16 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					{
 						int plX = x * SQUARE_SIZE + EDGE_SPACE, plY = y * SQUARE_SIZE + EDGE_SPACE;
 						//conditional drawing if animations are turned on (drawn part of the way to destination)
-						if (!DetectAction.noAnimations && Piece.COOL_DOWN - board[x][y].coolDown < 40)
+						if (!DetectAction.noAnimations && Piece.COOL_DOWN - board[x][y].coolDown < Piece.COOL_DOWN)
 						{
-							double partway = 1 - (Piece.COOL_DOWN - board[x][y].coolDown) / 40.0;
+							double partway = 1 - (Piece.COOL_DOWN - board[x][y].coolDown) / (double) Piece.COOL_DOWN;
 							plX -= (int)((x - board[x][y].lastPlace.x) * partway * SQUARE_SIZE);
 							plY -= (int)((y - board[x][y].lastPlace.y) * partway * SQUARE_SIZE);
 						}
 						
 						//cooldown bar
 						double ratio = (double)board[x][y].coolDown / Piece.COOL_DOWN;
-						g.fillRect(plX, plY + (int)((1 - ratio) * SQUARE_SIZE), SQUARE_SIZE, (int)(ratio * SQUARE_SIZE));
+						g.fillRect(plX, plY + (int)((1 - ratio) * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE - (int)((1 - ratio) * SQUARE_SIZE));
 						//g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, (int)((double)(y + 1 - ratio) * SQUARE_SIZE + EDGE_SPACE), SQUARE_SIZE, (int)(SQUARE_SIZE * ratio + 0.5));
 						//draws the piece
 						//g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
@@ -469,7 +474,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			for (int e = 0; e < human.captured.size(); e++)
 			{
 				//if a king was captured, highlight it
-				if (human.captured.get(e).pieceID == Piece.KING)
+				if (human.captured.get(e).pieceID == Piece.KING && !da.completeKillMode)
 				{
 					g.setColor(Color.red);
 					g.fillRect(
@@ -488,7 +493,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			for (int e = 0; e < comp.captured.size(); e++)
 			{
 				//same for AI
-				if (comp.captured.get(e).pieceID == Piece.KING)
+				if (comp.captured.get(e).pieceID == Piece.KING && !da.completeKillMode)
 				{
 					g.setColor(Color.red);
 					g.fillRect(
