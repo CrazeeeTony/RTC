@@ -1,4 +1,4 @@
-//#tony
+//#Tony
 /**
  * Class to store piece information
  * @author Tony Li
