@@ -83,10 +83,16 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			int assert_ = hotkeyControls[7];
 			//make sure none of them are repeated
 			for (int e = 0; e < 8; e++)
+			{
 				for (int ee = e + 1; ee < 8; ee++)
+				{
 					if (hotkeyControls[e] == hotkeyControls[ee])
+					{
 						//throw an exception
 						throw new ArrayIndexOutOfBoundsException();
+					}//end if
+				}//end for
+			}//end for
 		}
 		catch (Exception ex)
 		{
@@ -104,8 +110,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			catch (IOException exc)
 			{
 				
-			}
-		}
+			}//end try catch
+		}//end try catch
 		
 		//adjust difficulty
 		COMP_TIME = (15 - difficulty) * 10;
@@ -143,7 +149,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				new OptionsWindow(this_);
 				tm.stop();
-			}
+			}//end actionPerformed method
 		});
 		buttonPanel.add(btnMenu);
 		buttonPanel.add(btnOptions);
@@ -178,22 +184,22 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					boardPnl.message = "player won";
 					tm.stop();
 					btnOptions.setEnabled(false);
-				}
+				}//end if
 				prevMove++;
 				//System.out.println(e.getSource());
-				if(prevMove >= COMP_TIME)
+				if (prevMove >= COMP_TIME)
 				{
 					comp.makeMove();
 					prevMove = 0;
-				}
-			}
+				}//end if
+			}//end actionPerformed method
 		};
 		//adds new timer
 		tm = new Timer(10, al);
 		tm.start();
 		
 		//Piece class handles the swap (changing colours of the pieces)
-		if(swap)
+		if (swap)
 		{
 			Piece.swap = true;
 		}
@@ -225,9 +231,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		board[BOARD_W - 3][BOARD_H - 1] = 	new Piece(1, BOARD_W - 3, BOARD_H - 1, Piece.BISHOP);
 		board[3][BOARD_H - 1] = 			new Piece(1, 3, BOARD_H - 1, Piece.QUEEN);
 		board[4][BOARD_H - 1] = 			new Piece(1, 4, BOARD_H - 1, Piece.KING);
-		for(int x = 0; x < BOARD_W; x++){
+		for(int x = 0; x < BOARD_W; x++)
+		{
 			board[x][BOARD_H - 2] = 		new Piece(1, x, BOARD_H - 2, Piece.PAWN);
-		}
+		}//end for
 		
 		if (swap)
 		{
@@ -236,7 +243,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			board[4][BOARD_H - 1] = 			new Piece(1, 4, BOARD_H - 1, Piece.QUEEN);
 			board[3][0] = 						new Piece(2, 3, 0, Piece.KING);
 			board[4][0] = 						new Piece(2, 4, 0, Piece.QUEEN);
-		}
+		}//end if
 		
 		//initialize the human and AI players, and set the difficulty of the AI to the setting saved globally
 		//note that the human has access to AI functionality too, for cheat mode
@@ -249,7 +256,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		
 		this.pack();
 		this.updateMoves();
-		this.setResizable(false);
 	}//end default constructor GameScreen()
 	
 	//handle mouse actions
@@ -284,28 +290,30 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 			human.move(mouseSqX, mouseSqY);
 			human.select(mouseSqX, mouseSqY);
-		}
-	}
+		}//end if
+	}//end mouseReleased method
 	
 	/**
-	 *
+	 * Handle mouse dragged action
 	 * @author Tony Li
 	 */
 	public void mouseDragged(MouseEvent e)
 	{
+		//update mouse x and y
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
-	}
+	}//end mouseDragged method
 
 	/**
-	 *
+	 * HAndle mouse moved action
 	 * @author Tony Li
 	 */
 	public void mouseMoved(MouseEvent e)
 	{
+		//update mouse x and y
 		this.mouseX = e.getX();
 		this.mouseY = e.getY();
-	}
+	}//end mouseMoved method
 	
 	//keyboard events
 	public void keyTyped(KeyEvent ev)
@@ -317,7 +325,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 			if (hotkeyControls[e] == pressed)
 				takeAction = e;
-		}
+		}//end for
 		//System.out.println(takeAction);
 		switch (takeAction)
 		{
@@ -356,8 +364,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				break;
 			default:
 				break;
-		}
-	}
+		}//end switch
+	}//end keyTyped method
 	
 	public void keyPressed(KeyEvent ev)
 	{
@@ -370,14 +378,16 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	}
 	
 	/**
-	 *
+	 * Add detection to handle this JFrame
+	 * @DetectAction d - the class to handle the JFrame
 	 * @author Tony Li
+	 * @return - void
 	 */
 	public void addDetectAction(DetectAction d)
 	{
 		this.da = d;
 		comp.setDifficulty(da.difficulty);
-	}
+	}//end addDetectAction method
 	
 	/**
 	 * updates all the moves (for all pieces)
@@ -407,7 +417,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}//end default constructor ()
 		
 		/**
-		 *
+		 * @param Graphics g - the canvas to paint on
 		 * @author Tony Li
 		 */
 		public void paintComponent(Graphics g)
@@ -419,11 +429,11 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			for(int x = 0; x < BOARD_H; x++)
 			{
 				g.drawString(-x + BOARD_H + "", EDGE_SPACE / 2, (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE);
-			}
+			}//end for
 			for(int x = 0; x < BOARD_W; x++)
 			{
 				g.drawString((char) (x + 'A') + "", (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE, EDGE_SPACE / 2);
-			}
+			}//end for
 			
 			//loop through every square on the board
 			for(int x = 0; x < BOARD_W; x++)
@@ -431,19 +441,19 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				for(int y = 0; y < BOARD_H; y++)
 				{
 					//alternates between brown and white squares
-					if((x + y) % 2 == 0)
+					if ((x + y) % 2 == 0)
 					{
 						g.setColor(Color.white);
 					}
 					else
 					{
 						g.setColor(brown);
-					}
+					}//end if
 					
 					//draw the squares on the board
 					g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
-				}
-			}
+				}//end for
+			}//end for
 			//draw blue square, highlighting
 			paintSelection(g);
 			g.setColor(Color.red);
@@ -452,7 +462,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				for(int y = 0; y < BOARD_H; y++)
 				{
-					if(board[x][y] != null)
+					if (board[x][y] != null)
 					{
 						int plX = x * SQUARE_SIZE + EDGE_SPACE, plY = y * SQUARE_SIZE + EDGE_SPACE;
 						//conditional drawing if animations are turned on (drawn part of the way to destination)
@@ -461,7 +471,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 							double partway = 1 - (Piece.COOL_DOWN - board[x][y].coolDown) / (double) (Piece.COOL_DOWN / 4);
 							plX -= (int)((x - board[x][y].lastPlace.x) * partway * SQUARE_SIZE);
 							plY -= (int)((y - board[x][y].lastPlace.y) * partway * SQUARE_SIZE);
-						}
+						}//end if
 						
 						//cooldown bar
 						double ratio = (double)board[x][y].coolDown / Piece.COOL_DOWN;
@@ -470,9 +480,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 						//draws the piece
 						//g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
 						g.drawImage(board[x][y].img, plX, plY, SQUARE_SIZE, SQUARE_SIZE, null);
-					}
-				}
-			}
+					}//end if
+				}//end for
+			}//end for
 			for (int e = 0; e < human.captured.size(); e++)
 			{
 				//if a king was captured, highlight it
@@ -511,7 +521,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					SQUARE_SIZE,
 					SQUARE_SIZE,
 					null);
-			}
+			}//end for
 			
 			//draw the message string, in case someone won
 			g.setFont(new Font("Trebuchet MS", Font.BOLD, 60));
@@ -553,7 +563,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			//draws green square around the selected square
 			grfx.setColor(Color.green);
 			//checks if the mouse is inside the board
-			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
+			if (mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
 			{
 				grfx.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
 			}//end if
