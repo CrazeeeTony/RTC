@@ -38,6 +38,7 @@ public class AI extends Player
 		 * @param int targetX - x coord. to move to
 		 * @param int targetY - y coord. to move to
 		 * @author Charles Lei
+		 *    #Charles
 		 */
 		public Move(Piece consider, Piece target, int targetX, int targetY)
 		{
@@ -204,6 +205,7 @@ public class AI extends Player
 	 * @param none
 	 * @return ArrayList<Move> - a list of AI.Move objects, in no particular order
 	 * @author Charles Lei
+	 *    #Charles
 	 */
 	public ArrayList<Move> getAllMoves()
 	{
@@ -245,6 +247,7 @@ public class AI extends Player
 	 * @param none
 	 * @return Move[] - array of moves sorted from best to worst
 	 * @author Charles Lei
+	 *    #Charles
 	 */
 	public Move[] getSortedMoves()
 	{
@@ -257,13 +260,14 @@ public class AI extends Player
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
 		
 		return sortedMoves;
-	}//end meber getSortedMoves
+	}//end member getSortedMoves
 	
  	/**
  	 * out of all possible moves, make a move if one if favourable
 	 * @param none
 	 * @raturn void
 	 * @author Charles Lei
+	 *    #Charles
  	 */
  	public void makeMove()
  	{ 		
@@ -302,6 +306,7 @@ public class AI extends Player
 	 * @return void
 	 * @override
 	 * @author Charles Lei
+	 *    #Charles
 	 */
 	public void updateMoves()
 	{
@@ -349,7 +354,8 @@ public class AI extends Player
 	 * @param Move[] buffer - convenient buffer to store elements into memory
  	 * ascending order, best moves at the front
 	 * @author Charles Lei
-	 *      #alg
+	 *    #alg
+	 *    #Charles
  	 */
   	public static void quicksort(Move[] ll, int lBound, int rBound, Move[] buffer)
   	{
@@ -400,7 +406,8 @@ public class AI extends Player
 	 * @param Move[] arr - array of moves to search
 	 * @param int val - val which, when each Move is projected (Move e -> e.getOptimal()), is used to compare
 	 * @author Charles Lei
-	 *        #alg
+	 *    #alg
+	 *    #Charles
 	 */
 	public static int binarySearch(Move[] arr, int val)
 	{

@@ -61,7 +61,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	char[] hotkeyControls;
 	
 	/**
-	 *
+	 * initializes the game screen
+	 * @param boolean swap - true to make the user start as black
+	 * @param int difficulty - integer difficulty level of AI
 	 * @author Tony Li
 	 */
 	public GameScreen(boolean swap, int difficulty)
@@ -126,14 +128,21 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		//set layout and add contents
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
 		
+		//boardPnl is the chess board graphic
 		Box b1 = Box.createHorizontalBox();
 		boardPnl = new BoardPanel();
+		
+		//add listeners
 		boardPnl.addMouseListener(this);
 		boardPnl.addMouseMotionListener(this);
 		this.addKeyListener(this);
+		
 		b1.add(boardPnl);
 		
+		//buttonPanel is the background panel for buttons
 		JPanel buttonPanel = new JPanel();
+		
+		//quit button
 		btnMenu = new JButton("Quit");
 		btnMenu.setFocusable(false);
 		btnMenu.setPreferredSize(new Dimension(150, 35));
@@ -141,10 +150,13 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				//stop the game loop
 				tm.stop();
 				da.gameOver();
 			}//end actionPerformed method
 		});
+		
+		//pause button
 		btnOptions = new JButton("pause/options");
 		btnOptions.setFocusable(false);
 		btnOptions.setPreferredSize(new Dimension(150, 35));
@@ -242,9 +254,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			board[x][BOARD_H - 2] = 		new Piece(1, x, BOARD_H - 2, Piece.PAWN);
 		}//end for
 		
+		//in case the "player starts as black" setting is enabled
 		if (swap)
 		{
-			//in case the "player starts as black" setting is enabled
 			board[3][BOARD_H - 1] = 			new Piece(1, 3, BOARD_H - 1, Piece.KING);
 			board[4][BOARD_H - 1] = 			new Piece(1, 4, BOARD_H - 1, Piece.QUEEN);
 			board[3][0] = 						new Piece(2, 3, 0, Piece.KING);
@@ -256,13 +268,14 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		human = new AI(board, 1);
 		comp = new AI(board, 2);
 		
+		//finish setting up the screen
 		boardPnl.setFocusable(true);
 		boardPnl.addKeyListener(this);
 		boardPnl.requestFocusInWindow();
 		
 		this.pack();
 		this.updateMoves();
-	}//end default constructor GameScreen()
+	}//end constructor GameScreen (boolean, int)
 	
 	//#action
 	//handle mouse actions
@@ -409,6 +422,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	/**
 	 * updates all the moves (for all pieces)
 	 * @author Charles Lei
+	 *    #Charles
 	 */
 	public static void updateMoves()
 	{
@@ -560,6 +574,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		/**
 		 * selected piece has its highlighting applied to board's visuals
 		 * @author Charles Lei
+		 *    #Charles
 		 */
 		public void paintSelection(Graphics grfx)
 		{

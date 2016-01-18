@@ -3,6 +3,7 @@
  * has a title screen, help for the user, several configuration options, highscore management, and a quit button
  * game is initially launched from the menu, and the menu launches the main game window
  * @author Charles Lei
+ * #Charles
  */
 import java.awt.*;
 import java.awt.event.*;

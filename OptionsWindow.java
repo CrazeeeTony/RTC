@@ -2,6 +2,7 @@
 /**
  * options for the game when it is paused
  * @author Charles Lei
+ * #Charles
  */
 import java.awt.*;
 import javax.swing.*;

@@ -1,8 +1,8 @@
-//#charles
 /**
  * logic for each player of the game
  * stores pieces, handles moving pieces, keeps track of scores
  * @author Charles Lei
+ * #Charles
  */
 import java.util.ArrayList;
 //#define

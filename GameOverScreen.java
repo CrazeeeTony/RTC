@@ -6,6 +6,7 @@ import java.io.*;
 /**
  * pops up when game is over, highscore interface
  * @author Charles Lei
+ * #Charles
  */
 public class GameOverScreen extends JFrame implements ActionListener
 {
