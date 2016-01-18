@@ -476,7 +476,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				//if a king was captured, highlight it
 				if (human.captured.get(e).pieceID == Piece.KING && !da.completeKillMode)
 				{
-					g.setColor(Color.red);
+					g.setColor(Color.orange);
 					g.fillRect(
 						EDGE_SPACE + (BOARD_W + 1) * SQUARE_SIZE,
 						EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,
@@ -495,7 +495,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				//same for AI
 				if (comp.captured.get(e).pieceID == Piece.KING && !da.completeKillMode)
 				{
-					g.setColor(Color.red);
+					g.setColor(Color.orange);
 					g.fillRect(
 						EDGE_SPACE + BOARD_W * SQUARE_SIZE,
 						EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,
