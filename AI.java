@@ -141,6 +141,11 @@ public class AI extends Player
 				}//end for
 			}//end if
 			
+			if(consider.player == 1)
+			{
+				positionAdvantage *= -1;
+			}
+			
 			//overall value of a move is based on what it might take, what it might lose, and how it affects board control
 			return (lossVal - takenPieceVal) * 10 + positionAdvantage;
 		}//end member getOptimal
@@ -230,7 +235,7 @@ public class AI extends Player
 			}//end for
 		}//end for
 		
-		//if cheat mode is on, the AI cannot take any pieces
+		//if cheat mode is on, the AI cannot take any pieces    #cheat
 		if (DetectAction.cheat)
 		{
 			ArrayList<Move> cheatingMoves = new ArrayList<>();
@@ -238,7 +243,7 @@ public class AI extends Player
 			//filter array to remove moves which take pieces
 			for (Move e : validMoves)
 			{
-				if (e.target == null)
+				if (e.target == null || e.target.player == 2)
 				{
 					cheatingMoves.add(e);
 				}//end if

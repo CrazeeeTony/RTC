@@ -266,7 +266,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}//end if
 		
 		//initialize the human and AI players, and set the difficulty of the AI to the setting saved globally
-		//note that the human has access to AI functionality too, for cheat mode
+		//note that the human has access to AI functionality too, for cheat mode    #cheat
 		human = new AI(board, 1);
 		comp = new AI(board, 2);
 		
