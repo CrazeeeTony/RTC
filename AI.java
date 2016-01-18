@@ -206,6 +206,7 @@ public class AI extends Player
 	 * @return ArrayList<Move> - a list of AI.Move objects, in no particular order
 	 * @author Charles Lei
 	 *    #Charles
+	 *    #method
 	 */
 	public ArrayList<Move> getAllMoves()
 	{
@@ -339,6 +340,8 @@ public class AI extends Player
 	 * @param int rBound - start right bound to be sorted inclusive
 	 * @return void
 	 * @author Charles Lei
+	 *    #Charles
+	 *    #static
 	 */
 	public static void quicksort(Move[] ll, int lBound, int rBound)
 	{
