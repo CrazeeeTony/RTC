@@ -113,7 +113,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 		
 		//tell the player the scores for the current game
 		userScore.setText(
-			String.format("Time: %.0f. Piece value lost: %.0f. Final score: %.0f.", score[0] * 10, score[1], score[2] * 10)
+			String.format("Time: %.0f. Piece value lost: %.0f. Final score: %.0f.", score[0], score[1], score[2])
 			);
 		userScore.setFont(TBMS);
 		info.add(userScore);
@@ -153,7 +153,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 		//finish setting up the frame
 		everything.add(info);
 		everything.add(buttonPanel);
-		everything.setLayout(new BoxLayout(everything, BoxLayout.X_AXIS));
+		everything.setLayout(new BoxLayout(everything, BoxLayout.Y_AXIS));
 		
 		this.changeSize(windowX, windowY);
 		
@@ -217,7 +217,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 			for (int e = 0; e < names.get(ee).size(); e++)
 			{
 				//display the name, then the value
-				scoreText += String.format("%-8s .....%8.3f", names.get(ee).get(e), scores.get(ee).get(e)) + LINE_END;
+				scoreText += String.format("%-8s .....%8.0f", names.get(ee).get(e), scores.get(ee).get(e)) + LINE_END;
 			}
 			scoreDisplay[ee].setText(scoreText + "</html>");
 		}//end for

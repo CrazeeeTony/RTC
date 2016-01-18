@@ -198,7 +198,7 @@ public class Player
 			
 			//update score for a piece lost
 			piecesLost += p.getValue();
-			score += p.getValue();
+			score += p.getValue() * 10;
 		}//end if
 	}//end member kill
 	
@@ -215,8 +215,8 @@ public class Player
 			e.updateMoves();
 		
 		//update score (score goes down 0.001% every game tick, from 100%)
-		timeTaken += 0.001;
-		score += 0.001;
+		timeTaken += 0.01;
+		score += 0.01;
 	}//end member updateMoves
 	
 }//end class Player

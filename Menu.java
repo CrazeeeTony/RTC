@@ -213,7 +213,7 @@ public class Menu extends JFrame implements ActionListener
 				//three categories of score will be contained here
 				JPanel threeScores = new JPanel();
 				threeScores.setLayout(new FlowLayout());
-				JLabel categDescription = new JLabel("by time taken       by pieces lost      by overall score");
+				JLabel categDescription = new JLabel("by time taken            by pieces lost           by overall score");
 				categDescription.setFont(TBMS);
 				graphicPanel.add(categDescription);
 				graphicPanel.add(threeScores);
@@ -252,10 +252,6 @@ public class Menu extends JFrame implements ActionListener
 							
 							//new panel for every individual score, contains details and a remove button
 							JPanel current = new JPanel();
-							if(e != 1)
-							{
-								score *= 10;
-							}
 							JLabel dsc = new JLabel(String.format("%-8s%8.0f", name, score));
 							JButton rmv = new JButton("remove");
 							
@@ -302,7 +298,7 @@ public class Menu extends JFrame implements ActionListener
 								}//end anonymous member actionPerformed
 							});
 							
-							current.setLayout(new FlowLayout());
+							current.setLayout(new FlowLayout(FlowLayout.TRAILING));
 							current.add(dsc);
 							current.add(rmv);
 							board.add(current);

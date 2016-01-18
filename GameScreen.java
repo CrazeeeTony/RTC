@@ -117,10 +117,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		this.addKeyListener(this);
 		b1.add(boardPnl);
 		
-		Box b2 = Box.createHorizontalBox();
+		JPanel buttonPanel = new JPanel();
 		btnMenu = new JButton("Quit");
 		btnMenu.setFocusable(false);
-		btnMenu.setPreferredSize(new Dimension(150, 50));
+		btnMenu.setPreferredSize(new Dimension(150, 35));
 		btnMenu.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -131,7 +131,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		});
 		btnOptions = new JButton("pause/options");
 		btnOptions.setFocusable(false);
-		btnOptions.setPreferredSize(new Dimension(150, 50));
+		btnOptions.setPreferredSize(new Dimension(150, 35));
 		final GameScreen this_ = this;
 		btnOptions.addActionListener(new ActionListener()
 		{
@@ -141,11 +141,12 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				tm.stop();
 			}
 		});
-		b2.add(btnMenu);
-		b2.add(btnOptions);
+		buttonPanel.add(btnMenu);
+		buttonPanel.add(btnOptions);
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 0));
 		
 		this.add(b1);
-		this.add(b2);
+		this.add(buttonPanel);
 		
 		//timer for animation
 		al = new ActionListener()
