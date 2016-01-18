@@ -249,6 +249,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		
 		this.pack();
 		this.updateMoves();
+		this.setResizable(false);
 	}//end default constructor GameScreen()
 	
 	//handle mouse actions

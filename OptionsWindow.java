@@ -145,6 +145,8 @@ public class OptionsWindow extends JFrame implements ActionListener
 		everything.setPreferredSize(new Dimension(newX, newY));
 		snapshot.setPreferredSize(new Dimension(newX - 300, newY));
 		buttonPanel.setPreferredSize(new Dimension(300, newY));
+		
+		this.setResizable(false);
 	}//end member changeSize
 	
 }//end class OptionsWindow
