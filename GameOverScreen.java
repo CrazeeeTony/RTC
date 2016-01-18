@@ -113,7 +113,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 		
 		//tell the player the scores for the current game
 		userScore.setText(
-			String.format("Time: %.3f. Piece value lost: %.3f. Final score: %.3f.", score[0], score[1], score[2])
+			String.format("Time: %.0f. Piece value lost: %.0f. Final score: %.0f.", score[0] * 10, score[1], score[2] * 10)
 			);
 		userScore.setFont(TBMS);
 		info.add(userScore);
