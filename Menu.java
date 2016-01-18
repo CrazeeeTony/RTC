@@ -360,6 +360,18 @@ public class Menu extends JFrame implements ActionListener
 				//difficulty, resolution, hotkeys, cheat mode, player starts as black all go here
 				//difficulty
 				graphicPanel.add(new JLabel("difficulty"));
+				
+				//tick spacing
+				difficulty.setMinorTickSpacing(1);
+				difficulty.setPaintTicks(true);
+				
+				//labels on the ends
+				Hashtable labels = new Hashtable();
+				labels.put(new Integer(1), new JLabel("easy"));
+				labels.put(new Integer(10), new JLabel("hard"));
+				difficulty.setLabelTable(labels);
+				difficulty.setPaintLabels(true);
+				
 				graphicPanel.add(difficulty);
 				
 				//cheating 		#cheat
