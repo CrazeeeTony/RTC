@@ -9,6 +9,7 @@ import javax.imageio.*;
 import java.awt.image.*;
 import java.util.ArrayList;
 
+//#define
 public class Piece
 {
 	//variables to identify pieces

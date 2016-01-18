@@ -5,6 +5,7 @@
  * @author Charles Lei
  */
 import java.util.ArrayList;
+//#define
 public class Player
 {
 	/****
