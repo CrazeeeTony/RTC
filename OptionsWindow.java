@@ -56,7 +56,7 @@ public class OptionsWindow extends JFrame implements ActionListener
 			e.setPreferredSize(new Dimension(150, 35));
 			e.addActionListener(this);
 			buttonPanel.add(e);
-		}
+		}//end for
 		
 		//stack the buttons vertically
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 99999, 5));
@@ -80,8 +80,8 @@ public class OptionsWindow extends JFrame implements ActionListener
 				//regardless, draw a border around the square
 				thisSquare.setBorder(BorderFactory.createLineBorder(Color.black));
 				snapshot.add(thisSquare);
-			}
-		}
+			}//end for
+		}//end for
 		
 		//put everything on the background panel
 		everything.add(snapshot);

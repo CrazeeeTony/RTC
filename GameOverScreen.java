@@ -37,9 +37,9 @@ public class GameOverScreen extends JFrame implements ActionListener
 	JLabel scoreSummary = 	new JLabel();
 	JPanel scorePanel = 	new JPanel();
 	JLabel scoreDisplay[] =
-	 {
+	{
 		new JLabel(), new JLabel(), new JLabel()
-	 };
+	};
 	JLabel userScore = 		new JLabel();
 	JLabel message = 		new JLabel();
 	JTextField nameField = 	new JTextField();
@@ -105,7 +105,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 		for (JLabel e : scoreDisplay)
 		{
 			scorePanel.add(e);
-		}
+		}//end for
 		
 		//add all labels to the score panel side by side
 		scorePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 3));
@@ -127,7 +127,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 		{
 			message.setText("You must win the game to submit your score.");
 			submit.setEnabled(false);
-		}
+		}//end if
 		message.setFont(TBMS);
 		info.add(message);
 		
@@ -195,7 +195,8 @@ public class GameOverScreen extends JFrame implements ActionListener
 			}//end for
 		}
 		//empty file requires no action
-		catch (NoSuchElementException ex) {}
+		catch (NoSuchElementException ex) {
+		}
 		//other exceptions will reset the file
 		catch (Exception ex)
 		{
@@ -218,7 +219,7 @@ public class GameOverScreen extends JFrame implements ActionListener
 			{
 				//display the name, then the value
 				scoreText += String.format("%-8s .....%8.0f", names.get(ee).get(e), scores.get(ee).get(e)) + LINE_END;
-			}
+			}//end for
 			scoreDisplay[ee].setText(scoreText + "</html>");
 		}//end for
 	}//end member updateScores

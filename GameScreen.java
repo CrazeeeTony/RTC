@@ -1,5 +1,6 @@
 /**
  * Game where the actual game is played
+ * Handles drawing of the board and for processing mouse/keyboard input
  * @author Tony Li, Charles Lei
  */
 import java.awt.*;
@@ -17,7 +18,10 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	public static final int SQUARE_SIZE = 50;
 	public static final int EDGE_SPACE = 75;
 	
+	//variable to track how much time since AI last made a move
 	int prevMove = 0;
+	
+	//the time between moves of the AI
 	public static int COMP_TIME;
 	
 	static Piece[][] board;
@@ -72,7 +76,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}
 		catch(Exception e)
 		{
-		}
+		}//end try catch
 		
 		//get hotkey configuration from file
 		try
@@ -137,7 +141,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				tm.stop();
 				da.gameOver();
-			}
+			}//end actionPerformed method
 		});
 		btnOptions = new JButton("pause/options");
 		btnOptions.setFocusable(false);
@@ -206,7 +210,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		else
 		{
 			Piece.swap = false;
-		}
+		}//end if
 		
 		board = new Piece[BOARD_W][BOARD_H];
 		//black pieces
@@ -220,7 +224,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		board[4][0] = 						new Piece(2, 4, 0, Piece.KING);
 		for(int x = 0; x < BOARD_W; x++){
 			board[x][1] = 					new Piece(2, x, 1, Piece.PAWN);
-		}
+		}//end for
 		
 		//white pieces
 		board[0][BOARD_H - 1] = 			new Piece(1, 0, BOARD_H - 1, Piece.ROOK);
@@ -258,25 +262,28 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		this.updateMoves();
 	}//end default constructor GameScreen()
 	
+	//#action
 	//handle mouse actions
 	public void mouseClicked(MouseEvent e)
 	{
-	}
+	}//end mouseClicked method
 
 	public void mouseEntered(MouseEvent e)
 	{
-	}
+	}//end mouseEntered method
 
 	public void mouseExited(MouseEvent e)
 	{
-	}
+	}//end mouseExited method
 
 	public void mousePressed(MouseEvent e)
 	{
-	}
+	}//end mousePressed method
 
 	/**
-	 *
+	 * Handles mouse released actions
+	 * @param MouseEvent e - the event triggering the action
+	 * @return void
 	 * @author Tony Li
 	 */
 	public void mouseReleased(MouseEvent e)
@@ -294,7 +301,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	}//end mouseReleased method
 	
 	/**
-	 * Handle mouse dragged action
+	 * Handles mouse dragged actions
+	 * @param MouseEvent e - the event triggering the action
+	 * @return void
 	 * @author Tony Li
 	 */
 	public void mouseDragged(MouseEvent e)
@@ -305,7 +314,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	}//end mouseDragged method
 
 	/**
-	 * HAndle mouse moved action
+	 * Handles mouse moved actions
+	 * @param MouseEvent e - the event triggering the action
+	 * @return void
 	 * @author Tony Li
 	 */
 	public void mouseMoved(MouseEvent e)
@@ -315,7 +326,13 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		this.mouseY = e.getY();
 	}//end mouseMoved method
 	
+	
+	//#action
 	//keyboard events
+	/**
+	 * Handle hotkey actions
+	 * @author Charles Lei
+	*/
 	public void keyTyped(KeyEvent ev)
 	{
 		//try to match the key character pressed
@@ -326,7 +343,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			if (hotkeyControls[e] == pressed)
 				takeAction = e;
 		}//end for
-		//System.out.println(takeAction);
+		//determine which piece
 		switch (takeAction)
 		{
 			case 0:
@@ -369,13 +386,11 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	
 	public void keyPressed(KeyEvent ev)
 	{
-		
-	}
+	}//end keyPressed method
 	
 	public void keyReleased(KeyEvent ev)
-	{
-		
-	}
+	{	
+	}//end keyReleased method
 	
 	/**
 	 * Add detection to handle this JFrame
@@ -403,21 +418,27 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 * class where the actual board is drawn
 	 * @author Tony Li
 	 */
-	class BoardPanel extends JPanel{
+	class BoardPanel extends JPanel
+	{
 		Color brown = new Color(139, 69, 19);
 		//String for a message displayed
 		String message = "";
 		
 		/**
-		 *
+		 * Default Constructor:
+		 * @param none
+		 * @return void
+		 * @author Tony Li
 		 */
 		public BoardPanel()
 		{
+			//make sure that there is enough space to draw the board
 			this.setPreferredSize(new Dimension(SQUARE_SIZE * (BOARD_W + 2) + 2 * EDGE_SPACE, SQUARE_SIZE * BOARD_H + 2 * EDGE_SPACE));
 		}//end default constructor ()
 		
 		/**
 		 * @param Graphics g - the canvas to paint on
+		 * @return void
 		 * @author Tony Li
 		 */
 		public void paintComponent(Graphics g)
@@ -494,14 +515,14 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 						EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,
 						SQUARE_SIZE,
 						SQUARE_SIZE);
-				}
+				}//end if
 				g.drawImage(human.captured.get(e).img,
 					EDGE_SPACE + (BOARD_W + 1) * SQUARE_SIZE,
 					EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,
 					SQUARE_SIZE,
 					SQUARE_SIZE,
 					null);
-			}
+			}//end for
 			for (int e = 0; e < comp.captured.size(); e++)
 			{
 				//same for AI
@@ -514,7 +535,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 						SQUARE_SIZE,
 						SQUARE_SIZE
 					);
-				}
+				}//end if
 				g.drawImage(comp.captured.get(e).img,
 					EDGE_SPACE + BOARD_W * SQUARE_SIZE,
 					EDGE_SPACE - 12 + SQUARE_SIZE / 2 * e,

@@ -1,5 +1,5 @@
 /**
- * Simple class to store an xy coordinate
+ * Simple class to store an xy coordinate pair
  * @author Tony Li
  */
 public class Coord
@@ -17,7 +17,7 @@ public class Coord
 	{
 		x = xPos;
 		y = yPos;
-	}
+	}//end (int, int) constructor
 	
 	/**
 	* Checks a given x,y pair to see if it's inside the board
@@ -28,5 +28,5 @@ public class Coord
 	public static boolean inBoard(int x, int y)
 	{
 		return x >= 0 && x < GameScreen.BOARD_W && y >= 0 && y < GameScreen.BOARD_H;
-	}
-}
+	}//end inBoard method
+}//end Coord class

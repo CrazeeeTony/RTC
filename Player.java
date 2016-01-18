@@ -194,8 +194,9 @@ public class Player
 			
 			//deselect it
 			if (selected == p)
+			{
 				selected = null;
-			
+			}//end if
 			//update score for a piece lost
 			piecesLost += p.getValue();
 			score += p.getValue() * 10;
@@ -212,7 +213,9 @@ public class Player
 	{
 		//update all moves for all pieces
 		for (Piece e : controllable)
+		{
 			e.updateMoves();
+		}//end for
 		
 		//update score (score goes down 0.001% every game tick, from 100%)
 		timeTaken += 0.01;

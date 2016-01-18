@@ -157,6 +157,7 @@ public class Menu extends JFrame implements ActionListener
 		this.setVisible(true);
 	}//end constructor (int, $
 	
+	//#action
 	/**
 	 * handle events from button clicks
 	 * @param ActionEvent ev - event to handle

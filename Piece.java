@@ -119,6 +119,7 @@ public class Piece
 			GameScreen.comp.kill(GameScreen.board[x][y]);
 		}//end if
 		
+		//move the piece and mark the piece as already moved
 		GameScreen.board[x][y] = this;
 		moved = true;
 		
@@ -280,7 +281,7 @@ public class Piece
 					{
 						break;
 					}//end if
-				}
+				}//end for
 				for(int x = 1; x < GameScreen.BOARD_W; x++)
 				{
 					int newX = xPos - x;
@@ -307,8 +308,8 @@ public class Piece
 					else
 					{
 						break;
-					}
-				}
+					}//end if
+				}//end for
 				for(int x = 1; x < GameScreen.BOARD_W; x++)
 				{
 					int newX = xPos - x;
@@ -336,8 +337,8 @@ public class Piece
 					else
 					{
 						break;
-					}
-				}
+					}//end if
+				}//end for
 				break;
 			case KNIGHT:
 				//array representing the x and y movements a knight can make
@@ -375,22 +376,22 @@ public class Piece
 						if (this.player == 1)
 						{
 							AI.danger[newX][yPos] = true;
-						}
+						}//end if
 						//break when friendly piece is in the way
 						if (GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player == this.player)
 						{
 							break;
-						}
+						}//end if
 						//add coordinate if piece is cooled down
 						if (this.coolDown == 0)
 						{
 							moves.add(new Coord(newX, yPos));
-						}
+						}//end if
 						//break when enemy piece is in the way
 						if (GameScreen.board[newX][yPos] != null && GameScreen.board[newX][yPos].player != this.player)
 						{
 							break;
-						}
+						}//end if
 					}
 					//break when the edge of the board is reached
 					else
