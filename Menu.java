@@ -457,7 +457,7 @@ public class Menu extends JFrame implements ActionListener
 						hotkeys.add(thisKey);
 					}//end for
 				}
-				catch (IOException ex)
+				catch (Exception ex)
 				{
 					hotkeyMessage.setText("failed to read hotkeys, reset to default");
 							

@@ -3,5 +3,5 @@ javac Main.java Piece.java GameScreen.java Menu.java Coord.java AI.java GameOver
 pause
 jar cfm RTC.jar Manifest.mf *.class
 pause
-java -jar RTC.jar
+java Main
 pause

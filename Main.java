@@ -4,10 +4,16 @@
  */
 import javax.swing.*;
 
+//main class to launch game from
 public class Main
-{
+{	
+	/**
+	* Main Function:
+	* @param String[] args - command line arguments
+	* */
 	public static void main(String[] args)
 	{
+		//create new DetectAction to start the game
 		new DetectAction();
 	}
 }//end Main class
@@ -31,7 +37,7 @@ class DetectAction
 	
 	/**
 	* Default constructor:
-	* @return - void
+	* @param - none
 	* */
 	public DetectAction()
 	{
@@ -41,6 +47,7 @@ class DetectAction
 		
 	/**
 	* quits program
+	* @param - none
 	* @return - void
 	* */
 	public void quitRequest()
@@ -50,6 +57,7 @@ class DetectAction
 	
 	/**
 	* starts the game after play is clicked
+	* @param - none
 	* @return - void
 	* */
 	public void startGameRequest()
@@ -63,7 +71,8 @@ class DetectAction
 	
 	/**
 	 * go to game over screen
-	 *
+	 * @param - none
+	 * @return - void
 	 */
 	public void gameOver()
 	{
@@ -75,6 +84,7 @@ class DetectAction
 	
 	/**
 	* returns to menu
+	* @param - none
 	* @return - void
 	* */
 	public void returnToMenu()
@@ -87,12 +97,20 @@ class DetectAction
 	
 	/**
 	 * given a JFrame of some kind, checks for null and closes it
+	 * @param JFrame - the JFrame to close
+	 * @return - void
 	 */
 	public static void terminate(JFrame item)
 	{
+		//hide menu
 		if (item instanceof Menu)
+		{
 			item.setVisible(false);
+		}
+		//dispose of other JFrames
 		else if (item != null)
+		{
 			item.dispose();
+		}
 	}
 }//end DetectAction class
