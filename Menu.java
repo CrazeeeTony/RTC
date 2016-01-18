@@ -68,6 +68,7 @@ public class Menu extends JFrame implements ActionListener
 	static JCheckBox startBlack = 	new JCheckBox("start as black");
 	static JCheckBox completeKill = new JCheckBox("complete kill mode: a side wins when it controls all pieces on the board");
 	static JCheckBox resolution = 	new JCheckBox("compact menu interface");
+	static JCheckBox noAnimations = new JCheckBox("turn animations off");
 	JPanel hotkeys = 				new JPanel();
 	JTextField[] changeHotkeys = 	new JTextField[8];
 	JButton saveHotkeys = 			new JButton("save hotkeys");
@@ -406,6 +407,15 @@ public class Menu extends JFrame implements ActionListener
 					}//end anonymous member itemStateChanged
 				});
 				
+				//animations off
+				graphicPanel.add(noAnimations);
+				noAnimations.addItemListener(new ItemListener(){
+					public void itemStateChanged(ItemEvent ev)
+					{
+						da.noAnimations = ev.getStateChange() == 1;
+					}//end anonymous member itemStateChanged
+				});
+				
 				//hotkeys
 				
 				//the text fields first
@@ -438,7 +448,7 @@ public class Menu extends JFrame implements ActionListener
 						JPanel thisKey = new JPanel();
 						thisKey.add(new JLabel(desc[e]));
 						thisKey.add(changeHotkeys[e]);
-						thisKey.setLayout(new FlowLayout());
+						thisKey.setLayout(new FlowLayout(FlowLayout.TRAILING));
 						hotkeys.add(thisKey);
 					}//end for
 				}
