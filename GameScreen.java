@@ -69,6 +69,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		super("RTC");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//#error
 		//get window bar icon
 		try
 		{
@@ -78,6 +79,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		{
 		}//end try catch
 		
+		//#error
 		//get hotkey configuration from file
 		try
 		{
