@@ -64,7 +64,7 @@ public class Menu extends JFrame implements ActionListener
 	//all components in the settings part of the menu
 	static JSlider difficulty = 	new JSlider(1, 10, 5);
 	//#cheat
-	static JCheckBox cheat = 		new JCheckBox("cheat mode");
+	static JCheckBox cheat = 		new JCheckBox("cheat mode (also toggles AI assist)");
 	static JCheckBox startBlack = 	new JCheckBox("start as black");
 	static JCheckBox completeKill = new JCheckBox("complete kill mode: a side wins when it controls all pieces on the board");
 	static JCheckBox resolution = 	new JCheckBox("compact menu interface");

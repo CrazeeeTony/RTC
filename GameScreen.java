@@ -24,7 +24,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	
 	//player instances for computer and human player
 	static AI comp;
-	static Player human;
+	static AI human;
 	
 	DetectAction da;
 	
@@ -178,7 +178,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				//System.out.println(e.getSource());
 				if(prevMove >= COMP_TIME)
 				{
-					comp.makeMove(human);
+					comp.makeMove();
 					prevMove = 0;
 				}
 			}
@@ -234,7 +234,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}
 		
 		//initialize the human and AI players, and set the difficulty of the AI to the setting saved globally
-		human = new Player(board, 1);
+		//note that the human has access to AI functionality too, for cheat mode
+		human = new AI(board, 1);
 		comp = new AI(board, 2);
 		
 		boardPnl.setFocusable(true);
@@ -523,7 +524,6 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		 */
 		public void paintSelection(Graphics grfx)
 		{
-			
 			//highlight squares the selected piece can move to
 			if (human.selected != null)
 			{
@@ -533,15 +533,16 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					grfx.fillRect(e.x * SQUARE_SIZE + EDGE_SPACE, e.y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
 					grfx.setColor(Color.black);
 					grfx.drawRect(e.x * SQUARE_SIZE + EDGE_SPACE, e.y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
-				}
-			}
+				}//end for
+			}//end if
 			
 			//draw a blue square to indicate the selected piece
 			if (human.selected != null)
 			{
+				int xx = human.selected.xPos, yy = human.selected.yPos;
 				grfx.setColor(Color.blue);
-				grfx.fillRect(human.selected.xPos * SQUARE_SIZE + EDGE_SPACE, human.selected.yPos * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
-			}
+				grfx.fillRect(xx * SQUARE_SIZE + EDGE_SPACE, yy * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+			}//end if
 			
 			//draws green square around the selected square
 			grfx.setColor(Color.green);
@@ -549,7 +550,29 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
 			{
 				grfx.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
-			}
+			}//end if
+			
+			//special AI assist: highlight recommended moves if the player is in cheat mode, according to the game's AI
+			if (DetectAction.cheat)
+			{
+				if (human.getAllMoves().size() > 0)
+				{
+					//get the best move, if there is one
+					AI.Move bestMove = human.getSortedMoves()[0];
+					int x1 = bestMove.consider.xPos, y1 = bestMove.consider.yPos, x2 = bestMove.targetX, y2 = bestMove.targetY;
+					
+					//set the colour to a random pulsing shade of green, then paint the two squares of the recommended move
+					grfx.setColor(
+						new Color((int)(Math.random() * 50), (int)(Math.random() * 100) + 150, (int)(Math.random() * 50))
+						);
+					grfx.fillRect(x1 * SQUARE_SIZE + EDGE_SPACE, y1 * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
+					grfx.fillRect(
+						x2 * SQUARE_SIZE + EDGE_SPACE + SQUARE_SIZE / 8, 
+						y2 * SQUARE_SIZE + EDGE_SPACE + SQUARE_SIZE / 8,
+						SQUARE_SIZE * 3 / 4,
+						SQUARE_SIZE * 3 / 4);
+				}//end if
+			}//end if
 		}//end member paintSelection
 	}//end BoardPanel
 }//end GameScreen

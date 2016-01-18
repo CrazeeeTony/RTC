@@ -192,12 +192,11 @@ public class AI extends Player
 		return validMoves;
 	}//end member getAllMoves
  	
- 	/**
- 	 * get a move out of all possible ones
-	 * @author Charles Lei
- 	 */
- 	public void makeMove(Player opponent)
- 	{ 		
+	/**
+	 * get all moves and sort them in order
+	 */
+	public Move[] getSortedMoves()
+	{
  		//get all the moves, convert from ArrayList to array
  		ArrayList<Move> availableMoves = this.getAllMoves();
  		Move[] sortedMoves = new Move[availableMoves.size()];
@@ -205,6 +204,18 @@ public class AI extends Player
 		
  		//sort the moves
  		quicksort(sortedMoves, 0, sortedMoves.length - 1);
+		
+		return sortedMoves;
+	}
+	
+ 	/**
+ 	 * get a move out of all possible ones
+	 * @author Charles Lei
+ 	 */
+ 	public void makeMove()
+ 	{ 		
+		//get the sorted moves
+		Move[] sortedMoves = getSortedMoves();
 		
  		//only consider moves which are better than neutral, or exactly neutral if no good moves are available
 		int lastGoodMove = binarySearch(sortedMoves, 0);
