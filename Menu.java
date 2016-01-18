@@ -361,7 +361,8 @@ public class Menu extends JFrame implements ActionListener
 				
 				//cheating 		#cheat
 				graphicPanel.add(cheat);
-				cheat.addItemListener(new ItemListener(){
+				cheat.addItemListener(new ItemListener()
+				{
 					public void itemStateChanged(ItemEvent ev)
 					{
 						DetectAction.cheat = ev.getStateChange() == 1;
@@ -370,7 +371,8 @@ public class Menu extends JFrame implements ActionListener
 				
 				//start as black
 				graphicPanel.add(startBlack);
-				startBlack.addItemListener(new ItemListener(){
+				startBlack.addItemListener(new ItemListener()
+				{
 					public void itemStateChanged(ItemEvent ev)
 					{
 						da.startBlack = ev.getStateChange() == 1;
@@ -379,7 +381,8 @@ public class Menu extends JFrame implements ActionListener
 				
 				//complete kill mode
 				graphicPanel.add(completeKill);
-				completeKill.addItemListener(new ItemListener(){
+				completeKill.addItemListener(new ItemListener()
+				{
 					public void itemStateChanged(ItemEvent ev)
 					{
 						da.completeKillMode = ev.getStateChange() == 1;
@@ -388,7 +391,8 @@ public class Menu extends JFrame implements ActionListener
 				
 				//change window size
 				graphicPanel.add(resolution);
-				resolution.addItemListener(new ItemListener(){
+				resolution.addItemListener(new ItemListener()
+				{
 					public void itemStateChanged(ItemEvent ev)
 					{
 						da.smallWindow = ev.getStateChange() == 1;
@@ -421,7 +425,7 @@ public class Menu extends JFrame implements ActionListener
 				//the text fields first
 				//array of text descriptors for each keybinding
 				String[] desc =
-				 {
+				{
 					"pause",
 					"select pawn",
 					"select bishop",
@@ -430,7 +434,7 @@ public class Menu extends JFrame implements ActionListener
 					"select queen",
 					"select king",
 					"take available piece"
-				 };
+				};
 				
 				//read the hotkeys
 				try

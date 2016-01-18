@@ -56,7 +56,7 @@ class DetectAction
 	{
 		terminate(mn);
 		terminate(gv);
-		gs = new GameScreen(startBlack);
+		gs = new GameScreen(startBlack, difficulty);
 		gs.addDetectAction(this);
 		gs.setVisible(true);
 	}
