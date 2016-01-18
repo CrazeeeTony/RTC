@@ -305,7 +305,7 @@ public class Menu extends JFrame implements ActionListener
 							board.add(current);
 						}//end for
 						
-						board.setPreferredSize(new Dimension(graphicPanel.getWidth() / 3, 500));
+						board.setPreferredSize(new Dimension(graphicPanel.getWidth() / 3, 350));
 						threeScores.add(board);
 					}//end for
 				}
@@ -353,6 +353,7 @@ public class Menu extends JFrame implements ActionListener
 			case 3:
 				//clicked "settings"
 				graphicPanel.removeAll();
+				hotkeys.removeAll();
 				
 				//difficulty, resolution, hotkeys, cheat mode, player starts as black all go here
 				//difficulty

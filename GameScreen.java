@@ -455,9 +455,9 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					{
 						int plX = x * SQUARE_SIZE + EDGE_SPACE, plY = y * SQUARE_SIZE + EDGE_SPACE;
 						//conditional drawing if animations are turned on (drawn part of the way to destination)
-						if (!DetectAction.noAnimations && Piece.COOL_DOWN - board[x][y].coolDown < Piece.COOL_DOWN)
+						if (!DetectAction.noAnimations && Piece.COOL_DOWN - board[x][y].coolDown < Piece.COOL_DOWN / 4)
 						{
-							double partway = 1 - (Piece.COOL_DOWN - board[x][y].coolDown) / (double) Piece.COOL_DOWN;
+							double partway = 1 - (Piece.COOL_DOWN - board[x][y].coolDown) / (double) (Piece.COOL_DOWN / 4);
 							plX -= (int)((x - board[x][y].lastPlace.x) * partway * SQUARE_SIZE);
 							plY -= (int)((y - board[x][y].lastPlace.y) * partway * SQUARE_SIZE);
 						}

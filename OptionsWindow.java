@@ -41,10 +41,12 @@ public class OptionsWindow extends JFrame implements ActionListener
 		this.creator = creator;
 		
 		//tell the user the scores currently (html used to word wrap)
+		
 		message.setText(
 			String.format("<html><div WIDTH=300>Your scores: time - %.3f, losses - %.3f, overall - %.3f</div></html>",
 			creator.human.timeTaken, creator.human.piecesLost, creator.human.score )
 			);
+			
 		message.setFont(TBMS);
 		buttonPanel.add(message);
 		
