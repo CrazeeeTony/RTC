@@ -43,26 +43,26 @@ public class AI extends Player
 		{
 			int takenPieceVal = 0;
 			int lossVal = 0;
-			if(target != null)
+			if (target != null)
 			{
 				//capturing a king is the best
-				if(target.pieceID == Piece.KING)
+				if (target.pieceID == Piece.KING)
 				{
 					return -999999999;
 				}
 				takenPieceVal = target.getValue() + 1;
 			}
 			//always try to protect the king
-			if(consider.pieceID == Piece.KING && danger[consider.xPos][consider.yPos] && !danger[targetX][targetY])
+			if (consider.pieceID == Piece.KING && danger[consider.xPos][consider.yPos] && !danger[targetX][targetY])
 			{
 				return -99999999;
 			}
 			//consider danger
-			if(danger[targetX][targetY])
+			if (danger[targetX][targetY])
 			{
 				lossVal += consider.getValue();
 			}
-			if(danger[consider.xPos][consider.yPos])
+			if (danger[consider.xPos][consider.yPos])
 			{
 				lossVal -= consider.getValue();
 			}

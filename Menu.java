@@ -565,6 +565,8 @@ public class Menu extends JFrame implements ActionListener
 		information.setPreferredSize(new Dimension(300, newY));
 		textPanel.setPreferredSize(new Dimension(300, newY / 2));
 		buttonPanel.setPreferredSize(new Dimension(300, newY / 2));
+		
+		this.setResizable(false);
 	}//end member changeSize
 	
 	/**

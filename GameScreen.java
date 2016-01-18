@@ -187,7 +187,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				}//end if
 				prevMove++;
 				//System.out.println(e.getSource());
-				if(prevMove >= COMP_TIME)
+				if (prevMove >= COMP_TIME)
 				{
 					comp.makeMove();
 					prevMove = 0;
@@ -199,7 +199,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		tm.start();
 		
 		//Piece class handles the swap (changing colours of the pieces)
-		if(swap)
+		if (swap)
 		{
 			Piece.swap = true;
 		}
@@ -441,7 +441,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				for(int y = 0; y < BOARD_H; y++)
 				{
 					//alternates between brown and white squares
-					if((x + y) % 2 == 0)
+					if ((x + y) % 2 == 0)
 					{
 						g.setColor(Color.white);
 					}
@@ -462,7 +462,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				for(int y = 0; y < BOARD_H; y++)
 				{
-					if(board[x][y] != null)
+					if (board[x][y] != null)
 					{
 						int plX = x * SQUARE_SIZE + EDGE_SPACE, plY = y * SQUARE_SIZE + EDGE_SPACE;
 						//conditional drawing if animations are turned on (drawn part of the way to destination)
@@ -563,7 +563,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			//draws green square around the selected square
 			grfx.setColor(Color.green);
 			//checks if the mouse is inside the board
-			if(mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
+			if (mouseSqX >= 0 && mouseSqX < BOARD_W && mouseSqY >= 0 && mouseSqY < BOARD_H)
 			{
 				grfx.drawRect(mouseSqX * SQUARE_SIZE + EDGE_SPACE, mouseSqY * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);	
 			}//end if
