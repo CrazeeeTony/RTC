@@ -133,7 +133,9 @@ public class AI extends Player
 			else
 			{
 				for (Coord e : consider.moves)
+				{
 					safety[e.x][e.y]++;
+				}//end for
 			}//end if
 			
 			//overall value of a move is based on what it might take, what it might lose, and how it affects board control
@@ -228,7 +230,9 @@ public class AI extends Player
 			for (Move e : validMoves)
 			{
 				if (e.target == null)
+				{
 					cheatingMoves.add(e);
+				}//end if
 			}//end for
 			validMoves = cheatingMoves;
 		}//end if
@@ -269,17 +273,21 @@ public class AI extends Player
  		//only consider moves which are better than neutral, or exactly neutral if no good moves are available
 		int lastGoodMove = binarySearch(sortedMoves, 0);
 		if (lastGoodMove == -1)
+		{
 			lastGoodMove = binarySearch(sortedMoves, 1);
+		}//end if
 		//if no acceptable moves are found, don't make any move
 		if (lastGoodMove == -1)
+		{
 			return;
+		}//end if
 		
 		//get a move from the range (higher difficulty = better moves)
 		int randomSelect = lastGoodMove;
 		for (int e = 0; e < difficulty; e++)
 		{
 			randomSelect = Math.min(randomSelect, (int)(Math.random() * lastGoodMove));
-		}
+		}//end for
  		Move selectedMove = sortedMoves[randomSelect];
 		
 		//make the move
@@ -346,7 +354,10 @@ public class AI extends Player
   	public static void quicksort(Move[] ll, int lBound, int rBound, Move[] buffer)
   	{
  		//if the length within the bound is already sorted (one element or less), stop
-  		if (lBound >= rBound) return;
+  		if (lBound >= rBound)
+		{
+			return;
+		}//end if
 		
 		//standard quicksort pivot
   		Move pivot = ll[lBound];
@@ -376,7 +387,7 @@ public class AI extends Player
   		for(int e = lBound; e <= rBound; e++)
   		{
   			ll[e] = buffer[e];
-  		}
+  		}//end for
 		
 		//done; quicksort the two parts beside the pivot
   		quicksort(ll, lBound, lPoint - 1, buffer);
@@ -408,7 +419,9 @@ public class AI extends Player
 		
 		//loop at the end - due to division imprecision, place could be off by a factor of log(N)
 		while (place + 1 < arr.length && arr[place + 1].getOptimal() < val)
+		{
 			place++;
+		}//end while
 		
 		//it works - guaranteed O(log(N)) search time and correct result every time
 		return place;
