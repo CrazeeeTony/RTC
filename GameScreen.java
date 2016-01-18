@@ -65,6 +65,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 * @param boolean swap - true to make the user start as black
 	 * @param int difficulty - integer difficulty level of AI
 	 * @author Tony Li
+	 *    #Tony
 	 */
 	public GameScreen(boolean swap, int difficulty)
 	{
@@ -300,6 +301,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 * @param MouseEvent e - the event triggering the action
 	 * @return void
 	 * @author Tony Li
+	 *    #Tony
 	 */
 	public void mouseReleased(MouseEvent e)
 	{
@@ -320,6 +322,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 * @param MouseEvent e - the event triggering the action
 	 * @return void
 	 * @author Tony Li
+	 *    #Tony
 	 */
 	public void mouseDragged(MouseEvent e)
 	{
@@ -333,6 +336,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 * @param MouseEvent e - the event triggering the action
 	 * @return void
 	 * @author Tony Li
+	 *    #Tony
 	 */
 	public void mouseMoved(MouseEvent e)
 	{
@@ -412,6 +416,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	 * @DetectAction d - the class to handle the JFrame
 	 * @author Tony Li
 	 * @return - void
+	 *    #Tony
 	 */
 	public void addDetectAction(DetectAction d)
 	{
@@ -432,7 +437,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 	
 	/**
 	 * class where the actual board is drawn
-	 * @author Tony Li
+	 * @author Tony Li, Charles Lei
 	 */
 	class BoardPanel extends JPanel
 	{
@@ -445,6 +450,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		 * @param none
 		 * @return void
 		 * @author Tony Li
+		 *    #Tony
 		 */
 		public BoardPanel()
 		{
@@ -456,6 +462,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		 * @param Graphics g - the canvas to paint on
 		 * @return void
 		 * @author Tony Li
+		 *    #Tony
 		 */
 		public void paintComponent(Graphics g)
 		{

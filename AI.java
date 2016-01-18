@@ -53,6 +53,7 @@ public class AI extends Player
 		 * @param none
 		 * @return int - an integer representing how good the move is, where < 0 is good, 0 is neutral, > 0 is bad
 		 * @author Tony Li
+		 *    #Tony
 		 */
 		public int getOptimal()
 		{
@@ -148,6 +149,7 @@ public class AI extends Player
 		 * @param Move other - the other move
 		 * @param boolean - true if this move is better, false otherwise
 		 * @author Tony Li
+		 *    #Tony
 		 */
 		public boolean compare(Move other)
 		{
@@ -160,6 +162,7 @@ public class AI extends Player
 		 * @param none
 		 * @return void
 		 * @author Tony Li
+		 *    #Tony
 		 */
 		public static void clearDanger()
 		{
@@ -183,6 +186,7 @@ public class AI extends Player
 	 * @Piece[][] initialPieces - the board array from which pieces will be detected
 	 * @int identity - the identity of the player, where each belonging piece has this identity as well
 	 * @author Tony Li
+	 *    #Tony
 	 */
 	public AI(Piece[][] board, int identity)
 	{
@@ -194,6 +198,7 @@ public class AI extends Player
 	 * @param int difficulty - difficulty level to be set
 	 * @return void
 	 * @author Tony Li
+	 *    #Tony
 	 */
  	public void setDifficulty(int difficulty)
 	{
