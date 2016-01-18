@@ -27,6 +27,7 @@ class DetectAction
 	int windowX = 1000, windowY = 700;
 	static boolean cheat = false;
 	static boolean completeKillMode = false;
+	static boolean noAnimations = false;
 	
 	/**
 	* Default constructor:

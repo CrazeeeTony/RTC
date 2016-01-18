@@ -47,6 +47,7 @@ public class Piece
 	public BufferedImage img;
 	boolean moved;
 	int coolDown = 0;
+	Coord lastPlace;
 	
 	/**
 	* Main function
@@ -56,13 +57,14 @@ public class Piece
 	* @param int yPos - a number representing what the piece is
 	* @return void
 	* */
-	public Piece(int player,int xPos, int yPos, int pieceID)
+	public Piece(int player, int xPos, int yPos, int pieceID)
 	{
 		this.player = player;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.pieceID = pieceID;
 		moved = false;
+		lastPlace = new Coord(xPos, yPos);
 		//set piece color according to player
 		if(player == 1)
 		{
@@ -95,6 +97,9 @@ public class Piece
 	 */
 	public void moveTo(int x, int y)
 	{
+		//set last move to current x and y
+		lastPlace = new Coord(xPos, yPos);
+		
 		GameScreen.board[xPos][yPos] = null;
 		this.xPos = x;
 		this.yPos = y;

@@ -446,10 +446,22 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 				{
 					if(board[x][y] != null)
 					{
+						int plX = x * SQUARE_SIZE + EDGE_SPACE, plY = y * SQUARE_SIZE + EDGE_SPACE;
+						//conditional drawing if animations are turned on (drawn part of the way to destination)
+						if (!DetectAction.noAnimations && Piece.COOL_DOWN - board[x][y].coolDown < 40)
+						{
+							double partway = 1 - (Piece.COOL_DOWN - board[x][y].coolDown) / 40.0;
+							plX -= (int)((x - board[x][y].lastPlace.x) * partway * SQUARE_SIZE);
+							plY -= (int)((y - board[x][y].lastPlace.y) * partway * SQUARE_SIZE);
+						}
+						
+						//cooldown bar
 						double ratio = (double)board[x][y].coolDown / Piece.COOL_DOWN;
-						g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, (int)((double)(y + 1 - ratio) * SQUARE_SIZE + EDGE_SPACE), SQUARE_SIZE, (int)(SQUARE_SIZE * ratio + 0.5));
+						g.fillRect(plX, plY + (int)((1 - ratio) * SQUARE_SIZE), SQUARE_SIZE, (int)(ratio * SQUARE_SIZE));
+						//g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, (int)((double)(y + 1 - ratio) * SQUARE_SIZE + EDGE_SPACE), SQUARE_SIZE, (int)(SQUARE_SIZE * ratio + 0.5));
 						//draws the piece
-						g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
+						//g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
+						g.drawImage(board[x][y].img, plX, plY, SQUARE_SIZE, SQUARE_SIZE, null);
 					}
 				}
 			}
