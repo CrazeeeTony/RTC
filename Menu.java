@@ -252,7 +252,11 @@ public class Menu extends JFrame implements ActionListener
 							
 							//new panel for every individual score, contains details and a remove button
 							JPanel current = new JPanel();
-							JLabel dsc = new JLabel(String.format("%-8s%8.3f", name, score));
+							if(e != 1)
+							{
+								score *= 10;
+							}
+							JLabel dsc = new JLabel(String.format("%-8s%8.0f", name, score));
 							JButton rmv = new JButton("remove");
 							
 							//save immutable versions of the current loop indexes to use in lambda closure
