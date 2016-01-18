@@ -132,7 +132,7 @@ public class Menu extends JFrame implements ActionListener
 		try
 		{
 			BufferedImage retrievedPic = ImageIO.read(new File("title_screen.png"));
-			picture.setIcon(new ImageIcon(retrievedPic));
+			picture = new JLabel(new ImageIcon(retrievedPic));
 			graphicPanel.add(picture);
 		}
 		catch (IOException e)
