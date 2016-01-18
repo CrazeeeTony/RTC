@@ -196,9 +196,9 @@ public class Player
 			if (selected == p)
 				selected = null;
 			
-			//update score for a piece lost
+			//update score for a piece lost (scales with difficulty)
 			piecesLost += p.getValue();
-			score += p.getValue() * 10;
+			score += p.getValue() * (15 - Menu.difficulty.getValue());
 		}//end if
 	}//end member kill
 	
@@ -214,9 +214,9 @@ public class Player
 		for (Piece e : controllable)
 			e.updateMoves();
 		
-		//update score (score goes down 0.001% every game tick, from 100%)
-		timeTaken += 0.01;
-		score += 0.01;
+		//update score (scales with difficulty)
+		timeTaken += 0.01 * (15 - Menu.difficulty.getValue()) / 10;
+		score += 0.01 * (15 - Menu.difficulty.getValue()) / 10;
 	}//end member updateMoves
 	
 }//end class Player
