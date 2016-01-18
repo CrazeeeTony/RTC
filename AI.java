@@ -141,6 +141,7 @@ public class AI extends Player
 				}//end for
 			}//end if
 			
+			//human should move the other way
 			if(consider.player == 1)
 			{
 				positionAdvantage *= -1;
@@ -243,6 +244,7 @@ public class AI extends Player
 			//filter array to remove moves which take pieces
 			for (Move e : validMoves)
 			{
+				//only allows AI to suggest moves which take pieces for the human player
 				if (e.target == null || e.target.player == 2)
 				{
 					cheatingMoves.add(e);
