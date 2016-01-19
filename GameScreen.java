@@ -124,8 +124,8 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 		}//end try catch
 		
 		//adjust difficulty
-		COMP_TIME = (15 - difficulty) * 10;
-		Piece.COOL_DOWN = (20 - difficulty) * 15;
+		COMP_TIME = (15 - difficulty) * 25;
+		Piece.COOL_DOWN = (20 - difficulty) * 20;
 		
 		//set layout and add contents
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
