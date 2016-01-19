@@ -1,6 +1,7 @@
 /**
  * Class to launch program
  * @author Tony Li
+ * #Tony
  */
 //#main
 import javax.swing.*;

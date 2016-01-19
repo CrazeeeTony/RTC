@@ -2,6 +2,7 @@
 /**
  * Class to store piece information
  * @author Tony Li
+ * #Tony
  */
 import java.awt.*;
 import java.io.*;
