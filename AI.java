@@ -283,6 +283,8 @@ public class AI extends Player
 	 * @author Charles Lei
 	 *    #Charles
  	 */
+
+	//#method
  	public void makeMove()
  	{ 		
 		//get the sorted moves
