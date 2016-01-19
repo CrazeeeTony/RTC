@@ -5,6 +5,7 @@
  */
 public class Coord
 {
+	//the x and y coordinates
 	int x;
 	int y;
 	

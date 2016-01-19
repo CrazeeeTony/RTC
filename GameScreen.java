@@ -475,6 +475,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 			{
 				g.drawString(-x + BOARD_H + "", EDGE_SPACE / 2, (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE);
 			}//end for
+			
 			for(int x = 0; x < BOARD_W; x++)
 			{
 				g.drawString((char) (x + 'A') + "", (int) (SQUARE_SIZE * (x + 0.5)) + EDGE_SPACE, EDGE_SPACE / 2);
@@ -499,7 +500,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE);
 				}//end for
 			}//end for
-			//draw blue square, highlighting
+			
 			paintSelection(g);
 			g.setColor(Color.red);
 			//draws the pieces
@@ -521,13 +522,14 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 						//cooldown bar
 						double ratio = (double)board[x][y].coolDown / Piece.COOL_DOWN;
 						g.fillRect(plX, plY + (int)((1 - ratio) * SQUARE_SIZE), SQUARE_SIZE, SQUARE_SIZE - (int)((1 - ratio) * SQUARE_SIZE));
-						//g.fillRect(x * SQUARE_SIZE + EDGE_SPACE, (int)((double)(y + 1 - ratio) * SQUARE_SIZE + EDGE_SPACE), SQUARE_SIZE, (int)(SQUARE_SIZE * ratio + 0.5));
+						
 						//draws the piece
-						//g.drawImage(board[x][y].img, x * SQUARE_SIZE + EDGE_SPACE, y * SQUARE_SIZE + EDGE_SPACE, SQUARE_SIZE, SQUARE_SIZE, null);
 						g.drawImage(board[x][y].img, plX, plY, SQUARE_SIZE, SQUARE_SIZE, null);
 					}//end if
 				}//end for
 			}//end for
+			
+			//draw captured pieces
 			for (int e = 0; e < human.captured.size(); e++)
 			{
 				//if a king was captured, highlight it
@@ -547,6 +549,7 @@ public class GameScreen extends JFrame implements MouseListener, MouseMotionList
 					SQUARE_SIZE,
 					null);
 			}//end for
+			
 			for (int e = 0; e < comp.captured.size(); e++)
 			{
 				//same for AI

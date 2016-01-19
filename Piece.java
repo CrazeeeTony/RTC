@@ -20,6 +20,8 @@ public class Piece
 	public static final int KNIGHT = 3;
 	public static final int ROOK = 4;
 	public static final int PAWN = 5;
+	
+	//the time it takes for pieces to cool down
 	public static int COOL_DOWN = 100;
 	
 	//stores whether to swap piece colours
@@ -37,6 +39,7 @@ public class Piece
 	{
 		//#error
 		//#read
+		//read image from the folder
 		try
 		{
 			imgs1 = new BufferedImage[] {
@@ -65,12 +68,24 @@ public class Piece
 	
 	//1 = player(white and on bottom), 2 = computer(black and on top)
 	int player;
+	
+	//the position of the piece on the board
 	int xPos;
 	int yPos;
+	
+	//the number representing which piece it is
 	int pieceID;
+	
+	//variable to reference the correct image
 	public BufferedImage img;
+	
+	//whether the piece has moved or not
 	boolean moved;
+	
+	//the time left for the piece to cool down
 	int coolDown = 0;
+	
+	//the previous location, used for animation
 	Coord lastPlace;
 	
 	/**
@@ -92,6 +107,7 @@ public class Piece
 		//set piece color according to player
 		if (player == 1)
 		{
+			//swap the colour if the option is selected from menu
 			if (swap)
 			{
 				this.img = imgs2[pieceID];
@@ -126,6 +142,7 @@ public class Piece
 		//set last move to current x and y
 		lastPlace = new Coord(xPos, yPos);
 		
+		//set the current square to be empty
 		GameScreen.board[xPos][yPos] = null;
 		this.xPos = x;
 		this.yPos = y;
@@ -269,7 +286,8 @@ public class Piece
 					{
 						break;
 					}//end if
-				}
+				}//end fo
+				
 				for(int x = 1; x < GameScreen.BOARD_W; x++)
 				{
 					int newX = xPos + x;
@@ -303,6 +321,7 @@ public class Piece
 						break;
 					}//end if
 				}//end for
+				
 				for(int x = 1; x < GameScreen.BOARD_W; x++)
 				{
 					int newX = xPos - x;
@@ -331,6 +350,7 @@ public class Piece
 						break;
 					}//end if
 				}//end for
+				
 				for(int x = 1; x < GameScreen.BOARD_W; x++)
 				{
 					int newX = xPos - x;
@@ -361,6 +381,7 @@ public class Piece
 					}//end if
 				}//end for
 				break;
+				
 			case KNIGHT:
 				//array representing the x and y movements a knight can make
 				int [][] offset = {{-2, -1}, {-2, 1}, {2, -1}, {2, 1}, {-1, -2}, {-1, 2}, {1, -2}, {1, 2}};
@@ -385,6 +406,7 @@ public class Piece
 					}//end of
 				}//end for
 				break;
+				
 			case ROOK:
 				//checks in four directions until it reaches the edge of the board or a piece
 				for(int x = 1; x < GameScreen.BOARD_W; x++)
@@ -506,6 +528,7 @@ public class Piece
 					}//end if
 				}//end for
 				break;
+				
 			case PAWN:
 				//human
 				//move forward one square

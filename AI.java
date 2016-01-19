@@ -84,6 +84,8 @@ public class AI extends Player
 			{
 				lossVal += consider.getValue();
 			}//end if
+			
+			//if the piece was already about to be captured there is no loss value
 			if(danger[consider.xPos][consider.yPos])
 			{
 				lossVal -= consider.getValue();
@@ -103,6 +105,7 @@ public class AI extends Player
 				{
 					safety[consider.xPos - 1][consider.yPos + 1]--;
 				}//end if
+				
 				if (Coord.inBoard(consider.xPos + 1, consider.yPos + 1))
 				{
 					safety[consider.xPos + 1][consider.yPos + 1]--;
@@ -121,6 +124,7 @@ public class AI extends Player
 			{
 				positionAdvantage -= 10 *(4 - consider.getValue());
 			}//end if
+			
 			//special case for pawn again
 			if (consider.pieceID == Piece.PAWN)
 			{
@@ -128,6 +132,7 @@ public class AI extends Player
 				{
 					safety[consider.xPos - 1][consider.yPos + 1]++;
 				}//end if
+				
 				if (Coord.inBoard(consider.xPos + 1, consider.yPos + 1))
 				{
 					safety[consider.xPos + 1][consider.yPos + 1]++;
@@ -145,7 +150,7 @@ public class AI extends Player
 			if(consider.player == 1)
 			{
 				positionAdvantage *= -1;
-			}
+			}//end if
 			
 			//overall value of a move is based on what it might take, what it might lose, and how it affects board control
 			return (lossVal - takenPieceVal) * 10 + positionAdvantage;
