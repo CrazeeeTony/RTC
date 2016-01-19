@@ -1,13 +1,13 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
-import java.io.*;
 /**
  * pops up when game is over, highscore interface
  * @author Charles Lei
  * #Charles
  */
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+import java.io.*;
 public class GameOverScreen extends JFrame implements ActionListener
 {
 	//for line breaks in the html formatting used in JComponents
